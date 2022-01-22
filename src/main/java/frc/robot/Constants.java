@@ -101,4 +101,3 @@ public class Constants
         public static final double RPM_OFFSET = 50.0;
     }
 }
-

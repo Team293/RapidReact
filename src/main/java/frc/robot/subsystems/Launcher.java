@@ -50,12 +50,15 @@ public class Launcher extends SubsystemBase {
         flyWheelMotor.configClosedloopRamp(CLOSED_LOOP_RAMPRATE);
         flyWheelMotor.enableVoltageCompensation(true);
         flyWheelMotor.configVoltageCompSaturation(VOLTAGE_SATURATION);
+
+        SmartDashboard.putNumber("Launcher Target RPM", 0);
     }
 
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-
+        SmartDashboard.putNumber("Launcher Current RPM", getRpm());
+        setRpm(SmartDashboard.getNumber("Launcher Target RPM", 0));  
     }
 
     @Override
@@ -88,6 +91,4 @@ public class Launcher extends SubsystemBase {
     public void stop() {
         flyWheelMotor.set(ControlMode.Current, 0);
     }
-
 }
-
