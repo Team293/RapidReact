@@ -41,7 +41,7 @@ public class Constants
          * Done.
          */
 
-        //Choose the slower mortor speed max, in this case the right motor
+        //Choose the slower motor speed max, in this case the right motor
         public static final double MAX_ENCODER_VELOCITY = 20743.0d; 
         public static final double KF_TYPICAL_PERCENT_USAGE = 0.75d; //We will typically use 75% of max speed
         public static final double TALON_FULL_OUTPUT_SETTING = 1023;
@@ -66,15 +66,36 @@ public class Constants
         public static final double MOTOR_NEUTRAL_DEADBAND = 0.001d;
 
         // MISC Constants
-        public static final double WHEEL_CIRCUMFERENCE_FEET = (6.0d/12.0d)*Math.PI; // Wheel diameter 3 in, converting to feet
+        public static final double WHEEL_CIRCUMFERENCE_FEET = (4.0d/12.0d)*Math.PI; // Wheel radius 4 in, converting to feet
         public static final double SECONDS_TO_DECISEC = 1.0d/10.0d;
         public static final double DECISEC_TO_SECONDS = 10.0d/1.0d;
         public static final double GEARBOX_RATIO_TO_ONE = 8.68d;
         public static final int ENCODER_COUNTS_PER_REVOLUTION = 2048;
         public static final int ENCODER_EDGES_PER_STEP =  1; 
         public static final int ENCODER_UNITS_PER_REVOLUTION = ENCODER_COUNTS_PER_REVOLUTION; // Edges per Rotation
-        public static final double TRACK_WIDTH_FEET = 24.831d/12.0d; //Track width is 13 inches
+        public static final double TRACK_WIDTH_FEET = 27.5d/12.0d; //Track width is 27.5 inches
         public static final boolean USE_NAVX_HEADING = true;
+    }
+
+    public static final class SmoothControlConstants
+    {
+        public static final double K1 = 1.0d;
+        public static final double K2 = 3.0d;
+    }
+
+    public static final class AutonomousCommandConstants
+    {
+        public static final double TARGET_WITHIN_RANGE_FEET = DrivetrainConstants.TRACK_WIDTH_FEET/4.0d; //quarter of trackwidth
+        public static final double STARTING_X = 0.0d;
+        public static final double STARTING_Y = 0.0d;
+        public static final double STARTING_HEADING = Math.toRadians(0.0d);
+        public static final int AUTO_LAUNCHER_RPM = 2160;
+        public static enum startPosition //Positions relative to location of driver station
+        {
+            LEFT,
+            MIDDLE,
+            RIGHT
+        }
     }
 }
 
