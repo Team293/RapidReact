@@ -76,5 +76,28 @@ public class Constants
         public static final double TRACK_WIDTH_FEET = 24.831d/12.0d; //Track width is 13 inches
         public static final boolean USE_NAVX_HEADING = true;
     }
+    public static final class LauncherConstants
+    {
+        public static final double TARGET_RPM_READY_THRESHOLD = 12.5;
+        public static final int DEFAULT_TARGET_RPM = 2400;
+        public static final double CLOSED_LOOP_RAMPRATE = 0.5d;
+        public static final int PID_SLOT_ID = 0; 
+        public static final int PID_CONFIG_TIMEOUT_MS = 10;
+        public static final double KF = 0.052d;
+        public static final double KP = 0.05d;
+        public static final double KI = 0.0d;
+        public static final double KD = 0.0d;
+        public static final int PISTON_MODULE_NUM = 0;
+        public static final int PISTON_FORWARD_CHANNEL = 0;
+        public static final int PISTON_REVERSE_CHANNEL = 1;
+        public static final double GEAR_RATIO = 6.0d/5.0d;
+        public static final int ENCODER_UNITS_PER_REVOLUTION = 2048;
+        public static final double MINUTES_TO_DECISECONDS = 600.0d;
+        public static final int GREEN_ZONE_RPM = 2300;   
+        public static final int YELLOW_ZONE_RPM = 2200;  
+        public static final int BLUE_ZONE_RPM = 2100;  
+        public static final int RED_ZONE_RPM = 2160;  
+        public static final double VOLTAGE_SATURATION = 12.0d;
+        public static final double RPM_OFFSET = 50.0;
+    }
 }
-
