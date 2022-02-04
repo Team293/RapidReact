@@ -11,6 +11,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
@@ -75,6 +77,19 @@ public class Constants
         public static final int ENCODER_UNITS_PER_REVOLUTION = ENCODER_COUNTS_PER_REVOLUTION; // Edges per Rotation
         public static final double TRACK_WIDTH_FEET = 24.831d/12.0d; //Track width is 13 inches
         public static final boolean USE_NAVX_HEADING = true;
+    }
+
+    public static final class ClimberConstants
+    {
+        public static final int LOW_PRESSURE_RETRACTION_SOLENOID = 0;
+        public static final int HIGH_PRESSURE_RETRACTION_SOLENOID = 1;
+        public static final int LOW_PRESSURE_EXTENSION_SOLENOID = 2;
+        public static final int HIGH_PRESSURE_EXTENSION_SOLENOID = 3;
+    }
+
+    public static final class PneumaticConstants
+    {
+        public static final PneumaticsModuleType PNUEMATIC_MODULE_TYPE = PneumaticsModuleType.REVPH;
     }
 }
 
