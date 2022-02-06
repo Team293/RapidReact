@@ -40,13 +40,13 @@ public class FeederOn extends CommandBase
     @Override
     public void initialize() 
     {
-        m_feeder.feederOn();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() 
     {
+        m_feeder.feederOff();
     }
 
     // Called once the command ends or is interrupted.
