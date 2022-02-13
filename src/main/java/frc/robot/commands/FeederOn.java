@@ -53,7 +53,6 @@ public class FeederOn extends CommandBase
     @Override
     public void end(boolean interrupted) 
     {
-        m_feeder.feederOff();
     }
 
     // Returns true when the command should end.

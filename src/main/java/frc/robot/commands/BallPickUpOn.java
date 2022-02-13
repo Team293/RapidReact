@@ -53,7 +53,6 @@ public class BallPickUpOn extends CommandBase
     @Override
     public void end(boolean interrupted) 
     {
-        m_ballPickUp.ballPickUpOff();
     }
 
     // Returns true when the command should end.
