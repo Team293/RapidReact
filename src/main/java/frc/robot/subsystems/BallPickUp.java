@@ -40,6 +40,7 @@ public class BallPickUp extends SubsystemBase {
         m_ballPickUpMotor.configFactoryDefault();
         m_ballPickUpMotor.setInverted(false);
 
+        SmartDashboard.putBoolean("Feeder On", false);
     }
 
     @Override
@@ -56,14 +57,12 @@ public class BallPickUp extends SubsystemBase {
     // Turns the ball pick up on to 25%
     public void ballPickUpOn() {
         m_ballPickUpMotor.set(ControlMode.PercentOutput, 0.25d);
+        SmartDashboard.putBoolean("Feeder On", true);
     }
 
     // Turns the ball pick up off
     public void ballPickUpOff() {
-        stop();
-    }    
-
-    public void stop() {
         m_ballPickUpMotor.set(ControlMode.Current, 0);
-    }
+        SmartDashboard.putBoolean("Feeder On", false);
+    }    
 }
