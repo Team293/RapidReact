@@ -249,5 +249,8 @@ public class Drivetrain extends SubsystemBase {
         setupGyro(navX, 0.0d);
         zeroDriveTrainEncoders();
     }
-
+    
+    public void resetGyro(double headingDegrees) {
+        setupGyro(navX, headingDegrees);
+    }
 }
