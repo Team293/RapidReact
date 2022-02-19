@@ -73,8 +73,8 @@ public class Constants
         public static final int ENCODER_COUNTS_PER_REVOLUTION = 2048;
         public static final int ENCODER_EDGES_PER_STEP =  1; 
         public static final int ENCODER_UNITS_PER_REVOLUTION = ENCODER_COUNTS_PER_REVOLUTION; // Edges per Rotation
-        public static final double TRACK_WIDTH_FEET = 27.0d/12.0d; //Track width is 27.5 inches
-        public static final boolean USE_NAVX_HEADING = true;
+        public static final double TRACK_WIDTH_FEET = 27.5d/12.0d; //Track width is 27.5 inches
+        public static final boolean USE_NAVX_HEADING = false;
     }
     public static final class SmoothControlConstants
     {
@@ -96,7 +96,6 @@ public class Constants
             RIGHT
         }
     }
-}
     public static final class LauncherConstants
     {
         public static final double TARGET_RPM_READY_THRESHOLD = 12.5;

@@ -23,7 +23,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
             case LEFT:
                 addCommands(
                         new ResetKinematics(new Position2D(0, 0, Math.toRadians(90)), m_drivetrain, m_kinematics),
-                        new DriveTo(new Position2D(18, 16, Math.toRadians(0)),2.0d, false, m_kinematics, m_drivetrain)
+                        new DriveTo(new Position2D(18, 0, Math.toRadians(0)),2.0d, false, m_kinematics, m_drivetrain)
                         //new DriveTo(new Position2D(7, 14, Math.toRadians(0)),2.0d, false, m_kinematics, m_drivetrain)
                         // new DriveTo(new Position2D(16, 0, Math.toRadians(270)),2.0d, false, m_kinematics, m_drivetrain),
                         // new DriveTo(new Position2D(0, 0, Math.toRadians(180)),2.0d, false, m_kinematics, m_drivetrain)
