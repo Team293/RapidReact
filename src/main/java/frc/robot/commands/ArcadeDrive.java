@@ -94,7 +94,7 @@ public class ArcadeDrive extends CommandBase
         SmartDashboard.putNumber("Max Turning Percentage", m_turningLimitPercentage);
 
         //Get turning. Note that the controls are inverted!        
-        turning = m_xboxcontroller.getLeftX() * -1.0d;
+        turning = m_xboxcontroller.getLeftX();
 
         //Checks if joystick value is higher or lower than deadband value
         turning = SPIKE293Utils.applyDeadband(turning, m_arcadeDeadband);
@@ -122,7 +122,7 @@ public class ArcadeDrive extends CommandBase
         else
         {
             //Use the stick, note that the joystick is inverted, -1 is up, 1 is down
-            speed = m_xboxcontroller.getLeftY() * -1.0d;
+            speed = m_xboxcontroller.getLeftY();
             speed = SPIKE293Utils.applyDeadband(speed, m_arcadeDeadband);
         }
 
