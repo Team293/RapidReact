@@ -45,7 +45,7 @@ public class LocateTarget extends CommandBase
         double percentOutput = m_targeting.navToTarget();
 
         //Send velocity data to vision drive
-        m_drivetrain.percentDrive(percentOutput, -percentOutput);
+        m_drivetrain.percentDrive(-percentOutput, percentOutput);
     }
 
     // Called once the command ends or is interrupted.
