@@ -22,24 +22,62 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
  *
  */
 public class Feeder extends SubsystemBase {
-    private WPI_TalonFX m_feederMotor;
+    private WPI_TalonFX m_beltMotor;
+    private WPI_TalonFX m_triggerMotor;
     private Alliance m_teamColor;
-    
+    private boolean m_isLaunching;
+    private boolean m_isEating;
+
     // Feeder subsystem
     public Feeder(Alliance teamColor) {
-        m_feederMotor = new WPI_TalonFX(6);
+        m_beltMotor = new WPI_TalonFX(6);
 
-        m_feederMotor.clearStickyFaults();
-        m_feederMotor.configFactoryDefault();
-        m_feederMotor.setInverted(false);
-
+        m_beltMotor.clearStickyFaults();
+        m_beltMotor.configFactoryDefault();
+        m_beltMotor.setInverted(false);
+        // ADD m_triggerMotor stuff here soon
         m_teamColor = teamColor;
+
+        m_isLaunching = true;
     }
 
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        SmartDashboard.putNumber("Feeder Current Percentage", m_feederMotor.getMotorOutputPercent());
+        SmartDashboard.putNumber("Feeder Current Percentage", m_beltMotor.getMotorOutputPercent());
+
+        boolean triggerMotorOn = true;
+        boolean beltMotorOn = true;
+
+        //if not Firing
+        if(!m_isLaunching){
+            //smart belt 
+            if(launchSensor ball is present){   // colorSensor sees ball
+                triggerMotorOn = false;
+                if(feedSensor ball is present){ // proxSensor sees ball
+                    beltMotorOn = false;
+                }
+            }
+        } else if(launchSensor ball is present) { // colorSensor sees ball
+            
+            if(ball color is blue){ // colorSensor sees  blue color
+                get distance from limelight
+                set launch rpm 
+            } 
+            else { // colorSensor sees red color / no ball
+                set dump rpm
+            }
+
+            if(launcher not ready){
+                triggerMotorOn = false;
+                if(feedSensor ball is present) { // proxSensor
+                    beltMotorOn = false;
+                }
+            }
+        }
+
+        enableTriggerMotor(triggerMotorOn); // launching true
+        enableBeltMotor(beltMotorOn);
     }
 
     @Override
@@ -48,16 +86,45 @@ public class Feeder extends SubsystemBase {
     }
 
     // Turns the feeder on to 25%
-    public void feederOn() {
-        m_feederMotor.set(ControlMode.PercentOutput, 0.25d);
+    public void beltOn() {
+        m_beltMotor.set(ControlMode.PercentOutput, 0.25d);
     }
 
     // Turns the feeder off
-    public void feederOff() {
-        stop();
-    }    
-
-    public void stop() {
-        m_feederMotor.set(ControlMode.Current, 0);
+    public void beltOff() {
+        m_beltMotor.set(ControlMode.PercentOutput, 0);
     }
+
+    // Turns Trigger On
+    public void triggerOn() {
+        m_triggerMotor.set(ControlMode.PercentOutput, 0.30d);
+    }
+
+    // Turns Trigger Off
+    public void triggerOff() {
+        m_triggerMotor.set(ControlMode.PercentOutput, 0);
+    }
+
+    // Turns belt on/off based on a boolean parameter
+    public void enableBeltMotor(boolean toggleOn) {
+        if (toggleOn) {
+            beltOn();
+        } else {
+            beltOff();
+        }
+    }
+
+    // Turns trigger on/off based on a boolean parameter
+    public void enableTriggerMotor(boolean toggleOn) {
+        if (toggleOn) {
+            triggerOn();
+        } else {
+            triggerOff();
+        }
+    }
+
+    public void setIsLaunching(boolean isLaunching) {
+        m_isLaunching = isLaunching;
+    }
+
 }
