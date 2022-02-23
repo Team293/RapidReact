@@ -122,5 +122,6 @@ public class Constants
     }
     public static final class FeederConstants
     {
+        public static final int PROXIMITY_THRESHOLD = 150;
     }
 }

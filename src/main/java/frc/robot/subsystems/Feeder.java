@@ -12,72 +12,43 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.revrobotics.ColorSensorV3;
+import edu.wpi.first.wpilibj.I2C;
+import static frc.robot.Constants.FeederConstants.*;
+
 
 /**
  *
  */
 public class Feeder extends SubsystemBase {
-    private WPI_TalonFX m_beltMotor;
+    private WPI_TalonFX m_intakeMotor;
     private WPI_TalonFX m_triggerMotor;
-    private Alliance m_teamColor;
-    private boolean m_isLaunching;
-    private boolean m_isEating;
+    private ColorSensorV3 m_colorSensor;
+    private DigitalInput m_beltSensor;
 
     // Feeder subsystem
-    public Feeder(Alliance teamColor) {
-        m_beltMotor = new WPI_TalonFX(6);
+    public Feeder() {
+        m_intakeMotor = new WPI_TalonFX(6);
+        m_triggerMotor = new WPI_TalonFX(7);
 
-        m_beltMotor.clearStickyFaults();
-        m_beltMotor.configFactoryDefault();
-        m_beltMotor.setInverted(false);
-        // ADD m_triggerMotor stuff here soon
-        m_teamColor = teamColor;
+        m_intakeMotor.clearStickyFaults();
+        m_intakeMotor.configFactoryDefault();
+        m_intakeMotor.setInverted(false);
 
-        m_isLaunching = true;
+        m_colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
+        m_beltSensor = new DigitalInput(0);
     }
 
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        SmartDashboard.putNumber("Feeder Current Percentage", m_beltMotor.getMotorOutputPercent());
-
-        boolean triggerMotorOn = true;
-        boolean beltMotorOn = true;
-
-        //if not Firing
-        if(!m_isLaunching){
-            //smart belt 
-            if(launchSensor ball is present){   // colorSensor sees ball
-                triggerMotorOn = false;
-                if(feedSensor ball is present){ // proxSensor sees ball
-                    beltMotorOn = false;
-                }
-            }
-        } else if(launchSensor ball is present) { // colorSensor sees ball
-            
-            if(ball color is blue){ // colorSensor sees  blue color
-                get distance from limelight
-                set launch rpm 
-            } 
-            else { // colorSensor sees red color / no ball
-                set dump rpm
-            }
-
-            if(launcher not ready){
-                triggerMotorOn = false;
-                if(feedSensor ball is present) { // proxSensor
-                    beltMotorOn = false;
-                }
-            }
-        }
-
-        enableTriggerMotor(triggerMotorOn); // launching true
-        enableBeltMotor(beltMotorOn);
+        SmartDashboard.putNumber("Feeder Current Percentage", m_intakeMotor.getMotorOutputPercent());
     }
 
     @Override
@@ -86,45 +57,70 @@ public class Feeder extends SubsystemBase {
     }
 
     // Turns the feeder on to 25%
-    public void beltOn() {
-        m_beltMotor.set(ControlMode.PercentOutput, 0.25d);
+    private void intakeOn() {
+        m_intakeMotor.set(ControlMode.PercentOutput, 0.25d);
     }
 
     // Turns the feeder off
-    public void beltOff() {
-        m_beltMotor.set(ControlMode.PercentOutput, 0);
+    private void intakeOff() {
+        m_intakeMotor.set(ControlMode.PercentOutput, 0);
     }
 
     // Turns Trigger On
-    public void triggerOn() {
+    private void triggerOn() {
         m_triggerMotor.set(ControlMode.PercentOutput, 0.30d);
     }
 
     // Turns Trigger Off
-    public void triggerOff() {
+    private void triggerOff() {
         m_triggerMotor.set(ControlMode.PercentOutput, 0);
     }
 
-    // Turns belt on/off based on a boolean parameter
-    public void enableBeltMotor(boolean toggleOn) {
-        if (toggleOn) {
-            beltOn();
-        } else {
-            beltOff();
-        }
+    /**
+     * @return true if the ball is present
+     */
+    public boolean getTriggerProximity() {
+        return m_colorSensor.getProximity() > PROXIMITY_THRESHOLD;
     }
 
-    // Turns trigger on/off based on a boolean parameter
-    public void enableTriggerMotor(boolean toggleOn) {
-        if (toggleOn) {
+    public Color getBallColor(){
+        double redPercent = m_colorSensor.getColor().red; // percentage of red
+        double bluePercent = m_colorSensor.getColor().blue; // percentage of blue
+        Color ballColor = Color.kPurple; // default color is purple
+        
+        if(redPercent > bluePercent){
+            ballColor = Color.kRed;
+        }
+        else if (bluePercent > redPercent){
+            ballColor = Color.kBlue;
+        }
+        return ballColor;
+    }   
+
+    public void smartBelt(){
+        if(!getTriggerProximity())
+        {
+            intakeOn();
             triggerOn();
-        } else {
-            triggerOff();
+        }
+        else
+        {
+            if(m_beltSensor.get())
+            {
+                intakeOn();
+                triggerOff();
+            }
+            else
+            {
+                intakeOff();
+                triggerOff();
+            }
         }
     }
 
-    public void setIsLaunching(boolean isLaunching) {
-        m_isLaunching = isLaunching;
+    public void fire(){
+        intakeOn();
+        triggerOn();
     }
 
 }
