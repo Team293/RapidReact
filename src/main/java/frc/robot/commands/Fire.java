@@ -23,8 +23,8 @@ public class Fire extends CommandBase{
 
     @Override
     public void execute(){
-        if(m_feeder.getTriggerProximity()){
-            if(DriverStation.getAlliance().equals(Alliance.Blue) && m_feeder.getBallColor().equals(Color.kBlue)){ // colorSensor sees  blue color
+        if(true == m_feeder.getTriggerProximity()){ // Checks that there is a ball in the trigger
+            if(DriverStation.getAlliance().equals(Alliance.Blue) && m_feeder.getBallColor().equals(Color.kBlue)){ // Checks to see that the ball color and alliance color are the same
                 // get distance from limelight
                 // set launch rpm 
             } 

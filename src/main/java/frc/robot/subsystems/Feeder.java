@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.ColorSensorV3;
-import edu.wpi.first.wpilibj.I2C;
 import static frc.robot.Constants.FeederConstants.*;
 
 
@@ -41,8 +40,8 @@ public class Feeder extends SubsystemBase {
         m_intakeMotor.configFactoryDefault();
         m_intakeMotor.setInverted(false);
 
-        m_colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
-        m_beltSensor = new DigitalInput(0);
+        m_colorSensor = new ColorSensorV3(COLOR_SENSOR_PORT);
+        m_beltSensor = new DigitalInput(BELT_SENSOR_PORT);
     }
 
     @Override
@@ -80,19 +79,16 @@ public class Feeder extends SubsystemBase {
      * @return true if the ball is present
      */
     public boolean getTriggerProximity() {
-        return m_colorSensor.getProximity() > PROXIMITY_THRESHOLD;
+        return (m_colorSensor.getProximity() > PROXIMITY_THRESHOLD);
     }
 
     public Color getBallColor(){
         double redPercent = m_colorSensor.getColor().red; // percentage of red
         double bluePercent = m_colorSensor.getColor().blue; // percentage of blue
-        Color ballColor = Color.kPurple; // default color is purple
+        Color ballColor = Color.kBlue; // default color is purple
         
         if(redPercent > bluePercent){
             ballColor = Color.kRed;
-        }
-        else if (bluePercent > redPercent){
-            ballColor = Color.kBlue;
         }
         return ballColor;
     }   
