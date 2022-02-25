@@ -250,4 +250,18 @@ public class Drivetrain extends SubsystemBase {
     public void resetGyro(double headingDegrees) {
         setupGyro(navX, headingDegrees);
     }
+    
+    // rotates robot according to give degress using arc length formula
+    public void rotateDegrees(double degrees){
+        double radians = Math.toRadians(degrees);
+        double arcLength = (radians * (TRACK_WIDTH_FEET / 2.0));
+        double encoderTicks = 1/SPIKE293Utils.controllerUnitsToFeet(arcLength);
+        positionControl(-(int)encoderTicks, (int)encoderTicks); 
+    }
+
+    // sets left and right talons to given parameters
+    public void positionControl(int posL, int posR){
+        leftTalonLead.set(ControlMode.Position, posL);
+        rightTalonLead.set(ControlMode.Position, posR);
+    }
 }
