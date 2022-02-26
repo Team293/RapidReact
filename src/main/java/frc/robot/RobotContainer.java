@@ -36,8 +36,7 @@ public class RobotContainer {
   public final Kinematics m_kinematics = new Kinematics(new Position2D(0.0,0.0,0.0));
   public final Drivetrain m_drivetrain = new Drivetrain(m_kinematics);
   public final Launcher m_launcher = new Launcher();
-  public final BallPickUp m_ballPickUp = new BallPickUp();
-  public final Feeder m_feeder = new Feeder(DriverStation.getAlliance());
+  public final Feeder m_feeder = new Feeder();
 
   // Joysticks
   public final XboxController m_driverXboxController = new XboxController(0); 
@@ -59,6 +58,7 @@ public class RobotContainer {
 
     //Setting default command for drivetrain as VelocityDrive
     m_drivetrain.setDefaultCommand(new ArcadeDrive( m_drivetrain, m_driverXboxController));
+    m_feeder.setDefaultCommand(new BallControl(m_feeder));
   }
 
   public static RobotContainer getInstance() {
@@ -72,8 +72,8 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    final JoystickButton ballPickUpOnButton = new JoystickButton(m_operatorXboxController, XboxController.Button.kA.value);
-    ballPickUpOnButton.whenPressed(new ToggleBallPickUp(m_ballPickUp));
+    final JoystickButton fireButton = new JoystickButton(m_operatorXboxController, XboxController.Button.kA.value);
+    fireButton.whenPressed(new Fire(m_feeder, m_launcher));
   }
 
   /**
