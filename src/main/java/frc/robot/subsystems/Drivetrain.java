@@ -88,6 +88,9 @@ public class Drivetrain extends SubsystemBase {
         navX = new AHRS(SerialPort.Port.kMXP);
 
         m_kinematics = kinematics;
+        
+        SmartDashboard.putNumber("Rotate Degrees", 0);
+
 
     }
 
@@ -130,7 +133,7 @@ public class Drivetrain extends SubsystemBase {
         SmartDashboard.putNumber("NavX Angle", getGyroHeadingDegrees());
         SmartDashboard.putNumber("NavX Fused Heading", getGyroFusedHeadingDegrees());
         SmartDashboard.putNumber("NavX TurnRate dg/s", navX.getRate());
-
+        
     }
 
     @Override
@@ -149,11 +152,11 @@ public class Drivetrain extends SubsystemBase {
     }
     
     //Sets the motors to encoder units per desisec (100ms), uses the onboard motor PID
-    public void velocityDrive(double vL, double vR, int profileSlot){
+    public void velocityDrive(double vL, double vR){
         SmartDashboard.putNumber("Set Velocity Left (Encoder units/100ms)", vL);
         SmartDashboard.putNumber("Set Velocity Right (Encoder units/100ms)", vR);
-        leftTalonLead.selectProfileSlot(profileSlot, 0);
-        rightTalonLead.selectProfileSlot(profileSlot, 0);
+        leftTalonLead.selectProfileSlot(VELOCITY_PID_SLOT_ID, 0);
+        rightTalonLead.selectProfileSlot(VELOCITY_PID_SLOT_ID, 0);
         leftTalonLead.set(TalonFXControlMode.Velocity, vL);
         rightTalonLead.set(TalonFXControlMode.Velocity, vR);
     }
@@ -185,6 +188,14 @@ public class Drivetrain extends SubsystemBase {
     public double getRightEncoderPosition() {
         // Returns the number of steps, multiply by edges per step to get EPR, divided by the gearbox ratio
         return SPIKE293Utils.controllerUnitsToFeet(rightTalonLead.getSelectedSensorPosition(0));    
+    }
+
+    public double getRawRightEncoderPosition(){
+        return rightTalonLead.getSelectedSensorPosition(0);
+    }
+
+    public double getRawLeftEncoderPosition(){
+        return leftTalonLead.getSelectedSensorPosition(0);
     }
 
     /**
@@ -265,15 +276,18 @@ public class Drivetrain extends SubsystemBase {
     }
     
     // rotates robot according to give degress using arc length formula
-    public void rotateDegrees(double degrees){
-        double radians = Math.toRadians(degrees);
+    public void rotateDegrees(double angle){
+        double radians = Math.toRadians(angle);
         double arcLength = (radians * (TRACK_WIDTH_FEET / 2.0));
-        double encoderTicks = 1/SPIKE293Utils.controllerUnitsToFeet(arcLength);
-        positionControl(-(int)encoderTicks, (int)encoderTicks); 
+        double encoderTicks = SPIKE293Utils.feetToControllerUnits(arcLength);
+        positionControl(getLeftEncoderPosition()-encoderTicks, getRightEncoderPosition()+encoderTicks); 
     }
 
     // sets left and right talons to given parameters
-    public void positionControl(int posL, int posR){
+    public void positionControl(double posL, double posR){
+        leftTalonLead.selectProfileSlot(POSITION_PID_SLOT_ID, 0);
+        rightTalonLead.selectProfileSlot(POSITION_PID_SLOT_ID, 0);
+        
         leftTalonLead.set(ControlMode.Position, posL);
         rightTalonLead.set(ControlMode.Position, posR);
     }

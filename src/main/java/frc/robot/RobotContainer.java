@@ -42,12 +42,13 @@ public class RobotContainer {
     Command autoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.LEFT);
     
     SmartDashboard.putData("ArcadeDrive", new ArcadeDrive( m_drivetrain, m_xboxController ));
+    
 
     // Configure the button bindings
     configureButtonBindings();
 
     //Setting default command for drivetrain as VelocityDrive
-    m_drivetrain.setDefaultCommand(new ArcadeDrive( m_drivetrain, m_xboxController));
+    //m_drivetrain.setDefaultCommand(new ArcadeDrive( m_drivetrain, m_xboxController));
   }
 
   public static RobotContainer getInstance() {
@@ -63,7 +64,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Create some buttons
     final JoystickButton xboxFireBtn = new JoystickButton(m_xboxController, XboxController.Button.kLeftBumper.value);     
-    xboxFireBtn.whileHeld(new LocateTarget(m_drivetrain, m_targeting));
+    xboxFireBtn.whenPressed(new Rotate(m_drivetrain, SmartDashboard.getNumber("Rotate Degrees",0)));
   }
 
   /**

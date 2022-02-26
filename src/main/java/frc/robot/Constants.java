@@ -52,8 +52,8 @@ public class Constants
 
         public static final double POSITION_KF = 0.0d;
         public static final double POSITION_KP = 0.03d;
-        public static final double POSITION_KI = 0.00001d;
-        public static final double POSITION_KD = 0.3d;
+        public static final double POSITION_KI = 0.0;
+        public static final double POSITION_KD = 0.0d;
         
         public static final double CLOSED_LOOP_RAMP = 0.5;
         public static final double MAX_VELOCITY = 21549;
@@ -104,6 +104,7 @@ public class Constants
     }
     public static final class LauncherConstants
     {
+        public static final int LAUNCHER_CAN_ID = 6;
         public static final double TARGET_RPM_READY_THRESHOLD = 12.5;
         public static final int DEFAULT_TARGET_RPM = 2400;
         public static final double CLOSED_LOOP_RAMPRATE = 0.5d;

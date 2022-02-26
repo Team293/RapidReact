@@ -37,6 +37,11 @@ public final class SPIKE293Utils {
         return (encoderUnits * WHEEL_CIRCUMFERENCE_FEET) / (GEARBOX_RATIO_TO_ONE * ENCODER_UNITS_PER_REVOLUTION);
     }
 
+    //Converts from feet to encoder units
+    public static double feetToControllerUnits(double feet){
+        return ((GEARBOX_RATIO_TO_ONE * ENCODER_UNITS_PER_REVOLUTION) / (feet * WHEEL_CIRCUMFERENCE_FEET));
+    } 
+
     // Converts percentage to encoder velocity
     public static double percentageToControllerVelocity(double percentage) {
         MathUtil.clamp(percentage, -1.0d, 1.0d);
