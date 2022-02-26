@@ -55,18 +55,29 @@ public class Drivetrain extends SubsystemBase {
         rightTalonLead.setInverted(false);
         rightTalonLead.setSensorPhase(false);
 
-        //Configure PID 
-        leftTalonLead.config_kF(PID_SLOT_ID, KF, PID_CONFIG_TIMEOUT_MS);
-        leftTalonLead.config_kP(PID_SLOT_ID, KP, PID_CONFIG_TIMEOUT_MS);
-        leftTalonLead.config_kI(PID_SLOT_ID, KI, PID_CONFIG_TIMEOUT_MS);
-        leftTalonLead.config_kD(PID_SLOT_ID, KD, PID_CONFIG_TIMEOUT_MS);
+        //Configure Velocity PID 
+        leftTalonLead.config_kF(VELOCITY_PID_SLOT_ID, VELOCITY_KF, PID_CONFIG_TIMEOUT_MS);
+        leftTalonLead.config_kP(VELOCITY_PID_SLOT_ID, VELOCITY_KP, PID_CONFIG_TIMEOUT_MS);
+        leftTalonLead.config_kI(VELOCITY_PID_SLOT_ID, VELOCITY_KI, PID_CONFIG_TIMEOUT_MS);
+        leftTalonLead.config_kD(VELOCITY_PID_SLOT_ID, VELOCITY_KD, PID_CONFIG_TIMEOUT_MS);
         leftTalonLead.configClosedloopRamp(CLOSED_LOOP_RAMP);
 
-        rightTalonLead.config_kF(PID_SLOT_ID, KF, PID_CONFIG_TIMEOUT_MS);
-        rightTalonLead.config_kP(PID_SLOT_ID, KP, PID_CONFIG_TIMEOUT_MS);
-        rightTalonLead.config_kI(PID_SLOT_ID, KI, PID_CONFIG_TIMEOUT_MS);
-        rightTalonLead.config_kD(PID_SLOT_ID, KD, PID_CONFIG_TIMEOUT_MS);
+        rightTalonLead.config_kF(VELOCITY_PID_SLOT_ID, VELOCITY_KF, PID_CONFIG_TIMEOUT_MS);
+        rightTalonLead.config_kP(VELOCITY_PID_SLOT_ID, VELOCITY_KP, PID_CONFIG_TIMEOUT_MS);
+        rightTalonLead.config_kI(VELOCITY_PID_SLOT_ID, VELOCITY_KI, PID_CONFIG_TIMEOUT_MS);
+        rightTalonLead.config_kD(VELOCITY_PID_SLOT_ID, VELOCITY_KD, PID_CONFIG_TIMEOUT_MS);
         rightTalonLead.configClosedloopRamp(CLOSED_LOOP_RAMP);
+
+        //Configure Position PID 
+        leftTalonLead.config_kF(POSITION_PID_SLOT_ID, POSITION_KF, PID_CONFIG_TIMEOUT_MS);
+        leftTalonLead.config_kP(POSITION_PID_SLOT_ID, POSITION_KP, PID_CONFIG_TIMEOUT_MS);
+        leftTalonLead.config_kI(POSITION_PID_SLOT_ID, POSITION_KI, PID_CONFIG_TIMEOUT_MS);
+        leftTalonLead.config_kD(POSITION_PID_SLOT_ID, POSITION_KD, PID_CONFIG_TIMEOUT_MS);
+
+        rightTalonLead.config_kF(POSITION_PID_SLOT_ID, POSITION_KF, PID_CONFIG_TIMEOUT_MS);
+        rightTalonLead.config_kP(POSITION_PID_SLOT_ID, POSITION_KP, PID_CONFIG_TIMEOUT_MS);
+        rightTalonLead.config_kI(POSITION_PID_SLOT_ID, POSITION_KI, PID_CONFIG_TIMEOUT_MS);
+        rightTalonLead.config_kD(POSITION_PID_SLOT_ID, POSITION_KD, PID_CONFIG_TIMEOUT_MS);
 
         rightTalonLead.setNeutralMode(NeutralMode.Coast);
         leftTalonLead.setNeutralMode(NeutralMode.Coast);
@@ -138,9 +149,11 @@ public class Drivetrain extends SubsystemBase {
     }
     
     //Sets the motors to encoder units per desisec (100ms), uses the onboard motor PID
-    public void velocityDrive(double vL, double vR){
+    public void velocityDrive(double vL, double vR, int profileSlot){
         SmartDashboard.putNumber("Set Velocity Left (Encoder units/100ms)", vL);
         SmartDashboard.putNumber("Set Velocity Right (Encoder units/100ms)", vR);
+        leftTalonLead.selectProfileSlot(profileSlot, 0);
+        rightTalonLead.selectProfileSlot(profileSlot, 0);
         leftTalonLead.set(TalonFXControlMode.Velocity, vL);
         rightTalonLead.set(TalonFXControlMode.Velocity, vR);
     }
