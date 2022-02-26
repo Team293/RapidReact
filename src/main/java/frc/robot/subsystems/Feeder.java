@@ -21,7 +21,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.ColorSensorV3;
 import static frc.robot.Constants.FeederConstants.*;
 
-
 /**
  *
  */
@@ -65,12 +64,12 @@ public class Feeder extends SubsystemBase {
         m_intakeMotor.set(ControlMode.PercentOutput, 0);
     }
 
-    // Turns Trigger On
+    // Turns the trigger on to 30%
     private void triggerOn() {
         m_triggerMotor.set(ControlMode.PercentOutput, 0.30d);
     }
 
-    // Turns Trigger Off
+    // Turns the trigger off
     private void triggerOff() {
         m_triggerMotor.set(ControlMode.PercentOutput, 0);
     }
@@ -82,39 +81,36 @@ public class Feeder extends SubsystemBase {
         return (m_colorSensor.getProximity() > PROXIMITY_THRESHOLD);
     }
 
-    public Color getBallColor(){
+    // Returns ball color through Color class
+    public Color getBallColor() {
         double redPercent = m_colorSensor.getColor().red; // percentage of red
         double bluePercent = m_colorSensor.getColor().blue; // percentage of blue
-        Color ballColor = Color.kBlue; // default color is purple
-        
-        if(redPercent > bluePercent){
+        Color ballColor = Color.kBlue; // default color is blue
+
+        if (redPercent > bluePercent) {
             ballColor = Color.kRed;
         }
         return ballColor;
-    }   
+    }
 
-    public void smartBelt(){
-        if(!getTriggerProximity())
-        {
+    // Turns motors on / off depending on what the sensors see
+    public void smartBelt() {
+        if (!getTriggerProximity()) {
             intakeOn();
             triggerOn();
-        }
-        else
-        {
-            if(m_beltSensor.get())
-            {
+        } else {
+            if (m_beltSensor.get()) {
                 intakeOn();
                 triggerOff();
-            }
-            else
-            {
+            } else {
                 intakeOff();
                 triggerOff();
             }
         }
     }
 
-    public void fire(){
+    // Turns both motors on
+    public void fire() {
         intakeOn();
         triggerOn();
     }
