@@ -126,7 +126,8 @@ public class Constants {
         public static final int BLUE_ZONE_RPM = 2100;
         public static final int RED_ZONE_RPM = 2160;
         public static final double VOLTAGE_SATURATION = 12.0d;
-        public static final double RPM_OFFSET = 50.0;
+        public static final double RPM_OFFSET = 50.0d;
+        public static final double DUMP_RPM = 300.0d;
     }
 
     public static final class FeederConstants {
