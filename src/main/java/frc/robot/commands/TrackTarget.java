@@ -1,21 +1,18 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.classes.SPIKE293Utils;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Targeting;
 
-import static frc.robot.Constants.DrivetrainConstants.*;
-
-public class Rotate extends CommandBase{
+public class TrackTarget extends CommandBase {
 
     private final Drivetrain m_drivetrain;
     private final Targeting m_targeting;
-    
-    public Rotate(Drivetrain drivetrain, Targeting targeting){
+
+    public TrackTarget(Drivetrain drivetrain, Targeting targeting) {
         m_drivetrain = drivetrain;
         m_targeting = targeting;
+        addRequirements(m_drivetrain);
     }
 
     // Called when the command is initially scheduled.

@@ -32,9 +32,8 @@ public class RobotContainer {
   public final Targeting m_targeting = new Targeting();
   public final Drivetrain m_drivetrain = new Drivetrain(m_kinematics);
   public final Launcher m_launcher = new Launcher();
-  public final BallPickUp m_ballPickUp = new BallPickUp();
   public final Feeder m_feeder = new Feeder();
-  
+
   // Joysticks
   public final XboxController m_driverXboxController = new XboxController(0);
   public final XboxController m_operatorXboxController = new XboxController(1);
@@ -47,8 +46,6 @@ public class RobotContainer {
    */
   private RobotContainer() {
     // SmartDashboard Buttons
-    Command autoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.LEFT);
-
     SmartDashboard.putData("ArcadeDrive", new ArcadeDrive(m_drivetrain, m_driverXboxController));
 
     // Configure the button bindings
@@ -74,7 +71,7 @@ public class RobotContainer {
     // Create some buttons
     final JoystickButton xboxTargetBtn = new JoystickButton(m_driverXboxController,
         XboxController.Button.kLeftBumper.value);
-        xboxTargetBtn.whileHeld(new Rotate(m_drivetrain, m_targeting));
+    xboxTargetBtn.whileHeld(new TrackTarget(m_drivetrain, m_targeting));
   }
 
   /**
