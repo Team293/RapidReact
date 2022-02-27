@@ -4,15 +4,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.classes.SPIKE293Utils;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Targeting;
+
 import static frc.robot.Constants.DrivetrainConstants.*;
 
 public class Rotate extends CommandBase{
 
     private final Drivetrain m_drivetrain;
+    private final Targeting m_targeting;
     
-    public Rotate(Drivetrain drivetrain){
+    public Rotate(Drivetrain drivetrain, Targeting targeting){
         m_drivetrain = drivetrain;
-        SmartDashboard.putNumber("Rotate Degrees", 180);
+        m_targeting = targeting;
     }
 
     // Called when the command is initially scheduled.
@@ -23,7 +26,7 @@ public class Rotate extends CommandBase{
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_drivetrain.rotateDegrees(SmartDashboard.getNumber("Rotate Degrees",180));
+        m_drivetrain.rotateDegrees(m_targeting.getAngleToTargetDegrees());
     }
 
     // Called once the command ends or is interrupted.
@@ -31,9 +34,9 @@ public class Rotate extends CommandBase{
     public void end(boolean interrupted) {
     }
 
-    // Returns true when the command should end.
+    // Returns false when the command should end.
     @Override
     public boolean isFinished() {
-        return true;
+        return false;
     }
 }

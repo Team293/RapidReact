@@ -64,7 +64,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Create some buttons
     final JoystickButton xboxFireBtn = new JoystickButton(m_xboxController, XboxController.Button.kLeftBumper.value);     
-    xboxFireBtn.whenPressed(new Rotate(m_drivetrain));
+    xboxFireBtn.whileHeld(new Rotate(m_drivetrain, m_targeting));
   }
 
   /**

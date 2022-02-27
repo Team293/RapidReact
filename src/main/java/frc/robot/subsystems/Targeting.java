@@ -192,4 +192,9 @@ public class Targeting extends SubsystemBase
 
         return distanceFromLimelightToGoalInches; 
     }
+
+    public double getAngleToTargetDegrees(){
+        return m_targetX.getDouble(0);
+    }
+
 }
