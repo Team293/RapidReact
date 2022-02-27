@@ -15,12 +15,10 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.classes.Kinematics;
 import frc.robot.classes.Position2D;
 import frc.robot.classes.SPIKE293Utils;
-
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
@@ -51,24 +49,39 @@ public class Drivetrain extends SubsystemBase {
         leftTalonLead.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, CONFIG_FEEDBACKSENSOR_TIMEOUT_MS);
         rightTalonLead.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, CONFIG_FEEDBACKSENSOR_TIMEOUT_MS);
 
+        leftTalonLead.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 1, CONFIG_FEEDBACKSENSOR_TIMEOUT_MS);
+        rightTalonLead.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 1, CONFIG_FEEDBACKSENSOR_TIMEOUT_MS);
 
         leftTalonLead.setInverted(true);
         leftTalonLead.setSensorPhase(true);
         rightTalonLead.setInverted(false);
         rightTalonLead.setSensorPhase(false);
 
-        //Configure PID 
-        leftTalonLead.config_kF(PID_SLOT_ID, KF, PID_CONFIG_TIMEOUT_MS);
-        leftTalonLead.config_kP(PID_SLOT_ID, KP, PID_CONFIG_TIMEOUT_MS);
-        leftTalonLead.config_kI(PID_SLOT_ID, KI, PID_CONFIG_TIMEOUT_MS);
-        leftTalonLead.config_kD(PID_SLOT_ID, KD, PID_CONFIG_TIMEOUT_MS);
+        //Configure Velocity PID 
+        leftTalonLead.config_kF(VELOCITY_PID_SLOT_ID, VELOCITY_KF, PID_CONFIG_TIMEOUT_MS);
+        leftTalonLead.config_kP(VELOCITY_PID_SLOT_ID, VELOCITY_KP, PID_CONFIG_TIMEOUT_MS);
+        leftTalonLead.config_kI(VELOCITY_PID_SLOT_ID, VELOCITY_KI, PID_CONFIG_TIMEOUT_MS);
+        leftTalonLead.config_kD(VELOCITY_PID_SLOT_ID, VELOCITY_KD, PID_CONFIG_TIMEOUT_MS);
         leftTalonLead.configClosedloopRamp(CLOSED_LOOP_RAMP);
 
-        rightTalonLead.config_kF(PID_SLOT_ID, KF, PID_CONFIG_TIMEOUT_MS);
-        rightTalonLead.config_kP(PID_SLOT_ID, KP, PID_CONFIG_TIMEOUT_MS);
-        rightTalonLead.config_kI(PID_SLOT_ID, KI, PID_CONFIG_TIMEOUT_MS);
-        rightTalonLead.config_kD(PID_SLOT_ID, KD, PID_CONFIG_TIMEOUT_MS);
+        rightTalonLead.config_kF(VELOCITY_PID_SLOT_ID, VELOCITY_KF, PID_CONFIG_TIMEOUT_MS);
+        rightTalonLead.config_kP(VELOCITY_PID_SLOT_ID, VELOCITY_KP, PID_CONFIG_TIMEOUT_MS);
+        rightTalonLead.config_kI(VELOCITY_PID_SLOT_ID, VELOCITY_KI, PID_CONFIG_TIMEOUT_MS);
+        rightTalonLead.config_kD(VELOCITY_PID_SLOT_ID, VELOCITY_KD, PID_CONFIG_TIMEOUT_MS);
         rightTalonLead.configClosedloopRamp(CLOSED_LOOP_RAMP);
+
+        //Configure Position PID 
+        leftTalonLead.config_kF(POSITION_PID_SLOT_ID, POSITION_KF, PID_CONFIG_TIMEOUT_MS);
+        leftTalonLead.config_kP(POSITION_PID_SLOT_ID, POSITION_KP, PID_CONFIG_TIMEOUT_MS);
+        leftTalonLead.config_kI(POSITION_PID_SLOT_ID, POSITION_KI, PID_CONFIG_TIMEOUT_MS);
+        leftTalonLead.config_IntegralZone(POSITION_PID_SLOT_ID,1500);
+        leftTalonLead.config_kD(POSITION_PID_SLOT_ID, POSITION_KD, PID_CONFIG_TIMEOUT_MS);
+
+        rightTalonLead.config_kF(POSITION_PID_SLOT_ID, POSITION_KF, PID_CONFIG_TIMEOUT_MS);
+        rightTalonLead.config_kP(POSITION_PID_SLOT_ID, POSITION_KP, PID_CONFIG_TIMEOUT_MS);
+        rightTalonLead.config_kI(POSITION_PID_SLOT_ID, POSITION_KI, PID_CONFIG_TIMEOUT_MS);
+        rightTalonLead.config_IntegralZone(POSITION_PID_SLOT_ID, 1500);
+        rightTalonLead.config_kD(POSITION_PID_SLOT_ID, POSITION_KD, PID_CONFIG_TIMEOUT_MS);
 
         rightTalonLead.setNeutralMode(NeutralMode.Coast);
         leftTalonLead.setNeutralMode(NeutralMode.Coast);
@@ -79,6 +92,9 @@ public class Drivetrain extends SubsystemBase {
         navX = new AHRS(SerialPort.Port.kMXP);
 
         m_kinematics = kinematics;
+        
+        
+
 
     }
 
@@ -122,6 +138,8 @@ public class Drivetrain extends SubsystemBase {
         SmartDashboard.putNumber("NavX Fused Heading", getGyroFusedHeadingDegrees());
         SmartDashboard.putNumber("NavX TurnRate dg/s", navX.getRate());
 
+        SmartDashboard.putNumber("Left Motor Position Error", leftTalonLead.getClosedLoopError(0));
+        SmartDashboard.putNumber("Right Motor Position Error", rightTalonLead.getClosedLoopError(0));
     }
 
     @Override
@@ -129,8 +147,6 @@ public class Drivetrain extends SubsystemBase {
         // This method will be called once per scheduler run when in simulation
     }
 
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
     public void percentDrive(double leftPercentage, double rightPercentage) {
         leftTalonLead.set(ControlMode.PercentOutput, leftPercentage);
         rightTalonLead.set(ControlMode.PercentOutput, rightPercentage);
@@ -145,6 +161,8 @@ public class Drivetrain extends SubsystemBase {
     public void velocityDrive(double vL, double vR){
         SmartDashboard.putNumber("Set Velocity Left (Encoder units/100ms)", vL);
         SmartDashboard.putNumber("Set Velocity Right (Encoder units/100ms)", vR);
+        leftTalonLead.selectProfileSlot(VELOCITY_PID_SLOT_ID, 0);
+        rightTalonLead.selectProfileSlot(VELOCITY_PID_SLOT_ID, 0);
         leftTalonLead.set(TalonFXControlMode.Velocity, vL);
         rightTalonLead.set(TalonFXControlMode.Velocity, vR);
     }
@@ -253,5 +271,24 @@ public class Drivetrain extends SubsystemBase {
     
     public void resetGyro(double headingDegrees) {
         setupGyro(navX, headingDegrees);
+    }
+    
+    // rotates robot according to give degress using arc length formula
+    public void rotateDegrees(double angle){
+        double radians = Math.toRadians(angle);
+        double arcLength = (radians * (TRACK_WIDTH_FEET / 2.0));
+        double encoderTicks = SPIKE293Utils.feetToControllerUnits(arcLength);
+        double leftEncoderPosition = leftTalonLead.getSelectedSensorPosition(0);
+        double rightEncoderPosition = rightTalonLead.getSelectedSensorPosition(0);
+        positionControl(leftEncoderPosition - encoderTicks, rightEncoderPosition + encoderTicks); 
+    }
+
+    // sets left and right talons to given parameters
+    public void positionControl(double posL, double posR){
+        leftTalonLead.selectProfileSlot(POSITION_PID_SLOT_ID, 0);
+        rightTalonLead.selectProfileSlot(POSITION_PID_SLOT_ID, 0);
+        
+        leftTalonLead.set(ControlMode.Position, posL);
+        rightTalonLead.set(ControlMode.Position, posR);
     }
 }
