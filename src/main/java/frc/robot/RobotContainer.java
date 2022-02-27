@@ -16,39 +16,46 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
- * This class is where the bulk of the robot should be declared.  Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
- * (including subsystems, commands, and button mappings) should be declared here.
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in
+ * the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of
+ * the robot
+ * (including subsystems, commands, and button mappings) should be declared
+ * here.
  */
 public class RobotContainer {
+  // Robots Subsystems
   private static RobotContainer m_robotContainer = new RobotContainer();
   public final Kinematics m_kinematics = new Kinematics(new Position2D(0.0, 0.0, 0.0));
   public final Targeting m_targeting = new Targeting();
   public final Drivetrain m_drivetrain = new Drivetrain(m_kinematics);
   public final Launcher m_launcher = new Launcher();
   public final BallPickUp m_ballPickUp = new BallPickUp();
-
+  public final Feeder m_feeder = new Feeder();
+  
   // Joysticks
-  public final XboxController m_xboxController = new XboxController(0); 
-  public final XboxController m_operatorXboxController = new XboxController(1); 
+  public final XboxController m_driverXboxController = new XboxController(0);
+  public final XboxController m_operatorXboxController = new XboxController(1);
 
   // A chooser for autonomous commands
   SendableChooser<Command> m_chooser = new SendableChooser<>();
+
   /**
-  * The container for the robot.  Contains subsystems, OI devices, and commands.
-  */
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
   private RobotContainer() {
+    // SmartDashboard Buttons
     Command autoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.LEFT);
-    
-    SmartDashboard.putData("ArcadeDrive", new ArcadeDrive( m_drivetrain, m_xboxController ));
-    
+
+    SmartDashboard.putData("ArcadeDrive", new ArcadeDrive(m_drivetrain, m_driverXboxController));
 
     // Configure the button bindings
     configureButtonBindings();
 
-    //Setting default command for drivetrain as VelocityDrive
-    //m_drivetrain.setDefaultCommand(new ArcadeDrive( m_drivetrain, m_xboxController));
+    // Setting default command for drivetrain as VelocityDrive
+    m_drivetrain.setDefaultCommand(new ArcadeDrive(m_drivetrain, m_driverXboxController));
   }
 
   public static RobotContainer getInstance() {
@@ -56,43 +63,43 @@ public class RobotContainer {
   }
 
   /**
-   * Use this method to define your button->command mappings.  Buttons can be created by
+   * Use this method to define your button->command mappings. Buttons can be
+   * created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
+   * it to a
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
     // Create some buttons
-    final JoystickButton xboxFireBtn = new JoystickButton(m_xboxController, XboxController.Button.kLeftBumper.value);     
-    xboxFireBtn.whileHeld(new Rotate(m_drivetrain, m_targeting));
+    final JoystickButton xboxTargetBtn = new JoystickButton(m_driverXboxController,
+        XboxController.Button.kLeftBumper.value);
+        xboxTargetBtn.whileHeld(new Rotate(m_drivetrain, m_targeting));
   }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
-  */
+   */
   public Command getAutonomousCommand() {
     // The selected command will be run in autonomous
     Command autoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.LEFT);
-    
-    if(DriverStation.getLocation() == 1){
+
+    if (DriverStation.getLocation() == 1) {
       autoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.LEFT);
-    }
-    else if(DriverStation.getLocation() == 2){
+    } else if (DriverStation.getLocation() == 2) {
       autoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.MIDDLE);
-    }
-    else if(DriverStation.getLocation() == 3){
+    } else if (DriverStation.getLocation() == 3) {
       autoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.RIGHT);
-    }
-    else{
+    } else {
       System.out.println("Field location error");
     }
 
     return autoCommand;
   }
-  
-  public Command getTeleopCommand(){
-    return new ArcadeDrive(m_drivetrain, m_xboxController);
+
+  public Command getTeleopCommand() {
+    return new ArcadeDrive(m_drivetrain, m_driverXboxController);
   }
 }
