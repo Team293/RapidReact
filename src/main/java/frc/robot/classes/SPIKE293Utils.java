@@ -40,9 +40,7 @@ public final class SPIKE293Utils {
     //Converts from feet to encoder units
     public static double feetToControllerUnits(double feet){
         double controllerUnits = 0.0d;
-        if (feet != 0.0d){
-            controllerUnits = ((GEARBOX_RATIO_TO_ONE * ENCODER_UNITS_PER_REVOLUTION) / (feet * WHEEL_CIRCUMFERENCE_FEET));
-        }
+        controllerUnits = ((feet * GEARBOX_RATIO_TO_ONE * ENCODER_UNITS_PER_REVOLUTION) / (WHEEL_CIRCUMFERENCE_FEET));
         return controllerUnits; 
     } 
 

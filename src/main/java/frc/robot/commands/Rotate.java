@@ -12,6 +12,7 @@ public class Rotate extends CommandBase{
     
     public Rotate(Drivetrain drivetrain){
         m_drivetrain = drivetrain;
+        SmartDashboard.putNumber("Rotate Degrees", 0);
     }
 
     // Called when the command is initially scheduled.

@@ -49,6 +49,8 @@ public class Drivetrain extends SubsystemBase {
         leftTalonLead.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, CONFIG_FEEDBACKSENSOR_TIMEOUT_MS);
         rightTalonLead.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, CONFIG_FEEDBACKSENSOR_TIMEOUT_MS);
 
+        leftTalonLead.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 1, CONFIG_FEEDBACKSENSOR_TIMEOUT_MS);
+        rightTalonLead.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 1, CONFIG_FEEDBACKSENSOR_TIMEOUT_MS);
 
         leftTalonLead.setInverted(true);
         leftTalonLead.setSensorPhase(true);
@@ -89,7 +91,7 @@ public class Drivetrain extends SubsystemBase {
 
         m_kinematics = kinematics;
         
-        SmartDashboard.putNumber("Rotate Degrees", 0);
+        
 
 
     }
@@ -190,14 +192,6 @@ public class Drivetrain extends SubsystemBase {
         return SPIKE293Utils.controllerUnitsToFeet(rightTalonLead.getSelectedSensorPosition(0));    
     }
 
-    public double getRawRightEncoderPosition(){
-        return rightTalonLead.getSelectedSensorPosition(0);
-    }
-
-    public double getRawLeftEncoderPosition(){
-        return leftTalonLead.getSelectedSensorPosition(0);
-    }
-
     /**
      * returns left encoder Velocity in ft/s
      * 
@@ -280,7 +274,9 @@ public class Drivetrain extends SubsystemBase {
         double radians = Math.toRadians(angle);
         double arcLength = (radians * (TRACK_WIDTH_FEET / 2.0));
         double encoderTicks = SPIKE293Utils.feetToControllerUnits(arcLength);
-        positionControl(getLeftEncoderPosition()-encoderTicks, getRightEncoderPosition()+encoderTicks); 
+        double leftEncoderPosition = leftTalonLead.getSelectedSensorPosition(0);
+        double rightEncoderPosition = rightTalonLead.getSelectedSensorPosition(0);
+        positionControl(leftEncoderPosition - encoderTicks, rightEncoderPosition + encoderTicks); 
     }
 
     // sets left and right talons to given parameters
