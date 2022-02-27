@@ -74,11 +74,13 @@ public class Drivetrain extends SubsystemBase {
         leftTalonLead.config_kF(POSITION_PID_SLOT_ID, POSITION_KF, PID_CONFIG_TIMEOUT_MS);
         leftTalonLead.config_kP(POSITION_PID_SLOT_ID, POSITION_KP, PID_CONFIG_TIMEOUT_MS);
         leftTalonLead.config_kI(POSITION_PID_SLOT_ID, POSITION_KI, PID_CONFIG_TIMEOUT_MS);
+        leftTalonLead.config_IntegralZone(POSITION_PID_SLOT_ID,1500);
         leftTalonLead.config_kD(POSITION_PID_SLOT_ID, POSITION_KD, PID_CONFIG_TIMEOUT_MS);
 
         rightTalonLead.config_kF(POSITION_PID_SLOT_ID, POSITION_KF, PID_CONFIG_TIMEOUT_MS);
         rightTalonLead.config_kP(POSITION_PID_SLOT_ID, POSITION_KP, PID_CONFIG_TIMEOUT_MS);
         rightTalonLead.config_kI(POSITION_PID_SLOT_ID, POSITION_KI, PID_CONFIG_TIMEOUT_MS);
+        rightTalonLead.config_IntegralZone(POSITION_PID_SLOT_ID, 1500);
         rightTalonLead.config_kD(POSITION_PID_SLOT_ID, POSITION_KD, PID_CONFIG_TIMEOUT_MS);
 
         rightTalonLead.setNeutralMode(NeutralMode.Coast);
@@ -135,7 +137,9 @@ public class Drivetrain extends SubsystemBase {
         SmartDashboard.putNumber("NavX Angle", getGyroHeadingDegrees());
         SmartDashboard.putNumber("NavX Fused Heading", getGyroFusedHeadingDegrees());
         SmartDashboard.putNumber("NavX TurnRate dg/s", navX.getRate());
-        
+
+        SmartDashboard.putNumber("Left Motor Position Error", leftTalonLead.getClosedLoopError(0));
+        SmartDashboard.putNumber("Right Motor Position Error", rightTalonLead.getClosedLoopError(0));
     }
 
     @Override

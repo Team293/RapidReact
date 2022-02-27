@@ -12,7 +12,7 @@ public class Rotate extends CommandBase{
     
     public Rotate(Drivetrain drivetrain){
         m_drivetrain = drivetrain;
-        SmartDashboard.putNumber("Rotate Degrees", 0);
+        SmartDashboard.putNumber("Rotate Degrees", 180);
     }
 
     // Called when the command is initially scheduled.
@@ -23,7 +23,7 @@ public class Rotate extends CommandBase{
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_drivetrain.rotateDegrees(SmartDashboard.getNumber("Rotate Degrees",0));
+        m_drivetrain.rotateDegrees(SmartDashboard.getNumber("Rotate Degrees",180));
     }
 
     // Called once the command ends or is interrupted.

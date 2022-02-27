@@ -51,9 +51,9 @@ public class Constants
         public static final double VELOCITY_KD = 0.06d;
 
         public static final double POSITION_KF = 0.0d;
-        public static final double POSITION_KP = 0.03d;
-        public static final double POSITION_KI = 0.0;
-        public static final double POSITION_KD = 0.0d;
+        public static final double POSITION_KP = 0.021d;
+        public static final double POSITION_KI = 0.00009d;
+        public static final double POSITION_KD = 0.2d;
         
         public static final double CLOSED_LOOP_RAMP = 0.5;
         public static final double MAX_VELOCITY = 21549;
