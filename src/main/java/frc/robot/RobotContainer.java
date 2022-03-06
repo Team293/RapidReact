@@ -69,9 +69,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Create some buttons
-    final JoystickButton xboxTargetBtn = new JoystickButton(m_driverXboxController,
-        XboxController.Button.kLeftBumper.value);
-    xboxTargetBtn.whileHeld(new TrackTarget(m_drivetrain, m_targeting));
+    final JoystickButton xboxFeedBtn = new JoystickButton(m_driverXboxController,
+        XboxController.Button.kRightBumper.value);
+    xboxFeedBtn.whileHeld(new BallControlTest(m_feeder));
   }
 
   /**
