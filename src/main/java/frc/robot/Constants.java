@@ -67,8 +67,8 @@ public class Constants {
         public static final double DEFAULT_MAX_VELOCITY_PERCENTAGE = 0.6;
         public static final double DEFAULT_MAX_TURNING_SPEED = 0.5d;
         public static final double VELOCITY_SLOWDOWN_MODIFIER = 0.25d;
-        public static final int LEFT_LEAD_TALON_CAN_ID = 0;
-        public static final int LEFT_FOLLOWER_TALON_CAN_ID = 1;
+        public static final int LEFT_LEAD_TALON_CAN_ID = 2;
+        public static final int LEFT_FOLLOWER_TALON_CAN_ID = 0;
         public static final int RIGHT_LEAD_TALON_CAN_ID = 1;
         public static final int RIGHT_FOLLOWER_TALON_CAN_ID = 3;
         public static final int VELOCITY_PID_SLOT_ID = 0;
