@@ -32,12 +32,14 @@ public class Feeder extends SubsystemBase {
 
     // Feeder subsystem
     public Feeder() {
-        m_beltMotor = new WPI_TalonFX(6);
-        m_triggerMotor = new WPI_TalonFX(7);
+        m_beltMotor = new WPI_TalonFX(BELT_CAN_ID);        // need to change
+        m_triggerMotor = new WPI_TalonFX(TRIGGER_CAN_ID);     // need to change
+        
 
         m_beltMotor.clearStickyFaults();
         m_beltMotor.configFactoryDefault();
-        m_beltMotor.setInverted(false);
+        m_beltMotor.setInverted(true);
+        m_triggerMotor.setInverted(true);
 
         m_colorSensor = new ColorSensorV3(COLOR_SENSOR_PORT);
         m_beltSensor = new DigitalInput(BELT_SENSOR_PORT);
@@ -57,7 +59,7 @@ public class Feeder extends SubsystemBase {
     // Turns belt motor on / off
     public void enableBeltMotor(boolean enabled) {
         if (true == enabled) {
-            m_beltMotor.set(ControlMode.PercentOutput, 0.25d);
+            m_beltMotor.set(ControlMode.PercentOutput, 0.75d);
         } else {
             m_beltMotor.set(ControlMode.PercentOutput, 0);
         }
