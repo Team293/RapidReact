@@ -34,6 +34,6 @@ public class TrackTarget extends CommandBase {
     // Returns false when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return m_targeting.isTargeted();
     }
 }

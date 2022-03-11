@@ -6,6 +6,7 @@ import frc.robot.subsystems.Feeder;
 public class BallControl extends CommandBase {
 
     Feeder m_feeder;
+    private boolean botIsFull = false;
 
     public BallControl(Feeder feeder) {
         m_feeder = feeder;
@@ -30,6 +31,7 @@ public class BallControl extends CommandBase {
                 // A ball is in the belt position
                 // Stop the belt motor to hold it in place!
                 beltMotorOn = false;
+                botIsFull = true;
             }
         }
 
@@ -40,7 +42,7 @@ public class BallControl extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return botIsFull;
     }
 
     @Override

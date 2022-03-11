@@ -45,7 +45,7 @@ public class Targeting extends SubsystemBase {
     public void periodic() {
         SmartDashboard.putNumber("Tx", m_targetX.getDouble(10000));
         SmartDashboard.putNumber("Ty", m_targetY.getDouble(10000));
-        SmartDashboard.putBoolean("isTargetted", isTargetted());
+        SmartDashboard.putBoolean("isTargetted", isTargeted());
         SmartDashboard.putNumber("Distance from Target", calcDistance());
     }
 
@@ -72,7 +72,7 @@ public class Targeting extends SubsystemBase {
         return retval;
     }
 
-    public boolean isTargetted() {
+    public boolean isTargeted() {
         boolean targeted = false;
         double limeError = m_targetX.getDouble(0.0); // Get the error of the target X
 

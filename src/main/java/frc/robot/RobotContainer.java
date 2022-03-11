@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -81,14 +82,26 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // The selected command will be run in autonomous
-    Command autoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.LEFT);
+    boolean isRed = false;
+    Command autoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics,m_feeder, m_targeting, m_launcher, StartPositions.LEFT, isRed);
+    Alliance allianceColor = DriverStation.getAlliance();
+
+    if(allianceColor == Alliance.Red){
+      isRed = true;
+    }
+    else if(allianceColor == Alliance.Blue){
+      isRed = false;
+    }
+    else {
+      System.out.println("Alliance Color Error :)");
+    }
 
     if (DriverStation.getLocation() == 1) {
-      autoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.LEFT);
+      autoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics,m_feeder, m_targeting, m_launcher, StartPositions.LEFT, isRed);
     } else if (DriverStation.getLocation() == 2) {
-      autoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.MIDDLE);
+      autoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics,m_feeder, m_targeting, m_launcher, StartPositions.MIDDLE, isRed);
     } else if (DriverStation.getLocation() == 3) {
-      autoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, StartPositions.RIGHT);
+      autoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics,m_feeder, m_targeting, m_launcher, StartPositions.RIGHT, isRed);
     } else {
       System.out.println("Field location error");
     }
