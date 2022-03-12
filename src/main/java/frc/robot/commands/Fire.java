@@ -67,7 +67,7 @@ public class Fire extends CommandBase {
             }
             // Enable / disable motors
             if (true == triggerMotorOn) {
-                m_feeder.setTriggerMotor(0.90);
+                m_feeder.setTriggerMotor(1);
             } else {
                 m_feeder.setTriggerMotor(0);
             }

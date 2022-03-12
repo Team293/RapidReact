@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.ColorSensorV3;
 import static frc.robot.Constants.FeederConstants.*;
@@ -42,6 +43,9 @@ public class Feeder extends SubsystemBase {
         m_triggerMotor.configFactoryDefault();
         m_beltMotor.setInverted(true);
         m_triggerMotor.setInverted(true);
+
+        m_beltMotor.setNeutralMode(NeutralMode.Brake);
+        m_triggerMotor.setNeutralMode(NeutralMode.Brake);
 
         m_colorSensor = new ColorSensorV3(COLOR_SENSOR_PORT);
         m_beltSensor = new DigitalInput(BELT_SENSOR_PORT);
