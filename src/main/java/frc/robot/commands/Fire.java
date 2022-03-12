@@ -65,6 +65,22 @@ public class Fire extends CommandBase {
                 }
             }
         }
+        else {
+            //loading a ball
+            if(true == triggerMotorOn){
+                m_feeder.setTriggerMotor(0.16);
+            }
+            else{
+                m_feeder.setTriggerMotor(0);
+            }
+            
+            if(true == beltMotorOn){
+                m_feeder.setBeltMotor(0.50);
+            }
+            else{
+                m_feeder.setBeltMotor(0);
+            }
+        }
 
         // Enable / disable motors
         if(true == triggerMotorOn){
