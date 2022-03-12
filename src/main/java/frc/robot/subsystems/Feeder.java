@@ -62,21 +62,13 @@ public class Feeder extends SubsystemBase {
     }
 
     // Turns belt motor on / off
-    public void enableBeltMotor(boolean enabled) {
-        if (true == enabled) {
-            m_beltMotor.set(ControlMode.PercentOutput, 0.25d);
-        } else {
-            m_beltMotor.set(ControlMode.PercentOutput, 0);
-        }
+    public void setBeltMotor(double percent) {
+        m_beltMotor.set(percent);
     }
 
     // Turns trigger motor on / off
-    public void enableTriggerMotor(boolean enabled) {
-        if (true == enabled) {
-            m_triggerMotor.set(ControlMode.PercentOutput, 0.20d);
-        } else {
-            m_triggerMotor.set(ControlMode.PercentOutput, 0);
-        }
+    public void setTriggerMotor(double percent) {
+        m_triggerMotor.set(percent);
     }
 
     /**

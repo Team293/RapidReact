@@ -67,8 +67,19 @@ public class Fire extends CommandBase {
         }
 
         // Enable / disable motors
-        m_feeder.enableTriggerMotor(triggerMotorOn);
-        m_feeder.enableBeltMotor(beltMotorOn);
+        if(true == triggerMotorOn){
+            m_feeder.setTriggerMotor(0.75);
+        }
+        else{
+            m_feeder.setTriggerMotor(0);
+        }
+        
+        if(true == beltMotorOn){
+            m_feeder.setBeltMotor(0.75);
+        }
+        else{
+            m_feeder.setBeltMotor(0);
+        }
     }
 
     @Override
@@ -78,5 +89,6 @@ public class Fire extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
+        m_launcher.setRpm(0);
     }
 }
