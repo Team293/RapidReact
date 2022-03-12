@@ -32,6 +32,7 @@ public class Fire extends CommandBase {
 
     @Override
     public void execute() {
+
         // Assume both motors will be on!
         boolean triggerMotorOn = true;
         boolean beltMotorOn = true;
@@ -64,37 +65,42 @@ public class Fire extends CommandBase {
                     beltMotorOn = false;
                 }
             }
-        }
-        else {
-            //loading a ball
-            if(true == triggerMotorOn){
-                m_feeder.setTriggerMotor(0.16);
-            }
-            else{
+            // Enable / disable motors
+            if (true == triggerMotorOn) {
+                m_feeder.setTriggerMotor(0.75);
+            } else {
                 m_feeder.setTriggerMotor(0);
             }
-            
-            if(true == beltMotorOn){
-                m_feeder.setBeltMotor(0.50);
-            }
-            else{
+
+            if (true == beltMotorOn) {
+                m_feeder.setBeltMotor(0.75);
+            } else {
                 m_feeder.setBeltMotor(0);
             }
-        }
+        } else {
+            if (true == m_feeder.isTriggerSensorBallPresent()) {
+                // A ball is in the trigger position
+                // Stop the trigger motor to hold it in place!
+                triggerMotorOn = false;
+                if (true == m_feeder.isBeltSensorBallPresent()) {
+                    // A ball is in the belt position
+                    // Stop the belt motor to hold it in place!
+                    beltMotorOn = false;
+                }
+            }
 
-        // Enable / disable motors
-        if(true == triggerMotorOn){
-            m_feeder.setTriggerMotor(0.75);
-        }
-        else{
-            m_feeder.setTriggerMotor(0);
-        }
-        
-        if(true == beltMotorOn){
-            m_feeder.setBeltMotor(0.75);
-        }
-        else{
-            m_feeder.setBeltMotor(0);
+            // loading a ball
+            if (true == triggerMotorOn) {
+                m_feeder.setTriggerMotor(0.15);
+            } else {
+                m_feeder.setTriggerMotor(0);
+            }
+
+            if (true == beltMotorOn) {
+                m_feeder.setBeltMotor(0.75);
+            } else {
+                m_feeder.setBeltMotor(0);
+            }
         }
     }
 
