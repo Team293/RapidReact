@@ -13,10 +13,12 @@ public class Fire extends CommandBase {
     Feeder m_feeder;
     Launcher m_launcher;
     Color m_teamColor;
+    int m_delayCounts;
 
     public Fire(Feeder feeder, Launcher launcher) {
         m_feeder = feeder;
         m_launcher = launcher;
+        m_delayCounts = 0;
         addRequirements(m_feeder, m_launcher);
 
         if (true == DriverStation.getAlliance().equals(Alliance.Blue)) {
@@ -35,11 +37,23 @@ public class Fire extends CommandBase {
 
         // Assume both motors will be on!
         boolean triggerMotorOn = true;
-        boolean beltMotorOn = true;
+        boolean beltMotorOn = false;
+        boolean feed = false;
 
-        if (true == m_feeder.isTriggerSensorBallPresent()) {
-            // There is a ball in the trigger sensor location!
-            // Check if ball is our team color
+        m_delayCounts--;
+
+        if (false == m_feeder.isTriggerSensorBallPresent()) {
+            // No ball present
+            if (0 >= m_delayCounts) {
+                m_delayCounts = 0;
+                // Attampt to load the next ball
+                beltMotorOn = true;
+                feed = true;
+            }
+        } else {
+            // Ball in position to fire
+            m_delayCounts = 7; // Force a wait of 350 ms before attempting to load the next ball
+
             Color triggerBallColor = m_feeder.getTriggerBallColor();
             if (true == triggerBallColor.equals(m_teamColor)) {
                 // The ball is our team color!
@@ -59,48 +73,24 @@ public class Fire extends CommandBase {
                 // The launcher is not ready!
                 // Turn the trigger motor off!
                 triggerMotorOn = false;
-                if (true == m_feeder.isBeltSensorBallPresent()) {
-                    // There is a ball in the belt sensor location
-                    // Turn off the belt motor to prevent a jam!
-                    beltMotorOn = false;
-                }
             }
-            // Enable / disable motors
-            if (true == triggerMotorOn) {
-                m_feeder.setTriggerMotor(1);
-            } else {
-                m_feeder.setTriggerMotor(0);
-            }
+        }
 
-            if (true == beltMotorOn) {
-                m_feeder.setBeltMotor(0.75);
+        // Enable / disable motors
+        if (true == triggerMotorOn) {
+            if (true == feed) {
+                m_feeder.setTriggerMotor(0.17d);
             } else {
-                m_feeder.setBeltMotor(0);
+                m_feeder.setTriggerMotor(0.75d);
             }
         } else {
-            if (true == m_feeder.isTriggerSensorBallPresent()) {
-                // A ball is in the trigger position
-                // Stop the trigger motor to hold it in place!
-                triggerMotorOn = false;
-                if (true == m_feeder.isBeltSensorBallPresent()) {
-                    // A ball is in the belt position
-                    // Stop the belt motor to hold it in place!
-                    beltMotorOn = false;
-                }
-            }
+            m_feeder.setTriggerMotor(0.0d);
+        }
 
-            // loading a ball
-            if (true == triggerMotorOn) {
-                m_feeder.setTriggerMotor(0.17);
-            } else {
-                m_feeder.setTriggerMotor(0);
-            }
-
-            if (true == beltMotorOn) {
-                m_feeder.setBeltMotor(0.0);
-            } else {
-                m_feeder.setBeltMotor(0);
-            }
+        if(true == beltMotorOn){
+            m_feeder.setBeltMotor(0.50d);
+        } else {
+            m_feeder.setBeltMotor(0.0d);
         }
     }
 
