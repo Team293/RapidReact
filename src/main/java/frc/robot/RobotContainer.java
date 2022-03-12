@@ -53,6 +53,7 @@ public class RobotContainer {
 
     // Setting default command for drivetrain as VelocityDrive
     m_drivetrain.setDefaultCommand(new ArcadeDrive(m_drivetrain, m_driverXboxController));
+    m_feeder.setDefaultCommand(new BallControl(m_feeder));
   }
 
   public static RobotContainer getInstance() {
@@ -76,6 +77,8 @@ public class RobotContainer {
     final JoystickButton xboxTargetBtn = new JoystickButton(m_operatorXboxController,
         XboxController.Button.kLeftBumper.value);
     xboxTargetBtn.whileHeld(new TrackTarget(m_drivetrain, m_targeting));
+
+    
   }
 
   /**

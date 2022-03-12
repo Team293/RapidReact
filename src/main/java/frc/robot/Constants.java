@@ -140,8 +140,8 @@ public class Constants {
         public static final int BELT_CAN_ID = 5;
         public static final int TRIGGER_CAN_ID = 4;
         public static final int BELT_SENSOR_PORT = 0;
-        public static final Port COLOR_SENSOR_PORT = I2C.Port.kOnboard;
-        public static final int PROXIMITY_THRESHOLD = 150;
+        public static final Port COLOR_SENSOR_PORT = I2C.Port.kMXP;
+        public static final int PROXIMITY_THRESHOLD = 95;
     }
 
     public static final class TargetingConstants

@@ -38,6 +38,8 @@ public class Feeder extends SubsystemBase {
 
         m_beltMotor.clearStickyFaults();
         m_beltMotor.configFactoryDefault();
+        m_triggerMotor.clearStickyFaults();
+        m_triggerMotor.configFactoryDefault();
         m_beltMotor.setInverted(true);
         m_triggerMotor.setInverted(true);
 
@@ -49,6 +51,9 @@ public class Feeder extends SubsystemBase {
     public void periodic() {
         // This method will be called once per scheduler run
         SmartDashboard.putNumber("Feeder Current Percentage", m_beltMotor.getMotorOutputPercent());
+        SmartDashboard.putBoolean("Trigger Has Ball", isTriggerSensorBallPresent());
+        SmartDashboard.putBoolean("Belt has ball", isBeltSensorBallPresent());
+        SmartDashboard.putNumber("Trigger senesor val ", m_colorSensor.getProximity());
     }
 
     @Override
@@ -59,7 +64,7 @@ public class Feeder extends SubsystemBase {
     // Turns belt motor on / off
     public void enableBeltMotor(boolean enabled) {
         if (true == enabled) {
-            m_beltMotor.set(ControlMode.PercentOutput, 0.75d);
+            m_beltMotor.set(ControlMode.PercentOutput, 0.25d);
         } else {
             m_beltMotor.set(ControlMode.PercentOutput, 0);
         }
@@ -68,7 +73,7 @@ public class Feeder extends SubsystemBase {
     // Turns trigger motor on / off
     public void enableTriggerMotor(boolean enabled) {
         if (true == enabled) {
-            m_triggerMotor.set(ControlMode.PercentOutput, 0.30d);
+            m_triggerMotor.set(ControlMode.PercentOutput, 0.20d);
         } else {
             m_triggerMotor.set(ControlMode.PercentOutput, 0);
         }
@@ -82,7 +87,7 @@ public class Feeder extends SubsystemBase {
     }
 
     public boolean isBeltSensorBallPresent() {
-        return (m_beltSensor.get());
+        return (false == m_beltSensor.get());
     }
 
     // Returns ball color through Color class
