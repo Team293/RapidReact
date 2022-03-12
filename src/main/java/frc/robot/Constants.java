@@ -133,7 +133,7 @@ public class Constants {
         public static final int RED_ZONE_RPM = 2160;
         public static final double VOLTAGE_SATURATION = 12.0d;
         public static final double RPM_OFFSET = 50.0d;
-        public static final double DUMP_RPM = 300.0d;
+        public static final double DUMP_RPM = 600.0d;
     }
 
     public static final class FeederConstants {
@@ -141,7 +141,7 @@ public class Constants {
         public static final int TRIGGER_CAN_ID = 4;
         public static final int BELT_SENSOR_PORT = 0;
         public static final Port COLOR_SENSOR_PORT = I2C.Port.kMXP;
-        public static final int PROXIMITY_THRESHOLD = 95;
+        public static final int PROXIMITY_THRESHOLD = 100;
     }
 
     public static final class TargetingConstants
