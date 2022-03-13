@@ -34,7 +34,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
             case BLUE_LEFT:
                 addCommands(
                     // Reset kinematics to the blue left position
-                    new ResetKinematics(new Position2D(-7.169, 3.509, Math.toRadians(0)), m_drivetrain, m_kinematics),
+                    new ResetKinematics(new Position2D(-7.004, 3.621, Math.toRadians(-136.5)), m_drivetrain, m_kinematics),
                     // Drive to the first ball and collect it
                     new DriveTo(new Position2D(-10.783, 6.804, Math.toRadians(0)), 2.0d, false, m_kinematics, m_drivetrain),
                     // Turn around to face the hub
@@ -65,7 +65,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
             case BLUE_MIDDLE:
                 addCommands(
                     // Reset kinematics to the blue middle position 
-                    new ResetKinematics(new Position2D(-5.353, -5.243, Math.toRadians(0)), m_drivetrain, m_kinematics),
+                    new ResetKinematics(new Position2D(-5.350, -5.363, Math.toRadians(133.5)), m_drivetrain, m_kinematics),
                     // Drive to the first blue ball and collect it 
                     new DriveTo(new Position2D(-10.412, -7.359, Math.toRadians(0)), 2.0d, false, m_kinematics, m_drivetrain),
                     // Turn around to face the hub 
@@ -98,7 +98,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
             case BLUE_RIGHT:
                 addCommands(
                     // Reset kinematics to blue right position
-                    new ResetKinematics(new Position2D(-2.131, -7.885, Math.toRadians(0)), m_drivetrain, m_kinematics),
+                    new ResetKinematics(new Position2D(-1.995, -7.628, Math.toRadians(91.5)), m_drivetrain, m_kinematics),
                     // Drives to first ball and collects
                     new DriveTo(new Position2D(-2.159, -12.566, Math.toRadians(0)), 2.0d, false, m_kinematics, m_drivetrain),
                     // Rotates to face the hub
@@ -129,8 +129,8 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
             case RED_LEFT:
                 addCommands(
                     // Reset kinematics to red left position
-                    new ResetKinematics(new Position2D(7.169, -3.509, Math.toRadians(0)), m_drivetrain, m_kinematics),
-                    // Drives to first ball and collects
+                    new ResetKinematics(new Position2D(7.004, -3.621, Math.toRadians(46.5)), m_drivetrain, m_kinematics),
+                    // Drive to the first ball and collect it
                     new DriveTo(new Position2D(10.783, -6.804, Math.toRadians(0)), 2.0d, false, m_kinematics, m_drivetrain),
                     // Rotates to face the hub
                     new Rotate(m_drivetrain, 180.0),
@@ -160,8 +160,8 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
             case RED_MIDDLE: 
                 addCommands(
                     // Reset kinematics to red middle position 
-                    new ResetKinematics(new Position2D(5.353, 5.243, Math.toRadians(0)), m_drivetrain, m_kinematics),
-                    // Drive to first ball and collect it 
+                    new ResetKinematics(new Position2D(5.350, 5.363, Math.toRadians(-43.5)), m_drivetrain, m_kinematics),
+                    // Drive to the first blue ball and collect it 
                     new DriveTo(new Position2D(10.412, 7.359, Math.toRadians(0)), 2.0d, false, m_kinematics, m_drivetrain),
                     // Rotate to face the hub
                     new Rotate(m_drivetrain, 180.0),
@@ -193,8 +193,8 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
             case RED_RIGHT:
                 addCommands(
                     // Reset kinematics to red right position
-                    new ResetKinematics(new Position2D(2.131, 7.885, Math.toRadians(90)), m_drivetrain, m_kinematics),
-                    // Drive to first ball and collects it
+                    new ResetKinematics(new Position2D(1.995, 7.628, Math.toRadians(-91.5)), m_drivetrain, m_kinematics),
+                    // Drives to first ball and collects
                     new DriveTo(new Position2D(2.159, 12.566, Math.toRadians(0)), 2.0d, false, m_kinematics, m_drivetrain),
                     // Rotate to face the hub
                     new Rotate(m_drivetrain, 180.0),
