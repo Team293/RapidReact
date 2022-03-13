@@ -112,15 +112,16 @@ public class Constants {
     }
     public static final class LauncherConstants{
         public static final int LAUNCHER_CAN_ID = 6;
-        public static final double TARGET_RPM_READY_THRESHOLD = 12.5;
+        public static final double TARGET_RPM_READY_THRESHOLD = 50;
         public static final int DEFAULT_TARGET_RPM = 2400;
         public static final double CLOSED_LOOP_RAMPRATE = 0.5d;
         public static final int PID_SLOT_ID = 0;
         public static final int PID_CONFIG_TIMEOUT_MS = 10;
-        public static final double KF = 0.052d;
-        public static final double KP = 0.05d;
-        public static final double KI = 0.0d;
-        public static final double KD = 0.0d;
+        public static final double KF = 0.03999996d;
+        public static final double KP = 0.349999d;
+        public static final double KI = 0.003000021d;
+        public static final double KD = 3.7d;
+        public static final double I_ZONE = 500.0d;
         public static final int PISTON_MODULE_NUM = 0;
         public static final int PISTON_FORWARD_CHANNEL = 0;
         public static final int PISTON_REVERSE_CHANNEL = 1;
