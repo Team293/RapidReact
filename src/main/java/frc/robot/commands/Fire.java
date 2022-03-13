@@ -62,7 +62,7 @@ public class Fire extends CommandBase {
                 // WARNING THIS NEEDS TO BE HOOKED IN
 
                 // Set launch rpm using distance
-                m_launcher.setRpm(3200.0d); // WARNING THIS IS A TEST VALUE AND MUST CHANGE!
+                m_launcher.setRpm(2600.0d); // WARNING THIS IS A TEST VALUE AND MUST CHANGE!
             } else {
                 // The ball is not our team color!
                 // Set dump rpm
@@ -101,6 +101,6 @@ public class Fire extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        m_launcher.setRpm(0);
+        m_launcher.setMotorVoltage(0);
     }
 }
