@@ -98,6 +98,6 @@ public class Targeting extends SubsystemBase {
     }
 
     public double getAngleToTargetDegrees() {
-        return m_targetX.getDouble(0);
+        return -1 * m_targetX.getDouble(0);
     }
 }
