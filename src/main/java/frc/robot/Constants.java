@@ -60,7 +60,7 @@ public class Constants {
         public static final double POSITION_KP = 0.021d;
         public static final double POSITION_KI = 0.00009d;
         public static final double POSITION_KD = 0.2d;
-        
+
         public static final double CLOSED_LOOP_RAMP = 0.5;
         public static final double MAX_VELOCITY = 21549;
 
@@ -115,21 +115,23 @@ public class Constants {
             RED_RIGHT
         }
     }
-    public static final class LauncherConstants{
+
+    public static final class LauncherConstants {
         public static final int LAUNCHER_CAN_ID = 6;
-        public static final double TARGET_RPM_READY_THRESHOLD = 12.5;
+        public static final double TARGET_RPM_READY_THRESHOLD = 40;
         public static final int DEFAULT_TARGET_RPM = 2400;
         public static final double CLOSED_LOOP_RAMPRATE = 0.5d;
         public static final int PID_SLOT_ID = 0;
         public static final int PID_CONFIG_TIMEOUT_MS = 10;
-        public static final double KF = 0.052d;
-        public static final double KP = 0.05d;
-        public static final double KI = 0.0d;
-        public static final double KD = 0.0d;
+        public static final double KF = 0.059d;
+        public static final double KP = 1.1d;
+        public static final double KI = 0.0001d;
+        public static final double KD = 15.0d;
+        public static final double I_ZONE = 100.0d;
         public static final int PISTON_MODULE_NUM = 0;
         public static final int PISTON_FORWARD_CHANNEL = 0;
         public static final int PISTON_REVERSE_CHANNEL = 1;
-        public static final double GEAR_RATIO = 6.0d / 5.0d;
+        public static final double GEAR_RATIO = 1.0d;
         public static final int ENCODER_UNITS_PER_REVOLUTION = 2048;
         public static final double MINUTES_TO_DECISECONDS = 600.0d;
         public static final int GREEN_ZONE_RPM = 2300;
@@ -138,17 +140,18 @@ public class Constants {
         public static final int RED_ZONE_RPM = 2160;
         public static final double VOLTAGE_SATURATION = 12.0d;
         public static final double RPM_OFFSET = 50.0d;
-        public static final double DUMP_RPM = 300.0d;
+        public static final double DUMP_RPM = 1000.0d;
     }
 
     public static final class FeederConstants {
+        public static final int BELT_CAN_ID = 5;
+        public static final int TRIGGER_CAN_ID = 4;
         public static final int BELT_SENSOR_PORT = 0;
-        public static final Port COLOR_SENSOR_PORT = I2C.Port.kOnboard;
-        public static final int PROXIMITY_THRESHOLD = 150;
+        public static final Port COLOR_SENSOR_PORT = I2C.Port.kMXP;
+        public static final int PROXIMITY_THRESHOLD = 110;
     }
 
-    public static final class TargetingConstants
-    {
+    public static final class TargetingConstants {
         public static final int LIMELIGHT_LED_ON = 3;
         public static final int LIMELIGHT_LED_OFF = 1;
         public static final int LEFT_MOTOR_IND = 0;
@@ -157,8 +160,8 @@ public class Constants {
         public static final double TARGET_NO_TARGET = 0.0;
         public static final double INTEGRAL_WEIGHT = .2;
         public static final double CONFIRMED_THRESHOLD = 0.5;
-        public static final double CONFIRMED_TIME = .25;        // Amount of seconds before it considers a target confirmed
-        public static final double INTEGRAL_LIMIT = 0.5; 
+        public static final double CONFIRMED_TIME = .25; // Amount of seconds before it considers a target confirmed
+        public static final double INTEGRAL_LIMIT = 0.5;
         public static final double LIMELIGHT_ERROR_MAX = 29.5;
         public static final double PERCENT_OUTPUT_LIMIT = .5;
         public static final double TIMER_NOT_STARTED_VALUE = 0.0;
