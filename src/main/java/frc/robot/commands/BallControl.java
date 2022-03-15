@@ -34,19 +34,16 @@ public class BallControl extends CommandBase {
         }
 
         // Enable / disable motors
-        if(true == triggerMotorOn){
+        if (true == triggerMotorOn) {
             m_feeder.setTriggerMotor(0.17);
-        }
-        else{
+        } else {
             m_feeder.setTriggerMotor(0);
         }
-        if(true == beltMotorOn){
+        if (true == beltMotorOn) {
             m_feeder.setBeltMotor(0.50);
-        }
-        else{
+        } else {
             m_feeder.setBeltMotor(0);
         }
-        
     }
 
     @Override

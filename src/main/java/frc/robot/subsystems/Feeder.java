@@ -32,9 +32,8 @@ public class Feeder extends SubsystemBase {
 
     // Feeder subsystem
     public Feeder() {
-        m_beltMotor = new WPI_TalonFX(BELT_CAN_ID);        // need to change
-        m_triggerMotor = new WPI_TalonFX(TRIGGER_CAN_ID);     // need to change
-        
+        m_beltMotor = new WPI_TalonFX(BELT_CAN_ID); // need to change
+        m_triggerMotor = new WPI_TalonFX(TRIGGER_CAN_ID); // need to change
 
         m_beltMotor.clearStickyFaults();
         m_beltMotor.configFactoryDefault();

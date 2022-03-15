@@ -77,8 +77,6 @@ public class RobotContainer {
     final JoystickButton xboxTargetBtn = new JoystickButton(m_operatorXboxController,
         XboxController.Button.kLeftBumper.value);
     xboxTargetBtn.whileHeld(new TrackTarget(m_drivetrain, m_targeting));
-
-    
   }
 
   /**
