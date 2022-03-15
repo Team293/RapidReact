@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.ColorSensorV3;
 import static frc.robot.Constants.FeederConstants.*;
@@ -32,12 +32,18 @@ public class Feeder extends SubsystemBase {
 
     // Feeder subsystem
     public Feeder() {
-        m_beltMotor = new WPI_TalonFX(6);
-        m_triggerMotor = new WPI_TalonFX(7);
+        m_beltMotor = new WPI_TalonFX(BELT_CAN_ID); // need to change
+        m_triggerMotor = new WPI_TalonFX(TRIGGER_CAN_ID); // need to change
 
         m_beltMotor.clearStickyFaults();
         m_beltMotor.configFactoryDefault();
-        m_beltMotor.setInverted(false);
+        m_triggerMotor.clearStickyFaults();
+        m_triggerMotor.configFactoryDefault();
+        m_beltMotor.setInverted(true);
+        m_triggerMotor.setInverted(true);
+
+        m_beltMotor.setNeutralMode(NeutralMode.Brake);
+        m_triggerMotor.setNeutralMode(NeutralMode.Brake);
 
         m_colorSensor = new ColorSensorV3(COLOR_SENSOR_PORT);
         m_beltSensor = new DigitalInput(BELT_SENSOR_PORT);
@@ -47,6 +53,9 @@ public class Feeder extends SubsystemBase {
     public void periodic() {
         // This method will be called once per scheduler run
         SmartDashboard.putNumber("Feeder Current Percentage", m_beltMotor.getMotorOutputPercent());
+        SmartDashboard.putBoolean("Trigger Has Ball", isTriggerSensorBallPresent());
+        SmartDashboard.putBoolean("Belt has ball", isBeltSensorBallPresent());
+        SmartDashboard.putNumber("Trigger senesor val ", m_colorSensor.getProximity());
     }
 
     @Override
@@ -55,21 +64,13 @@ public class Feeder extends SubsystemBase {
     }
 
     // Turns belt motor on / off
-    public void enableBeltMotor(boolean enabled) {
-        if (true == enabled) {
-            m_beltMotor.set(ControlMode.PercentOutput, 0.25d);
-        } else {
-            m_beltMotor.set(ControlMode.PercentOutput, 0);
-        }
+    public void setBeltMotor(double percent) {
+        m_beltMotor.set(percent);
     }
 
     // Turns trigger motor on / off
-    public void enableTriggerMotor(boolean enabled) {
-        if (true == enabled) {
-            m_triggerMotor.set(ControlMode.PercentOutput, 0.30d);
-        } else {
-            m_triggerMotor.set(ControlMode.PercentOutput, 0);
-        }
+    public void setTriggerMotor(double percent) {
+        m_triggerMotor.set(percent);
     }
 
     /**
@@ -80,7 +81,7 @@ public class Feeder extends SubsystemBase {
     }
 
     public boolean isBeltSensorBallPresent() {
-        return (m_beltSensor.get());
+        return (false == m_beltSensor.get());
     }
 
     // Returns ball color through Color class
