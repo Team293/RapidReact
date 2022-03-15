@@ -46,7 +46,7 @@ public class Climb extends SubsystemBase
 
         compressor = new Compressor(7, PneumaticsModuleType.REVPH);
 
-        compressor.enableAnalog(0.0, 120.0);
+        compressor.enableAnalog(100.0, 119.5);
    
         rightClimbSolenoid = new DoubleSolenoid(7,PneumaticsModuleType.REVPH,0, 1);  // 1 0
         leftClimbSolenoid = new DoubleSolenoid(7,PneumaticsModuleType.REVPH,2, 3); // 3 2
