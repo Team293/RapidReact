@@ -65,6 +65,8 @@ public class Launcher extends SubsystemBase {
     public void periodic() {
         // Get target RPM from SmartDashboard
         m_targetRpm = SmartDashboard.getNumber("Launcher Target RPM", 0.0d);
+        SmartDashboard.putBoolean("Is ready", isReady());
+
         // Set the launcher wheel to the target RPM
         setRpm(m_targetRpm);
         SmartDashboard.putNumber("Current RPM Shooter",
@@ -133,6 +135,6 @@ public class Launcher extends SubsystemBase {
     }
 
     public void setMotorVoltage(double voltage){
-        m_launcherMotor.setVoltage(voltage);
+        m_launcherMotor.set(ControlMode.PercentOutput, 0);
     }
 }

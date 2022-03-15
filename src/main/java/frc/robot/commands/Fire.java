@@ -81,7 +81,7 @@ public class Fire extends CommandBase {
             if (true == feed) {
                 m_feeder.setTriggerMotor(0.17d);
             } else {
-                m_feeder.setTriggerMotor(0.75d);
+                m_feeder.setTriggerMotor(0.80d);
             }
         } else {
             m_feeder.setTriggerMotor(0.0d);
