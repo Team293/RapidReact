@@ -93,10 +93,6 @@ public class Constants {
 
     public static final class ClimberConstants
     {
-        public static final int LOW_PRESSURE_RETRACTION_SOLENOID = 0;
-        public static final int HIGH_PRESSURE_RETRACTION_SOLENOID = 1;
-        public static final int LOW_PRESSURE_EXTENSION_SOLENOID = 2;
-        public static final int HIGH_PRESSURE_EXTENSION_SOLENOID = 3;
     }
 
     public static final class PneumaticConstants
