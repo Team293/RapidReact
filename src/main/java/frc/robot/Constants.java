@@ -103,7 +103,7 @@ public class Constants {
         public static final double STARTING_HEADING = Math.toRadians(0.0d);
         public static final int AUTO_LAUNCHER_RPM = 2160;
 
-        // Positions relative to location of driver station 👍 ➕ 🍶 🛰 🤰 😘 😼 😹
+        // Positions relative to location of driver station
         public static enum StartPositions {
             INVALID,
             BLUE_LEFT,
@@ -119,7 +119,7 @@ public class Constants {
         public static final int LAUNCHER_CAN_ID = 6;
         public static final double TARGET_RPM_READY_THRESHOLD = 12.5;
         public static final int DEFAULT_TARGET_RPM = 2400;
-        public static final double CLOSED_LOOP_RAMPRATE = 1.0d;
+        public static final double CLOSED_LOOP_RAMPRATE = 0.5d;
         public static final int PID_SLOT_ID = 0;
         public static final int PID_CONFIG_TIMEOUT_MS = 10;
         public static final double KF = 0.052d;
