@@ -74,14 +74,18 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    // Create some buttons
+    // Maps out commands to controller
+    
+    // Fires ball
     final JoystickButton xboxFeedBtn = new JoystickButton(m_operatorXboxController,
         XboxController.Button.kRightBumper.value);
     xboxFeedBtn.whileHeld(new Fire(m_feeder, m_launcher));
-
+    
+    // Tracks target
     final JoystickButton xboxTargetBtn = new JoystickButton(m_operatorXboxController,
         XboxController.Button.kLeftBumper.value);
     xboxTargetBtn.whileHeld(new TrackTarget(m_drivetrain, m_targeting));
+  
 
      // Raise the launcher piston
      final POVButton dpadUpButton = new POVButton(m_operatorXboxController, 0);
@@ -90,48 +94,53 @@ public class RobotContainer {
      // Lower the launcher piston
      final POVButton dpadDownButton = new POVButton(m_operatorXboxController, 180);
      dpadDownButton.whenPressed(new RetractClimb(m_climb));
+     
+     // Rotate robot 180
+    final JoystickButton xboxRotate180Btn = new JoystickButton(m_operatorXboxController,
+        XboxController.Button.kA.value);
+    xboxRotate180Btn.whenPressed(new Rotate(m_drivetrain, 180.0));
+
   }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
-   * @return the command to run in autonomous 
+   * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
     // The selected command will be run in autonomous
-    // When either the alliance colour check or the location check fails it defaults to the blue left side
+    // When either the alliance colour check or the location check fails it defaults
+    // to the blue left side
     Command autoCommand = null;
     Alliance allianceColor = DriverStation.getAlliance();
 
     StartPositions startingPosition = StartPositions.INVALID;
 
-    if(allianceColor == Alliance.Blue) {
-      if(DriverStation.getLocation() == 1) {
+    if (allianceColor == Alliance.Blue) {
+      if (DriverStation.getLocation() == 1) {
         startingPosition = StartPositions.BLUE_LEFT;
-      } else if(DriverStation.getLocation() == 2) {
+      } else if (DriverStation.getLocation() == 2) {
         startingPosition = StartPositions.BLUE_MIDDLE;
-      } else if(DriverStation.getLocation() == 3) {
+      } else if (DriverStation.getLocation() == 3) {
         startingPosition = StartPositions.BLUE_RIGHT;
-      } 
-    } else if(allianceColor == Alliance.Red){
-      if(DriverStation.getLocation() == 1) {
+      }
+    } else if (allianceColor == Alliance.Red) {
+      if (DriverStation.getLocation() == 1) {
         startingPosition = StartPositions.RED_LEFT;
-      } else if(DriverStation.getLocation() == 2) {
+      } else if (DriverStation.getLocation() == 2) {
         startingPosition = StartPositions.RED_MIDDLE;
-      } else if(DriverStation.getLocation() == 3) {
+      } else if (DriverStation.getLocation() == 3) {
         startingPosition = StartPositions.RED_RIGHT;
-      } 
+      }
     } else {
       System.out.println("WARNING - Invalid alliance color! [" + allianceColor + "]");
     }
 
-    if(StartPositions.INVALID == startingPosition)
-    {
+    if (StartPositions.INVALID == startingPosition) {
       System.out.println("WARNING - Invalid starting position! [" + startingPosition + "]");
-    }
-    else
-    {
-      autoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics,m_feeder, m_targeting, m_launcher, startingPosition);
+    } else {
+      autoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, m_feeder, m_targeting, m_launcher,
+          startingPosition);
     }
 
     return autoCommand;
