@@ -88,7 +88,7 @@ public class Fire extends CommandBase {
         }
 
         if(true == beltMotorOn){
-            m_feeder.setBeltMotor(0.50d);
+            m_feeder.setBeltMotor(0.0d);
         } else {
             m_feeder.setBeltMotor(0.0d);
         }
@@ -101,6 +101,6 @@ public class Fire extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        m_launcher.setMotorVoltage(0);
+
     }
 }

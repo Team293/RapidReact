@@ -85,8 +85,8 @@ public class Targeting extends SubsystemBase {
 
     public double calcDistance() {
         double targetOffsetAngle_Vertical = m_targetY.getDouble(0.0);
-        double limelightMountAngleDegrees = 26.742;
-        double limelightLensHeightInches = 11.5;
+        double limelightMountAngleDegrees = 36.574;
+        double limelightLensHeightInches = 33.5;
         double goalHeightInches = 104.0;
 
         double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
