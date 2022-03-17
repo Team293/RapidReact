@@ -60,7 +60,7 @@ public class Constants {
         public static final double POSITION_KP = 0.016d;
         public static final double POSITION_KI = 0.0001d;
         public static final double POSITION_KD = 0.16d;
-        
+
         public static final double CLOSED_LOOP_RAMP = 0.5;
         public static final double MAX_VELOCITY = 21549;
 
@@ -103,9 +103,8 @@ public class Constants {
         public static final double STARTING_HEADING = Math.toRadians(0.0d);
         public static final int AUTO_LAUNCHER_RPM = 2160;
 
-        // Positions relative to location of driver station 👍 ➕ 🍶 🛰 
-        public static enum StartPositions 
-        {
+        // Positions relative to location of driver station
+        public static enum StartPositions {
             INVALID,
             BLUE_LEFT,
             BLUE_MIDDLE,
