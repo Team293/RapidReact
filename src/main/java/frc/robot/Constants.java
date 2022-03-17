@@ -118,7 +118,7 @@ public class Constants {
 
     public static final class LauncherConstants {
         public static final int LAUNCHER_CAN_ID = 6;
-        public static final double TARGET_RPM_READY_THRESHOLD = 40;
+        public static final double TARGET_RPM_READY_THRESHOLD = 10;
         public static final int DEFAULT_TARGET_RPM = 2400;
         public static final double CLOSED_LOOP_RAMPRATE = 0.5d;
         public static final int PID_SLOT_ID = 0;
@@ -139,7 +139,6 @@ public class Constants {
         public static final int BLUE_ZONE_RPM = 2100;
         public static final int RED_ZONE_RPM = 2160;
         public static final double VOLTAGE_SATURATION = 12.0d;
-        public static final double RPM_OFFSET = 50.0d;
         public static final double DUMP_RPM = 1000.0d;
     }
 
