@@ -93,8 +93,8 @@ public class Constants {
 
     public static final class ClimberConstants
     {
-        public static final int LEFT_SOLENOID = 0;
-        public static final int RIGHT_SOLENOID = 1;
+        public static final int CLIMB_RETRACTION_SOLENOID = 0;
+        public static final int CLIMB_EXTENSION_SOLENOID = 1;
     }
 
     public static final class PneumaticConstants

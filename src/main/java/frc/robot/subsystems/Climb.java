@@ -4,13 +4,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Compressor;
 import static frc.robot.Constants.PneumaticConstants.*;
 import static frc.robot.Constants.ClimberConstants.*;
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class Climb extends SubsystemBase 
 {
     
-    private Solenoid leftClimbSolenoid;
-    private Solenoid rightClimbSolenoid;
+    private DoubleSolenoid climbSolenoid;
+
     private Compressor compressor;
 
     public Climb() {
@@ -18,11 +19,9 @@ public class Climb extends SubsystemBase
 
         compressor.enableAnalog(LOWEST_COMPRESSOR_PSI, HIGHEST_COMPRESSOR_PSI);
         
-        rightClimbSolenoid = new Solenoid(PNEUMATIC_MODULE_ID, PNUEMATIC_MODULE_TYPE, RIGHT_SOLENOID);
-        leftClimbSolenoid = new Solenoid(PNEUMATIC_MODULE_ID, PNUEMATIC_MODULE_TYPE, LEFT_SOLENOID);
-         
-        addChild("lowPressureClimbSolenoid",rightClimbSolenoid);  
-        addChild("highPressureClimbSolenoid",leftClimbSolenoid);
+        climbSolenoid = new DoubleSolenoid(PNEUMATIC_MODULE_ID, PNUEMATIC_MODULE_TYPE, CLIMB_RETRACTION_SOLENOID, CLIMB_EXTENSION_SOLENOID);  //  2 3
+
+        addChild("lowPressureClimbSolenoid",climbSolenoid);
     }
 
     @Override
@@ -40,14 +39,11 @@ public class Climb extends SubsystemBase
     // Put methods for controlling this subsystem here. Call these from Commands.
     public void climberDown() 
     {
-        rightClimbSolenoid.set(true);
-        leftClimbSolenoid.set(true);
+        climbSolenoid.set(Value.kReverse);
     }
 
     public void climberUp() 
     {
-        rightClimbSolenoid.set(false);
-        leftClimbSolenoid.set(false);
-
+        climbSolenoid.set(Value.kForward);
     }
 }
