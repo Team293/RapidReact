@@ -10,7 +10,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
 
@@ -91,20 +90,6 @@ public class Constants {
         public static final boolean USE_NAVX_HEADING = false;
     }
 
-    public static final class ClimberConstants
-    {
-        public static final int CLIMB_RETRACTION_SOLENOID = 0;
-        public static final int CLIMB_EXTENSION_SOLENOID = 1;
-    }
-
-    public static final class PneumaticConstants
-    {
-        public static final int PNEUMATIC_MODULE_ID = 7;
-        public static final double LOWEST_COMPRESSOR_PSI = 100.0d;
-        public static final double HIGHEST_COMPRESSOR_PSI = 119.5d;
-        public static final PneumaticsModuleType PNUEMATIC_MODULE_TYPE = PneumaticsModuleType.REVPH;
-    }
-
     public static final class SmoothControlConstants {
         public static final double K1 = 1.0d;
         public static final double K2 = 3.0d;
@@ -118,7 +103,8 @@ public class Constants {
         public static final double STARTING_HEADING = Math.toRadians(0.0d);
         public static final int AUTO_LAUNCHER_RPM = 2160;
 
-        // Positions relative to location of driver station  
+        // Positions relative to location of driver station
+
         public static enum StartPositions {
             INVALID,
             BLUE_LEFT,
@@ -132,13 +118,13 @@ public class Constants {
 
     public static final class LauncherConstants {
         public static final int LAUNCHER_CAN_ID = 6;
-        public static final double TARGET_RPM_READY_THRESHOLD = 100;
+        public static final double TARGET_RPM_READY_THRESHOLD = 40;
         public static final int DEFAULT_TARGET_RPM = 2400;
         public static final double CLOSED_LOOP_RAMPRATE = 0.5d;
         public static final int PID_SLOT_ID = 0;
         public static final int PID_CONFIG_TIMEOUT_MS = 10;
-        public static final double KF = 0.00d;
-        public static final double KP = 1.05d;
+        public static final double KF = 0.059d;
+        public static final double KP = 1.1d;
         public static final double KI = 0.0001d;
         public static final double KD = 15.0d;
         public static final double I_ZONE = 100.0d;
