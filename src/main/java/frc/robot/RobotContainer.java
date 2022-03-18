@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 
@@ -34,6 +35,7 @@ public class RobotContainer {
   public final Drivetrain m_drivetrain = new Drivetrain(m_kinematics);
   public final Launcher m_launcher = new Launcher();
   public final Feeder m_feeder = new Feeder();
+  public final Climb m_climb = new Climb();
 
   // Joysticks
   public final XboxController m_driverXboxController = new XboxController(0);
@@ -78,6 +80,14 @@ public class RobotContainer {
     final JoystickButton xboxTargetBtn = new JoystickButton(m_operatorXboxController,
         XboxController.Button.kLeftBumper.value);
     xboxTargetBtn.whileHeld(new TrackTarget(m_drivetrain, m_targeting));
+
+    // Raise the launcher piston
+    final POVButton dpadUpButton = new POVButton(m_operatorXboxController, 0);
+    dpadUpButton.whenPressed(new ExtendClimb(m_climb));
+
+    // Lower the launcher piston
+    final POVButton dpadDownButton = new POVButton(m_operatorXboxController, 180);
+    dpadDownButton.whenPressed(new RetractClimb(m_climb));
 
     final JoystickButton xboxRotate180Btn = new JoystickButton(m_operatorXboxController,
         XboxController.Button.kA.value);

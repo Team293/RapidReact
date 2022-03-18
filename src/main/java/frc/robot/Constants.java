@@ -11,6 +11,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.I2C.Port;
 
 /**
@@ -60,7 +61,7 @@ public class Constants {
         public static final double POSITION_KP = 0.016d;
         public static final double POSITION_KI = 0.0001d;
         public static final double POSITION_KD = 0.16d;
-        
+
         public static final double CLOSED_LOOP_RAMP = 0.5;
         public static final double MAX_VELOCITY = 21549;
 
@@ -103,9 +104,9 @@ public class Constants {
         public static final double STARTING_HEADING = Math.toRadians(0.0d);
         public static final int AUTO_LAUNCHER_RPM = 2160;
 
-        // Positions relative to location of driver station 👍 ➕ 🍶 🛰 
-        public static enum StartPositions 
-        {
+        // Positions relative to location of driver station
+
+        public static enum StartPositions {
             INVALID,
             BLUE_LEFT,
             BLUE_MIDDLE,
@@ -128,16 +129,9 @@ public class Constants {
         public static final double KI = 0.0001d;
         public static final double KD = 15.0d;
         public static final double I_ZONE = 100.0d;
-        public static final int PISTON_MODULE_NUM = 0;
-        public static final int PISTON_FORWARD_CHANNEL = 0;
-        public static final int PISTON_REVERSE_CHANNEL = 1;
         public static final double GEAR_RATIO = 1.0d;
         public static final int ENCODER_UNITS_PER_REVOLUTION = 2048;
         public static final double MINUTES_TO_DECISECONDS = 600.0d;
-        public static final int GREEN_ZONE_RPM = 2300;
-        public static final int YELLOW_ZONE_RPM = 2200;
-        public static final int BLUE_ZONE_RPM = 2100;
-        public static final int RED_ZONE_RPM = 2160;
         public static final double VOLTAGE_SATURATION = 12.0d;
         public static final double DUMP_RPM = 1000.0d;
     }
@@ -167,5 +161,19 @@ public class Constants {
         public static final double DEFAULT_LAUNCHER_RPM = 1200.0;
         public static final double ERROR_INTEGRAL_DEFAULT = 0.0;
         public static final double LAST_ERROR_DEFAULT = 0.0;
+    }
+
+    public static final class ClimberConstants
+    {
+        public static final int CLIMB_RETRACTION_SOLENOID = 0;
+        public static final int CLIMB_EXTENSION_SOLENOID = 1;
+    }
+
+    public static final class PneumaticConstants
+    {
+        public static final int PNEUMATIC_MODULE_ID = 7;
+        public static final double LOWEST_COMPRESSOR_PSI = 100.0d;
+        public static final double HIGHEST_COMPRESSOR_PSI = 119.5d;
+        public static final PneumaticsModuleType PNUEMATIC_MODULE_TYPE = PneumaticsModuleType.REVPH;
     }
 }
