@@ -101,6 +101,5 @@ public class Fire extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        m_launcher.setMotorVoltage(0);
     }
 }
