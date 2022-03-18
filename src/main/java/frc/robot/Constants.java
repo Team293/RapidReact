@@ -61,7 +61,7 @@ public class Constants {
         public static final double POSITION_KP = 0.016d;
         public static final double POSITION_KI = 0.0001d;
         public static final double POSITION_KD = 0.16d;
-        
+
         public static final double CLOSED_LOOP_RAMP = 0.5;
         public static final double MAX_VELOCITY = 21549;
 
@@ -119,8 +119,7 @@ public class Constants {
         public static final int AUTO_LAUNCHER_RPM = 2160;
 
         // Positions relative to location of driver station  
-        public static enum StartPositions 
-        {
+        public static enum StartPositions {
             INVALID,
             BLUE_LEFT,
             BLUE_MIDDLE,
@@ -143,9 +142,6 @@ public class Constants {
         public static final double KI = 0.0001d;
         public static final double KD = 15.0d;
         public static final double I_ZONE = 100.0d;
-        public static final int PISTON_MODULE_NUM = 0;
-        public static final int PISTON_FORWARD_CHANNEL = 0;
-        public static final int PISTON_REVERSE_CHANNEL = 1;
         public static final double GEAR_RATIO = 1.0d;
         public static final int ENCODER_UNITS_PER_REVOLUTION = 2048;
         public static final double MINUTES_TO_DECISECONDS = 600.0d;
@@ -154,7 +150,6 @@ public class Constants {
         public static final int BLUE_ZONE_RPM = 2100;
         public static final int RED_ZONE_RPM = 2160;
         public static final double VOLTAGE_SATURATION = 12.0d;
-        public static final double RPM_OFFSET = 50.0d;
         public static final double DUMP_RPM = 1000.0d;
     }
 
