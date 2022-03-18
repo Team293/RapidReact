@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Launcher;
+import frc.robot.subsystems.Targeting;
 import frc.robot.Constants.LauncherConstants;
 import frc.robot.subsystems.Feeder;
 
@@ -12,12 +13,14 @@ public class Fire extends CommandBase {
 
     Feeder m_feeder;
     Launcher m_launcher;
+    Targeting m_targeting;
     Color m_teamColor;
     int m_delayCounts;
 
-    public Fire(Feeder feeder, Launcher launcher) {
+    public Fire(Feeder feeder, Launcher launcher, Targeting targeting) {
         m_feeder = feeder;
         m_launcher = launcher;
+        m_targeting = targeting;
         m_delayCounts = 0;
         addRequirements(m_feeder, m_launcher);
 
@@ -42,6 +45,8 @@ public class Fire extends CommandBase {
 
         m_delayCounts--;
 
+        m_targeting.controlLight(true);
+
         if (false == m_feeder.isTriggerSensorBallPresent()) {
             // No ball present
             if (0 >= m_delayCounts) {
@@ -62,7 +67,7 @@ public class Fire extends CommandBase {
                 // WARNING THIS NEEDS TO BE HOOKED IN
 
                 // Set launch rpm using distance
-                m_launcher.setRpm(2600.0d); // WARNING THIS IS A TEST VALUE AND MUST CHANGE!
+                m_launcher.setRpm(m_targeting.calcShooterRPM()); // WARNING THIS IS A TEST VALUE AND MUST CHANGE!
             } else {
                 // The ball is not our team color!
                 // Set dump rpm
@@ -101,6 +106,6 @@ public class Fire extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-
+        m_targeting.controlLight(false);
     }
 }
