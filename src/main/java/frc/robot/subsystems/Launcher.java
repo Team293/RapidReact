@@ -87,6 +87,12 @@ public class Launcher extends SubsystemBase {
         // Save new target RPM
         m_targetRpm = rpm;
 
+        //Checks if requested RPM is over max RPM if so set it to max RPM
+        if (m_targetRpm > MAX_SHOOTER_RPM){
+            m_targetRpm = MAX_SHOOTER_RPM;
+            System.out.println("Shooter has been limited to max RPM: " + MAX_SHOOTER_RPM);
+        }
+
         // Push new RPM target to Dashboad
         SmartDashboard.putNumber("Launcher Target RPM", m_targetRpm);
 
