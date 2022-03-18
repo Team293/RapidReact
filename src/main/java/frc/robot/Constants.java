@@ -11,6 +11,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.I2C.Port;
 
 /**
@@ -118,7 +119,7 @@ public class Constants {
 
     public static final class LauncherConstants {
         public static final int LAUNCHER_CAN_ID = 6;
-        public static final double TARGET_RPM_READY_THRESHOLD = 40;
+        public static final double TARGET_RPM_READY_THRESHOLD = 10;
         public static final int DEFAULT_TARGET_RPM = 2400;
         public static final double CLOSED_LOOP_RAMPRATE = 0.5d;
         public static final int PID_SLOT_ID = 0;
@@ -131,10 +132,6 @@ public class Constants {
         public static final double GEAR_RATIO = 1.0d;
         public static final int ENCODER_UNITS_PER_REVOLUTION = 2048;
         public static final double MINUTES_TO_DECISECONDS = 600.0d;
-        public static final int GREEN_ZONE_RPM = 2300;
-        public static final int YELLOW_ZONE_RPM = 2200;
-        public static final int BLUE_ZONE_RPM = 2100;
-        public static final int RED_ZONE_RPM = 2160;
         public static final double VOLTAGE_SATURATION = 12.0d;
         public static final double DUMP_RPM = 1000.0d;
     }
@@ -164,5 +161,19 @@ public class Constants {
         public static final double DEFAULT_LAUNCHER_RPM = 1200.0;
         public static final double ERROR_INTEGRAL_DEFAULT = 0.0;
         public static final double LAST_ERROR_DEFAULT = 0.0;
+    }
+
+    public static final class ClimberConstants
+    {
+        public static final int CLIMB_RETRACTION_SOLENOID = 0;
+        public static final int CLIMB_EXTENSION_SOLENOID = 1;
+    }
+
+    public static final class PneumaticConstants
+    {
+        public static final int PNEUMATIC_MODULE_ID = 7;
+        public static final double LOWEST_COMPRESSOR_PSI = 100.0d;
+        public static final double HIGHEST_COMPRESSOR_PSI = 119.5d;
+        public static final PneumaticsModuleType PNUEMATIC_MODULE_TYPE = PneumaticsModuleType.REVPH;
     }
 }
