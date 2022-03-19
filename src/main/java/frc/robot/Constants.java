@@ -58,15 +58,15 @@ public class Constants {
         public static final double VELOCITY_KD = 0.06d;
 
         public static final double POSITION_KF = 0.0d;
-        public static final double POSITION_KP = 0.016d;
+        public static final double POSITION_KP = 0.032d;
         public static final double POSITION_KI = 0.0001d;
         public static final double POSITION_KD = 0.16d;
 
         public static final double CLOSED_LOOP_RAMP = 0.5;
         public static final double MAX_VELOCITY = 21549;
 
-        public static final double DEFAULT_MAX_VELOCITY_PERCENTAGE = 0.6;
-        public static final double DEFAULT_MAX_TURNING_SPEED = 0.5d;
+        public static final double DEFAULT_MAX_VELOCITY_PERCENTAGE = 0.85;
+        public static final double DEFAULT_MAX_TURNING_SPEED = 0.65d;
         public static final double VELOCITY_SLOWDOWN_MODIFIER = 0.25d;
         public static final int LEFT_LEAD_TALON_CAN_ID = 2;
         public static final int LEFT_FOLLOWER_TALON_CAN_ID = 0;
@@ -120,8 +120,7 @@ public class Constants {
 
     public static final class LauncherConstants {
         public static final int LAUNCHER_CAN_ID = 6;
-        public static final double TARGET_RPM_READY_THRESHOLD = 10;
-        public static final int DEFAULT_TARGET_RPM = 2400;
+        public static final double TARGET_RPM_READY_THRESHOLD = 20;
         public static final double CLOSED_LOOP_RAMPRATE = 0.5d;
         public static final int PID_SLOT_ID = 0;
         public static final int PID_CONFIG_TIMEOUT_MS = 10;
@@ -134,7 +133,7 @@ public class Constants {
         public static final int ENCODER_UNITS_PER_REVOLUTION = 2048;
         public static final double MINUTES_TO_DECISECONDS = 600.0d;
         public static final double VOLTAGE_SATURATION = 12.0d;
-        public static final double DUMP_RPM = 1000.0d;
+        public static final double DUMP_RPM = 800.0d;
         public static final double MAX_SHOOTER_RPM = 3100.0d;
     }
 
@@ -160,7 +159,7 @@ public class Constants {
         public static final double LIMELIGHT_ERROR_MAX = 29.5;
         public static final double PERCENT_OUTPUT_LIMIT = .5;
         public static final double TIMER_NOT_STARTED_VALUE = 0.0;
-        public static final double DEFAULT_LAUNCHER_RPM = 1200.0;
+        public static final double DEFAULT_LAUNCHER_RPM = 2600.0;
         public static final double ERROR_INTEGRAL_DEFAULT = 0.0;
         public static final double LAST_ERROR_DEFAULT = 0.0;
     }

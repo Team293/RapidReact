@@ -85,13 +85,22 @@ public class RobotContainer {
     final POVButton dpadUpButton = new POVButton(m_operatorXboxController, 0);
     dpadUpButton.whenPressed(new ExtendClimb(m_climb));
 
-    // Lower the launcher piston
+    // Lower the launcher pistonc
     final POVButton dpadDownButton = new POVButton(m_operatorXboxController, 180);
     dpadDownButton.whenPressed(new RetractClimb(m_climb));
 
-    final JoystickButton xboxRotate180Btn = new JoystickButton(m_driverXboxController,
+    final JoystickButton enableLimelight = new JoystickButton(m_operatorXboxController,
         XboxController.Button.kA.value);
-    xboxRotate180Btn.whenPressed(new Rotate(m_drivetrain, 180.0));
+    enableLimelight.whileHeld(new EnableLimelight(m_targeting));
+
+    
+    final JoystickButton disableLimelight = new JoystickButton(m_operatorXboxController,
+        XboxController.Button.kB.value);
+    disableLimelight.whileHeld(new DisableLimelight(m_targeting));
+
+  //   final JoystickButton forceDump = new JoystickButton(m_operatorXboxController,
+  //   XboxController.Button.kX.value);
+  // forceDump.whileHeld(new ForceDump(m_feeder, m_launcher, m_targeting));
   }
 
   /**
@@ -110,19 +119,19 @@ public class RobotContainer {
 
     if (allianceColor == Alliance.Blue) {
       if (DriverStation.getLocation() == 1) {
-        startingPosition = StartPositions.BLUE_LEFT;
+        startingPosition = StartPositions.BLUE_MIDDLE;
       } else if (DriverStation.getLocation() == 2) {
         startingPosition = StartPositions.BLUE_MIDDLE;
       } else if (DriverStation.getLocation() == 3) {
-        startingPosition = StartPositions.BLUE_RIGHT;
+        startingPosition = StartPositions.BLUE_MIDDLE;
       }
     } else if (allianceColor == Alliance.Red) {
       if (DriverStation.getLocation() == 1) {
-        startingPosition = StartPositions.RED_LEFT;
+        startingPosition = StartPositions.BLUE_MIDDLE;
       } else if (DriverStation.getLocation() == 2) {
-        startingPosition = StartPositions.RED_MIDDLE;
+        startingPosition = StartPositions.BLUE_MIDDLE;
       } else if (DriverStation.getLocation() == 3) {
-        startingPosition = StartPositions.RED_RIGHT;
+        startingPosition = StartPositions.BLUE_MIDDLE;
       }
     } else {
       System.out.println("WARNING - Invalid alliance color! [" + allianceColor + "]");
