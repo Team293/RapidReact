@@ -14,6 +14,7 @@ public class BallControl extends CommandBase {
 
     @Override
     public void initialize() {
+        
     }
 
     @Override

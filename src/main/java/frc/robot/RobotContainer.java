@@ -89,7 +89,7 @@ public class RobotContainer {
     final POVButton dpadDownButton = new POVButton(m_operatorXboxController, 180);
     dpadDownButton.whenPressed(new RetractClimb(m_climb));
 
-    final JoystickButton xboxRotate180Btn = new JoystickButton(m_operatorXboxController,
+    final JoystickButton xboxRotate180Btn = new JoystickButton(m_driverXboxController,
         XboxController.Button.kA.value);
     xboxRotate180Btn.whenPressed(new Rotate(m_drivetrain, 180.0));
   }

@@ -56,6 +56,12 @@ public class Feeder extends SubsystemBase {
         SmartDashboard.putBoolean("Trigger Has Ball", isTriggerSensorBallPresent());
         SmartDashboard.putBoolean("Belt has ball", isBeltSensorBallPresent());
         SmartDashboard.putNumber("Trigger senesor val ", m_colorSensor.getProximity());
+        if(getTriggerBallColor().equals(Color.kBlue)){
+            SmartDashboard.putString("Ball Color", "blue");
+        }
+        else{
+            SmartDashboard.putString("Ball Color", "red");
+        }
     }
 
     @Override

@@ -8,12 +8,13 @@ public class Wait extends CommandBase {
 
     public Wait(double waitTime) {
         m_waitTime = waitTime;
+        m_waitTime *= 1000;
+        m_startTime = System.currentTimeMillis();
     }
 
     @Override
     public void initialize() {
-        m_waitTime *= 1000;
-        m_startTime = System.currentTimeMillis();
+
     }
 
     @Override

@@ -67,7 +67,7 @@ public class Fire extends CommandBase {
                 // WARNING THIS NEEDS TO BE HOOKED IN
 
                 // Set launch rpm using distance
-                m_launcher.setRpm(m_targeting.calcShooterRPM()); // WARNING THIS IS A TEST VALUE AND MUST CHANGE!
+                m_launcher.setRpm(m_targeting.calcShooterRPM()); 
             } else {
                 // The ball is not our team color!
                 // Set dump rpm
@@ -93,9 +93,9 @@ public class Fire extends CommandBase {
         }
 
         if(true == beltMotorOn){
-            m_feeder.setBeltMotor(0.0d);
-        } else {
             m_feeder.setBeltMotor(0.5d);
+        } else {
+            m_feeder.setBeltMotor(0.0d);
         }
     }
 

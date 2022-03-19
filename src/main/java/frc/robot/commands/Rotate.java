@@ -2,7 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
-
+import static frc.robot.Constants.DrivetrainConstants.*;
 public class Rotate extends CommandBase {
 
     private final Drivetrain m_drivetrain;
@@ -39,7 +39,7 @@ public class Rotate extends CommandBase {
     @Override
     public boolean isFinished() {
         boolean retVal = false;
-        if(Math.abs(m_drivetrain.getMotorError()) < 1){
+        if(Math.abs(m_drivetrain.getMotorError()) < ALLOWABLE_DRIVETRAIN_ERROR){
             retVal = true;
         }
 
