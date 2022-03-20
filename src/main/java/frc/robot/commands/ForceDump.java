@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Launcher;
@@ -29,7 +30,6 @@ public class ForceDump extends CommandBase {
         // } else {
         //     m_teamColor = Color.kRed;
         // }
-        m_teamColor = Color.kRed;
     }
 
     @Override
@@ -59,7 +59,7 @@ public class ForceDump extends CommandBase {
             // Ball in position to fire
             m_delayCounts = 7; // Force a wait of 350 ms before attempting to load the next ball
 
-            m_launcher.setRpm(LauncherConstants.DUMP_RPM);
+            m_launcher.setRpm(SmartDashboard.getNumber("Launcher Target RPM", 0.0d));
 
             if (false == m_launcher.isReady()) {
                 // The launcher is not ready!

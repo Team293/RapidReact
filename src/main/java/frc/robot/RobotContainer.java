@@ -98,9 +98,9 @@ public class RobotContainer {
         XboxController.Button.kB.value);
     disableLimelight.whileHeld(new DisableLimelight(m_targeting));
 
-  //   final JoystickButton forceDump = new JoystickButton(m_operatorXboxController,
-  //   XboxController.Button.kX.value);
-  // forceDump.whileHeld(new ForceDump(m_feeder, m_launcher, m_targeting));
+    final JoystickButton forceDump = new JoystickButton(m_operatorXboxController,
+    XboxController.Button.kX.value);
+  forceDump.whileHeld(new ForceDump(m_feeder, m_launcher, m_targeting));
   }
 
   /**
@@ -141,7 +141,7 @@ public class RobotContainer {
       System.out.println("WARNING - Invalid starting position! [" + startingPosition + "]");
     } else {
       autoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, m_feeder, m_targeting, m_launcher,
-          startingPosition);
+          startingPosition, m_climb);
     }
 
     return autoCommand;

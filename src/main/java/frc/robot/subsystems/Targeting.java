@@ -67,19 +67,20 @@ public class Targeting extends SubsystemBase {
         double ty = m_targetY.getDouble(0.0);
         if (m_tAcquired.getDouble(0.0) == TARGET_ACQUIRED) {
             // This is where we would calculate the distance
-            if(ty > 6.7){
-                retval = ((450.0/-9.4) * (ty -6.7)) + 2200;
-            }
-            else if(ty >= -2.43 && ty <= 6.7){
-                retval = ((2600-2200)/(-2.43-6.7)) * (ty +2.43) + 2600;
-            }
-            else if(ty <= -2.43 ){
-                retval = ((3000-2600)/(-7.26+2.43)) * (ty + 7.26) + 3000;
-            }
-            else{
-                retval = DEFAULT_LAUNCHER_RPM;
-            }
-            //retval = (Math.pow(ty, 2) * 0.683435) + (ty * -57.5994) + 2515.11;
+            // if(ty > 6.7){
+            //     retval = ((450.0/-9.4) * (ty -6.7)) + 2000;
+            // }
+            // else if(ty >= -2.43 && ty <= 6.7){
+            //     retval = ((2600-2200)/(-2.43-6.7)) * (ty +2.43) + 2400;
+            // }
+            // else if(ty <= -2.43 ){
+            //     retval = ((3000-2600)/(-7.26+2.43)) * (ty + 7.26) + 2800;
+            // }
+            // else{
+            //     retval = DEFAULT_LAUNCHER_RPM;
+            // }
+            //retval = (Math.pow(ty, 2) * 0.683435) + (ty * -57.5994) + 1635.11;
+            retval = (-30.07 * ty) + 1887.42;
         }
 
         return retval;

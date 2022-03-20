@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.AutonomousCommandConstants.StartPositions;
 import frc.robot.classes.Kinematics;
 import frc.robot.classes.Position2D;
+import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Launcher;
@@ -18,8 +19,9 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
     private Feeder m_feeder;
     private Targeting m_targeting;
     private Launcher m_launcher;
+    private Climb m_climb;
 
-    public SequentialAutoCommand(Drivetrain drivetrain, Kinematics kinematics, Feeder feeder, Targeting targeting, Launcher launcher, StartPositions startPosition) {
+    public SequentialAutoCommand(Drivetrain drivetrain, Kinematics kinematics, Feeder feeder, Targeting targeting, Launcher launcher, StartPositions startPosition,Climb climb) {
 
         m_drivetrain = drivetrain;
         m_kinematics = kinematics;
@@ -27,6 +29,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
         m_feeder = feeder;
         m_targeting = targeting;
         m_launcher = launcher;
+        m_climb = climb;
 
         SmartDashboard.putBoolean("AutoDone", false);
         
@@ -56,7 +59,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
                     new Rotate(m_drivetrain, 135.0),
                     // Dumps opposing ball 
                     new ParallelRaceGroup(
-                        new Fire(m_feeder, m_launcher, m_targeting),
+                        new ForceDump(m_feeder, m_launcher, m_targeting),
                         new Wait(3.0)
                     )
                 );
@@ -64,19 +67,22 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
 
             case BLUE_MIDDLE:
                 addCommands(
-                    // Reset kinematics to the blue middle position 
+                    new RetractClimb(m_climb),    
+                // Reset kinematics to the blue middle position 
                     new ResetKinematics(new Position2D(0, 0, Math.toRadians(90)), m_drivetrain, m_kinematics),
                     // Drive to the first blue ball and collect it 
-                    new DriveTo(new Position2D(0, -5, Math.toRadians(90)), 2.0d, false, m_kinematics, m_drivetrain),
+                    new DriveTo(new Position2D(0, -7, Math.toRadians(90)), 2.0d, true, m_kinematics, m_drivetrain),
                     // Turn around to face the hub 
                     //new Rotate(m_drivetrain, 180.0),
                     // Aim at the hub
                     new TrackTarget(m_drivetrain,m_targeting),
+                    new ForceDump(m_feeder, m_launcher, m_targeting)
+
                     // Fire both balls!
-                    new ParallelRaceGroup(
-                        new Fire(m_feeder, m_launcher, m_targeting),
-                        new Wait(3.0)
-                    )
+                    // new ParallelRaceGroup(
+                    //     new ForceDump(m_feeder, m_launcher, m_targeting),
+                    //     new Wait(3.0)
+                    // )
                     // Turns launcher off
                     // new LauncherOff(m_launcher),
                     // // Rotate towards terminal
