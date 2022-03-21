@@ -59,7 +59,7 @@ public class ForceDump extends CommandBase {
             // Ball in position to fire
             m_delayCounts = 7; // Force a wait of 350 ms before attempting to load the next ball
 
-            m_launcher.setRpm(SmartDashboard.getNumber("Launcher Target RPM", 0.0d));
+            m_launcher.setRpm(2000);
 
             if (false == m_launcher.isReady()) {
                 // The launcher is not ready!

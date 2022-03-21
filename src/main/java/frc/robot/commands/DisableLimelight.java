@@ -19,7 +19,7 @@ public class DisableLimelight extends CommandBase {
 
     @Override
     public void execute() {
-       m_targeting.controlLight(true);
+       m_targeting.controlLight(false);
     }
 
     @Override

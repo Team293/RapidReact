@@ -80,7 +80,7 @@ public class Targeting extends SubsystemBase {
             //     retval = DEFAULT_LAUNCHER_RPM;
             // }
             //retval = (Math.pow(ty, 2) * 0.683435) + (ty * -57.5994) + 1635.11;
-            retval = (-30.07 * ty) + 1887.42;
+            retval = (-30.07 * ty) + 1690.42;
         }
 
         return retval;

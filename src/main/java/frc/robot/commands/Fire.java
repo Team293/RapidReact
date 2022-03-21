@@ -107,6 +107,6 @@ public class Fire extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        m_targeting.controlLight(false);
+        
     }
 }

@@ -18,12 +18,12 @@ public class EnableLimelight extends CommandBase {
 
     @Override
     public void execute() {
-       m_targeting.controlLight(false);
+       m_targeting.controlLight(true);
     }
 
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 
     @Override

@@ -65,7 +65,7 @@ public class Constants {
         public static final double CLOSED_LOOP_RAMP = 0.5;
         public static final double MAX_VELOCITY = 21549;
 
-        public static final double DEFAULT_MAX_VELOCITY_PERCENTAGE = 0.85;
+        public static final double DEFAULT_MAX_VELOCITY_PERCENTAGE = 0.95;
         public static final double DEFAULT_MAX_TURNING_SPEED = 0.65d;
         public static final double VELOCITY_SLOWDOWN_MODIFIER = 0.25d;
         public static final int LEFT_LEAD_TALON_CAN_ID = 2;
@@ -89,7 +89,7 @@ public class Constants {
         public static final int ENCODER_UNITS_PER_REVOLUTION = ENCODER_COUNTS_PER_REVOLUTION; // Edges per Rotation
         public static final double TRACK_WIDTH_FEET = 27.5d / 12.0d; // Track width is 27.5 inches
         public static final boolean USE_NAVX_HEADING = false;
-        public static final double ALLOWABLE_DRIVETRAIN_ERROR = 150;
+        public static final double ALLOWABLE_DRIVETRAIN_ERROR = 100;
     }
 
     public static final class SmoothControlConstants {

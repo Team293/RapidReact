@@ -67,16 +67,19 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
 
             case BLUE_MIDDLE:
                 addCommands(
-                    new RetractClimb(m_climb),    
+                    new RetractClimb(m_climb),  
+                    
+                    new EnableLimelight(m_targeting),
                 // Reset kinematics to the blue middle position 
                     new ResetKinematics(new Position2D(0, 0, Math.toRadians(90)), m_drivetrain, m_kinematics),
                     // Drive to the first blue ball and collect it 
-                    new DriveTo(new Position2D(0, -7, Math.toRadians(90)), 2.0d, true, m_kinematics, m_drivetrain),
+                    new DriveTo(new Position2D(0, -9, Math.toRadians(90)), 2.0d, true, m_kinematics, m_drivetrain),
                     // Turn around to face the hub 
                     //new Rotate(m_drivetrain, 180.0),
                     // Aim at the hub
                     new TrackTarget(m_drivetrain,m_targeting),
-                    new ForceDump(m_feeder, m_launcher, m_targeting)
+                    //new ForceDump(m_feeder, m_launcher, m_targeting)
+                    new Fire(m_feeder, m_launcher, m_targeting)
 
                     // Fire both balls!
                     // new ParallelRaceGroup(
