@@ -72,11 +72,6 @@ public class Launcher extends SubsystemBase {
         SmartDashboard.putNumber("Current RPM Shooter", SPIKE293Utils.convertControllerVelocityToRPM(m_launcherMotor.getSelectedSensorVelocity()));
     }
 
-    @Override
-    public void simulationPeriodic() {
-        // This method will be called once per scheduler run when in simulation
-    }
-
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
@@ -92,6 +87,11 @@ public class Launcher extends SubsystemBase {
 
         // Convert RPM to velocity
         velocity = SPIKE293Utils.convertRPMToControllerVelocity(m_targetRpm);
+
+        if (m_targetRpm > MAX_SHOOTER_RPM){
+            m_targetRpm = MAX_SHOOTER_RPM;
+            System.out.println("Shooter has been limited to max RPM: " + MAX_SHOOTER_RPM);
+        }
 
         // Set new velocity
         m_launcherMotor.set(ControlMode.Velocity, velocity);

@@ -43,7 +43,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
                     new TrackTarget(m_drivetrain,m_targeting),
                     // Fire both balls!
                     new ParallelRaceGroup(
-                        new Fire(m_feeder, m_launcher),
+                        new Fire(m_feeder, m_launcher, m_targeting),
                         new Wait(3.0)
                     ),
                     // Turns launcher off
@@ -56,7 +56,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
                     new Rotate(m_drivetrain, 135.0),
                     // Dumps opposing ball 
                     new ParallelRaceGroup(
-                        new Fire(m_feeder, m_launcher),
+                        new Fire(m_feeder, m_launcher, m_targeting),
                         new Wait(3.0)
                     )
                 );
@@ -74,7 +74,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
                     new TrackTarget(m_drivetrain,m_targeting),
                     // Fire both balls!
                     new ParallelRaceGroup(
-                        new Fire(m_feeder, m_launcher),
+                        new Fire(m_feeder, m_launcher, m_targeting),
                         new Wait(3.0)
                     ),
                     // Turns launcher off
@@ -89,7 +89,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
                     new DriveTo(new Position2D(-10.412, -7.359, Math.toRadians(0)), 2.0d, false, m_kinematics, m_drivetrain),
                     // Launches terminal ball 
                     new ParallelRaceGroup(
-                        new Fire(m_feeder, m_launcher),
+                        new Fire(m_feeder, m_launcher, m_targeting),
                         new Wait(3.0)
                     )
                 );
@@ -107,7 +107,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
                     new TrackTarget(m_drivetrain,m_targeting),
                     // Fire both balls!
                     new ParallelRaceGroup(
-                        new Fire(m_feeder, m_launcher),
+                        new Fire(m_feeder, m_launcher, m_targeting),
                         new Wait(3.0)
                     ),
                     // Turns launcher off
@@ -120,7 +120,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
                     new Rotate(m_drivetrain, 180.0),
                     // Dumps enemy ball
                     new ParallelRaceGroup(
-                        new Fire(m_feeder, m_launcher),
+                        new Fire(m_feeder, m_launcher, m_targeting),
                         new Wait(3.0)
                     )
                 );
@@ -138,7 +138,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
                     new TrackTarget(m_drivetrain,m_targeting),
                      // Fire both balls!
                     new ParallelRaceGroup(
-                        new Fire(m_feeder, m_launcher),
+                        new Fire(m_feeder, m_launcher, m_targeting),
                         new Wait(3.0)
                     ),
                     // Turns launcher off
@@ -151,7 +151,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
                     new Rotate(m_drivetrain, 135.0),
                     // Dumps opposing ball 
                     new ParallelRaceGroup( 
-                        new Fire(m_feeder, m_launcher),
+                        new Fire(m_feeder, m_launcher, m_targeting),
                         new Wait(3.0)
                     )
                 );
@@ -169,7 +169,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
                     new TrackTarget(m_drivetrain,m_targeting),
                     // Fire both balls! 
                     new ParallelRaceGroup(
-                        new Fire(m_feeder, m_launcher),
+                        new Fire(m_feeder, m_launcher, m_targeting),
                         new Wait(3.0)
                     ),
                     // Turns launcher off
@@ -184,7 +184,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
                     new DriveTo(new Position2D(10.412, 7.359, Math.toRadians(0)), 2.0d, false, m_kinematics, m_drivetrain),
                     // Launch terminal ball
                     new ParallelRaceGroup(
-                        new Fire(m_feeder, m_launcher),
+                        new Fire(m_feeder, m_launcher, m_targeting),
                         new Wait(3.0)
                     )
                 );
@@ -202,7 +202,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
                     new TrackTarget(m_drivetrain,m_targeting),
                     // Fires both balls!
                     new ParallelRaceGroup(
-                        new Fire(m_feeder, m_launcher),
+                        new Fire(m_feeder, m_launcher, m_targeting),
                         new Wait(3.0)
                     ),
                     // Turns launcher off
@@ -215,7 +215,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
                     new Rotate(m_drivetrain, 180.0),
                     // Dumps enemy ball
                     new ParallelRaceGroup(
-                        new Fire(m_feeder, m_launcher),
+                        new Fire(m_feeder, m_launcher, m_targeting),
                         new Wait(3.0)
                     )
                 );

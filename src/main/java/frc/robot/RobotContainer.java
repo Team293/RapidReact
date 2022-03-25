@@ -10,7 +10,6 @@ import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -40,9 +39,6 @@ public class RobotContainer {
   // Joysticks
   public final XboxController m_driverXboxController = new XboxController(0);
   public final XboxController m_operatorXboxController = new XboxController(1);
-
-  // A chooser for autonomous commands
-  SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -75,7 +71,7 @@ public class RobotContainer {
     // Create some buttons
     final JoystickButton xboxFeedBtn = new JoystickButton(m_operatorXboxController,
         XboxController.Button.kRightBumper.value);
-    xboxFeedBtn.whileHeld(new Fire(m_feeder, m_launcher));
+    xboxFeedBtn.whileHeld(new Fire(m_feeder, m_launcher, m_targeting));
 
     final JoystickButton xboxTargetBtn = new JoystickButton(m_operatorXboxController,
         XboxController.Button.kLeftBumper.value);
@@ -92,6 +88,10 @@ public class RobotContainer {
     final JoystickButton xboxRotate180Btn = new JoystickButton(m_operatorXboxController,
         XboxController.Button.kA.value);
     xboxRotate180Btn.whenPressed(new Rotate(m_drivetrain, 180.0));
+
+    final JoystickButton forceDump = new JoystickButton(m_operatorXboxController,
+        XboxController.Button.kX.value);
+    forceDump.whileHeld(new ForceDump(m_feeder, m_launcher, m_targeting));
   }
 
   /**
@@ -107,21 +107,22 @@ public class RobotContainer {
     Alliance allianceColor = DriverStation.getAlliance();
 
     StartPositions startingPosition = StartPositions.INVALID;
+    int location = 2;
 
     if (allianceColor == Alliance.Blue) {
-      if (DriverStation.getLocation() == 1) {
+      if (1 == location) {
         startingPosition = StartPositions.BLUE_LEFT;
-      } else if (DriverStation.getLocation() == 2) {
+      } else if (2 == location) {
         startingPosition = StartPositions.BLUE_MIDDLE;
-      } else if (DriverStation.getLocation() == 3) {
+      } else if (3 == location) {
         startingPosition = StartPositions.BLUE_RIGHT;
       }
     } else if (allianceColor == Alliance.Red) {
-      if (DriverStation.getLocation() == 1) {
+      if (1 == location) {
         startingPosition = StartPositions.RED_LEFT;
-      } else if (DriverStation.getLocation() == 2) {
+      } else if (2 == location) {
         startingPosition = StartPositions.RED_MIDDLE;
-      } else if (DriverStation.getLocation() == 3) {
+      } else if (3 == location) {
         startingPosition = StartPositions.RED_RIGHT;
       }
     } else {

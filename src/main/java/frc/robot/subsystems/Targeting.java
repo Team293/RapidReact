@@ -39,6 +39,8 @@ public class Targeting extends SubsystemBase {
         m_limeData.getEntry("ledMode").setNumber(LIMELIGHT_LED_ON);
 
         SmartDashboard.putBoolean("isTargetted", false);
+
+        controlLight(true);
     }
 
     @Override
@@ -64,9 +66,9 @@ public class Targeting extends SubsystemBase {
 
     public double calcShooterRPM() {
         double retval = 0.0;
+        double ty = m_targetY.getDouble(0.0);
         if (m_tAcquired.getDouble(0.0) == TARGET_ACQUIRED) {
-            // This is where we would calculate the distance
-            retval = DEFAULT_LAUNCHER_RPM;
+            retval = (-30.07 * ty) + 1690.42;
         }
 
         return retval;
@@ -85,8 +87,8 @@ public class Targeting extends SubsystemBase {
 
     public double calcDistance() {
         double targetOffsetAngle_Vertical = m_targetY.getDouble(0.0);
-        double limelightMountAngleDegrees = 26.742;
-        double limelightLensHeightInches = 11.5;
+        double limelightMountAngleDegrees = 36.574;
+        double limelightLensHeightInches = 33.5;
         double goalHeightInches = 104.0;
 
         double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;

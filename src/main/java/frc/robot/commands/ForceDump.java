@@ -1,34 +1,23 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Launcher;
 import frc.robot.subsystems.Targeting;
-import frc.robot.Constants.LauncherConstants;
 import frc.robot.subsystems.Feeder;
 
-public class Fire extends CommandBase {
+public class ForceDump extends CommandBase {
 
     Feeder m_feeder;
     Launcher m_launcher;
     Targeting m_targeting;
-    Color m_teamColor;
     int m_delayCounts;
 
-    public Fire(Feeder feeder, Launcher launcher, Targeting targeting) {
+    public ForceDump(Feeder feeder, Launcher launcher, Targeting targeting) {
         m_feeder = feeder;
         m_launcher = launcher;
         m_targeting = targeting;
         m_delayCounts = 0;
         addRequirements(m_feeder, m_launcher);
-
-        if (true == DriverStation.getAlliance().equals(Alliance.Blue)) {
-            m_teamColor = Color.kBlue;
-        } else {
-            m_teamColor = Color.kRed;
-        }
     }
 
     @Override
@@ -45,8 +34,6 @@ public class Fire extends CommandBase {
 
         m_delayCounts--;
 
-        m_targeting.controlLight(true);
-
         if (false == m_feeder.isTriggerSensorBallPresent()) {
             // No ball present
             if (0 >= m_delayCounts) {
@@ -59,20 +46,7 @@ public class Fire extends CommandBase {
             // Ball in position to fire
             m_delayCounts = 7; // Force a wait of 350 ms before attempting to load the next ball
 
-            Color triggerBallColor = m_feeder.getTriggerBallColor();
-            if (true == triggerBallColor.equals(m_teamColor)) {
-                // The ball is our team color!
-
-                // Get distance from limelight
-                // WARNING THIS NEEDS TO BE HOOKED IN
-
-                // Set launch rpm using distance
-                m_launcher.setRpm(m_targeting.calcShooterRPM()); 
-            } else {
-                // The ball is not our team color!
-                // Set dump rpm
-                m_launcher.setRpm(LauncherConstants.DUMP_RPM);
-            }
+            m_launcher.setRpm(2000);
 
             if (false == m_launcher.isReady()) {
                 // The launcher is not ready!
@@ -93,9 +67,9 @@ public class Fire extends CommandBase {
         }
 
         if(true == beltMotorOn){
-            m_feeder.setBeltMotor(0.0d);
-        } else {
             m_feeder.setBeltMotor(0.5d);
+        } else {
+            m_feeder.setBeltMotor(0.0d);
         }
     }
 
@@ -106,5 +80,6 @@ public class Fire extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
+
     }
 }

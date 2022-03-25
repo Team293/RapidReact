@@ -58,11 +58,6 @@ public class Feeder extends SubsystemBase {
         SmartDashboard.putNumber("Trigger senesor val ", m_colorSensor.getProximity());
     }
 
-    @Override
-    public void simulationPeriodic() {
-        // This method will be called once per scheduler run when in simulation
-    }
-
     // Turns belt motor on / off
     public void setBeltMotor(double percent) {
         m_beltMotor.set(percent);
