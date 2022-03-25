@@ -93,7 +93,6 @@ public class Launcher extends SubsystemBase {
             System.out.println("Shooter has been limited to max RPM: " + MAX_SHOOTER_RPM);
         }
 
-
         // Set new velocity
         m_launcherMotor.set(ControlMode.Velocity, velocity);
     }
