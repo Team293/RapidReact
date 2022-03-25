@@ -34,7 +34,6 @@ public class ForceDump extends CommandBase {
 
         m_delayCounts--;
 
-
         if (false == m_feeder.isTriggerSensorBallPresent()) {
             // No ball present
             if (0 >= m_delayCounts) {

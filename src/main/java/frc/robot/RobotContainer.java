@@ -10,7 +10,6 @@ import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -40,10 +39,6 @@ public class RobotContainer {
   // Joysticks
   public final XboxController m_driverXboxController = new XboxController(0);
   public final XboxController m_operatorXboxController = new XboxController(1);
-
-  // A chooser for autonomous commands
-  SendableChooser<Command> m_chooser = new SendableChooser<>();
-
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -93,6 +88,10 @@ public class RobotContainer {
     final JoystickButton xboxRotate180Btn = new JoystickButton(m_operatorXboxController,
         XboxController.Button.kA.value);
     xboxRotate180Btn.whenPressed(new Rotate(m_drivetrain, 180.0));
+
+    final JoystickButton forceDump = new JoystickButton(m_operatorXboxController,
+        XboxController.Button.kX.value);
+    forceDump.whileHeld(new ForceDump(m_feeder, m_launcher, m_targeting));
   }
 
   /**
