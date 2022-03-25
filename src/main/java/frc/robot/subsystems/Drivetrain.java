@@ -73,12 +73,14 @@ public class Drivetrain extends SubsystemBase {
         leftTalonLead.config_kI(VELOCITY_PID_SLOT_ID, VELOCITY_KI, PID_CONFIG_TIMEOUT_MS);
         leftTalonLead.config_kD(VELOCITY_PID_SLOT_ID, VELOCITY_KD, PID_CONFIG_TIMEOUT_MS);
         leftTalonLead.configClosedloopRamp(CLOSED_LOOP_RAMP);
+        leftTalonLead.configOpenloopRamp(0.29);
 
         rightTalonLead.config_kF(VELOCITY_PID_SLOT_ID, VELOCITY_KF, PID_CONFIG_TIMEOUT_MS);
         rightTalonLead.config_kP(VELOCITY_PID_SLOT_ID, VELOCITY_KP, PID_CONFIG_TIMEOUT_MS);
         rightTalonLead.config_kI(VELOCITY_PID_SLOT_ID, VELOCITY_KI, PID_CONFIG_TIMEOUT_MS);
         rightTalonLead.config_kD(VELOCITY_PID_SLOT_ID, VELOCITY_KD, PID_CONFIG_TIMEOUT_MS);
         rightTalonLead.configClosedloopRamp(CLOSED_LOOP_RAMP);
+        rightTalonLead.configOpenloopRamp(0.29);
 
         // Configure Position PID
         leftTalonLead.config_kF(POSITION_PID_SLOT_ID, POSITION_KF, PID_CONFIG_TIMEOUT_MS);
@@ -149,11 +151,6 @@ public class Drivetrain extends SubsystemBase {
 
         SmartDashboard.putNumber("Left Motor Position Error", leftTalonLead.getClosedLoopError(0));
         SmartDashboard.putNumber("Right Motor Position Error", rightTalonLead.getClosedLoopError(0));
-    }
-
-    @Override
-    public void simulationPeriodic() {
-        // This method will be called once per scheduler run when in simulation
     }
 
     public void percentDrive(double leftPercentage, double rightPercentage) {

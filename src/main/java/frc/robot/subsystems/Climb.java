@@ -22,18 +22,15 @@ public class Climb extends SubsystemBase
         climbSolenoid = new DoubleSolenoid(PNEUMATIC_MODULE_ID, PNUEMATIC_MODULE_TYPE, CLIMB_RETRACTION_SOLENOID, CLIMB_EXTENSION_SOLENOID);  //  2 3
 
         addChild("lowPressureClimbSolenoid",climbSolenoid);
+
+        //setting the climber to down position to prevent accidental deployment
+        climberDown();
     }
 
     @Override
     public void periodic() 
     {
         // This method will be called once per scheduler run
-    }
-
-    @Override
-    public void simulationPeriodic() 
-    {
-        // This method will be called once per scheduler run when in simulation
     }
 
     // Put methods for controlling this subsystem here. Call these from Commands.

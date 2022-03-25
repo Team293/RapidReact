@@ -77,6 +77,7 @@ public class Constants {
         public static final int PID_CONFIG_TIMEOUT_MS = 10;
         public static final int CONFIG_FEEDBACKSENSOR_TIMEOUT_MS = 4000;
         public static final double MOTOR_NEUTRAL_DEADBAND = 0.001d;
+        public static final int ALLOWABLE_DRIVETRAIN_ERROR = 100;
 
         // MISC Constants
         public static final double WHEEL_CIRCUMFERENCE_FEET = (4.0d / 12.0d) * Math.PI; // Wheel radius 4 in, converting
@@ -134,6 +135,7 @@ public class Constants {
         public static final double MINUTES_TO_DECISECONDS = 600.0d;
         public static final double VOLTAGE_SATURATION = 12.0d;
         public static final double DUMP_RPM = 1000.0d;
+        public static final double MAX_SHOOTER_RPM = 3100.0d;
     }
 
     public static final class FeederConstants {

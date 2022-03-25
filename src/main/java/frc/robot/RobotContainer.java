@@ -44,6 +44,7 @@ public class RobotContainer {
   // A chooser for autonomous commands
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -107,21 +108,22 @@ public class RobotContainer {
     Alliance allianceColor = DriverStation.getAlliance();
 
     StartPositions startingPosition = StartPositions.INVALID;
+    int location = 2;
 
     if (allianceColor == Alliance.Blue) {
-      if (DriverStation.getLocation() == 1) {
+      if (1 == location) {
         startingPosition = StartPositions.BLUE_LEFT;
-      } else if (DriverStation.getLocation() == 2) {
+      } else if (2 == location) {
         startingPosition = StartPositions.BLUE_MIDDLE;
-      } else if (DriverStation.getLocation() == 3) {
+      } else if (3 == location) {
         startingPosition = StartPositions.BLUE_RIGHT;
       }
     } else if (allianceColor == Alliance.Red) {
-      if (DriverStation.getLocation() == 1) {
+      if (1 == location) {
         startingPosition = StartPositions.RED_LEFT;
-      } else if (DriverStation.getLocation() == 2) {
+      } else if (2 == location) {
         startingPosition = StartPositions.RED_MIDDLE;
-      } else if (DriverStation.getLocation() == 3) {
+      } else if (3 == location) {
         startingPosition = StartPositions.RED_RIGHT;
       }
     } else {
