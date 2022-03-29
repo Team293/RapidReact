@@ -135,7 +135,7 @@ public class Constants {
         public static final double MINUTES_TO_DECISECONDS = 600.0d;
         public static final double VOLTAGE_SATURATION = 12.0d;
         public static final double DUMP_RPM = 1000.0d;
-        public static final double MAX_SHOOTER_RPM = 3100.0d;
+        public static final double MAX_SHOOTER_RPM = 2900.0d;
     }
 
     public static final class FeederConstants {

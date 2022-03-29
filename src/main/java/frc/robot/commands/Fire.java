@@ -24,7 +24,7 @@ public class Fire extends CommandBase {
         m_delayCounts = 0;
         addRequirements(m_feeder, m_launcher);
 
-        if (true == DriverStation.getAlliance().equals(Alliance.Blue)) {
+        if (true == DriverStation.getAlliance().equals(DriverStation.Alliance.Blue)) {
             m_teamColor = Color.kBlue;
         } else {
             m_teamColor = Color.kRed;
@@ -58,7 +58,6 @@ public class Fire extends CommandBase {
         } else {
             // Ball in position to fire
             m_delayCounts = 7; // Force a wait of 350 ms before attempting to load the next ball
-
             Color triggerBallColor = m_feeder.getTriggerBallColor();
             if (true == triggerBallColor.equals(m_teamColor)) {
                 // The ball is our team color!

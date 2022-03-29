@@ -162,7 +162,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
                     // Reset kinematics to red middle position 
                     new ResetKinematics(new Position2D(5.350, 5.363, Math.toRadians(-43.5)), m_drivetrain, m_kinematics),
                     // Drive to the first blue ball and collect it 
-                    new DriveTo(new Position2D(10.412, 7.359, Math.toRadians(0)), 2.0d, false, m_kinematics, m_drivetrain),
+                    new DriveTo(new Position2D(10.412, 7.359, Math.toRadians(-43.5)), 2.0d, false, m_kinematics, m_drivetrain),
                     // Rotate to face the hub
                     new Rotate(m_drivetrain, 180.0),
                     // Aim at the hub
