@@ -73,14 +73,14 @@ public class Drivetrain extends SubsystemBase {
         leftTalonLead.config_kI(VELOCITY_PID_SLOT_ID, VELOCITY_KI, PID_CONFIG_TIMEOUT_MS);
         leftTalonLead.config_kD(VELOCITY_PID_SLOT_ID, VELOCITY_KD, PID_CONFIG_TIMEOUT_MS);
         leftTalonLead.configClosedloopRamp(CLOSED_LOOP_RAMP);
-        leftTalonLead.configOpenloopRamp(0.29);
+        leftTalonLead.configOpenloopRamp(0.2);
 
         rightTalonLead.config_kF(VELOCITY_PID_SLOT_ID, VELOCITY_KF, PID_CONFIG_TIMEOUT_MS);
         rightTalonLead.config_kP(VELOCITY_PID_SLOT_ID, VELOCITY_KP, PID_CONFIG_TIMEOUT_MS);
         rightTalonLead.config_kI(VELOCITY_PID_SLOT_ID, VELOCITY_KI, PID_CONFIG_TIMEOUT_MS);
         rightTalonLead.config_kD(VELOCITY_PID_SLOT_ID, VELOCITY_KD, PID_CONFIG_TIMEOUT_MS);
         rightTalonLead.configClosedloopRamp(CLOSED_LOOP_RAMP);
-        rightTalonLead.configOpenloopRamp(0.29);
+        rightTalonLead.configOpenloopRamp(0.2);
 
         // Configure Position PID
         leftTalonLead.config_kF(POSITION_PID_SLOT_ID, POSITION_KF, PID_CONFIG_TIMEOUT_MS);

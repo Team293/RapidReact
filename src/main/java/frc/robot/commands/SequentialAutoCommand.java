@@ -44,17 +44,16 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
                     ),
                     // Turn around to face the hub
                     
-                    new Rotate(m_drivetrain, 190.0),
+                    deadline(new Rotate(m_drivetrain, 180.0), new BallControl(m_feeder)),
 
                     //new DriveTo(new Position2D(0, 3, Math.toRadians(270)), 4.0d, false, m_kinematics, m_drivetrain),
 
                     // Aim at the hub
                     // Fire both balls!
-                    deadline(
-                        new Wait(2), new TrackTarget(m_drivetrain, m_targeting)
-                        ),
+                    deadline(new Wait(3),
+                    new TrackTarget(m_drivetrain, m_targeting)),
 
-                    new ShootAt(m_feeder, m_launcher, 1965)
+                    new ShootAt(m_feeder, m_launcher, 1960)
                     // new ParallelRaceGroup(
                     //     new Fire(m_feeder, m_launcher, m_targeting),
                     //     new Wait(3.0)
