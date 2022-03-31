@@ -87,11 +87,15 @@ public class RobotContainer {
 
     final JoystickButton xboxRotate180Btn = new JoystickButton(m_operatorXboxController,
         XboxController.Button.kA.value);
-    xboxRotate180Btn.whenPressed(new Rotate(m_drivetrain, 180.0));
+    xboxRotate180Btn.whenPressed(new Rotate(m_drivetrain, 190.0));
 
     final JoystickButton forceDump = new JoystickButton(m_operatorXboxController,
         XboxController.Button.kX.value);
-    forceDump.whileHeld(new ForceDump(m_feeder, m_launcher, m_targeting));
+    forceDump.whileHeld(new ShootAt(m_feeder, m_launcher, 2000));
+
+    final JoystickButton eject = new JoystickButton(m_operatorXboxController,
+        XboxController.Button.kB.value);
+    eject.whileHeld(new Eject(m_feeder));
   }
 
   /**
@@ -107,7 +111,7 @@ public class RobotContainer {
     Alliance allianceColor = DriverStation.getAlliance();
 
     StartPositions startingPosition = StartPositions.INVALID;
-    int location = 2;
+    int location = 1;
 
     if (allianceColor == Alliance.Blue) {
       if (1 == location) {
@@ -119,7 +123,7 @@ public class RobotContainer {
       }
     } else if (allianceColor == Alliance.Red) {
       if (1 == location) {
-        startingPosition = StartPositions.RED_LEFT;
+        startingPosition = StartPositions.BLUE_LEFT;
       } else if (2 == location) {
         startingPosition = StartPositions.RED_MIDDLE;
       } else if (3 == location) {

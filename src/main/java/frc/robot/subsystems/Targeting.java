@@ -65,11 +65,11 @@ public class Targeting extends SubsystemBase {
     }
 
     public double calcShooterRPM() {
-        double retval = 0.0;
+        double retval = DEFAULT_LAUNCHER_RPM;
         double ty = m_targetY.getDouble(0.0);
         if (m_tAcquired.getDouble(0.0) == TARGET_ACQUIRED) {
             //retv  al = (-30.07 * ty) + 1690.42;
-            retval = (236 * Math.pow(Math.E, ((-0.239 * ty) - 1.5))) + 1672.48;
+            retval = (230 * Math.pow(Math.E, ((-0.237 * ty) - 1.5))) + 1672.48;
             if(retval > 2900.0){
                 retval = 2900.0;
             }
@@ -105,5 +105,12 @@ public class Targeting extends SubsystemBase {
 
     public double getAngleToTargetDegrees() {
         return -1 * m_targetX.getDouble(0);
+    }
+
+    public boolean hasTarget(){
+        if (m_tAcquired.getDouble(0.0) == TARGET_ACQUIRED) {
+            return true;
+        }
+        return false;
     }
 }

@@ -5,17 +5,17 @@ import frc.robot.subsystems.Launcher;
 import frc.robot.subsystems.Targeting;
 import frc.robot.subsystems.Feeder;
 
-public class ForceDump extends CommandBase {
+public class ShootAt extends CommandBase {
 
     Feeder m_feeder;
     Launcher m_launcher;
-    Targeting m_targeting;
+    double m_rpm;
     int m_delayCounts;
 
-    public ForceDump(Feeder feeder, Launcher launcher, Targeting targeting) {
+    public ShootAt(Feeder feeder, Launcher launcher, double rpm) {
         m_feeder = feeder;
         m_launcher = launcher;
-        m_targeting = targeting;
+        m_rpm = rpm;
         m_delayCounts = 0;
         addRequirements(m_feeder, m_launcher);
     }
@@ -46,7 +46,7 @@ public class ForceDump extends CommandBase {
             // Ball in position to fire
             m_delayCounts = 7; // Force a wait of 350 ms before attempting to load the next ball
 
-            m_launcher.setRpm(2000);
+            m_launcher.setRpm(m_rpm);
 
             if (false == m_launcher.isReady()) {
                 // The launcher is not ready!

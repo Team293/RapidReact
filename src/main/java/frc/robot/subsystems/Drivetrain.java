@@ -86,19 +86,19 @@ public class Drivetrain extends SubsystemBase {
         leftTalonLead.config_kF(POSITION_PID_SLOT_ID, POSITION_KF, PID_CONFIG_TIMEOUT_MS);
         leftTalonLead.config_kP(POSITION_PID_SLOT_ID, POSITION_KP, PID_CONFIG_TIMEOUT_MS);
         leftTalonLead.config_kI(POSITION_PID_SLOT_ID, POSITION_KI, PID_CONFIG_TIMEOUT_MS);
-        leftTalonLead.config_IntegralZone(POSITION_PID_SLOT_ID, 3500);
+        leftTalonLead.config_IntegralZone(POSITION_PID_SLOT_ID, 1000);
         leftTalonLead.config_kD(POSITION_PID_SLOT_ID, POSITION_KD, PID_CONFIG_TIMEOUT_MS);
 
         rightTalonLead.config_kF(POSITION_PID_SLOT_ID, POSITION_KF, PID_CONFIG_TIMEOUT_MS);
         rightTalonLead.config_kP(POSITION_PID_SLOT_ID, POSITION_KP, PID_CONFIG_TIMEOUT_MS);
         rightTalonLead.config_kI(POSITION_PID_SLOT_ID, POSITION_KI, PID_CONFIG_TIMEOUT_MS);
-        rightTalonLead.config_IntegralZone(POSITION_PID_SLOT_ID, 3500);
+        rightTalonLead.config_IntegralZone(POSITION_PID_SLOT_ID, 1000);
         rightTalonLead.config_kD(POSITION_PID_SLOT_ID, POSITION_KD, PID_CONFIG_TIMEOUT_MS);
 
-        rightTalonLead.setNeutralMode(NeutralMode.Coast);
-        rightTalonFollower.setNeutralMode(NeutralMode.Coast);
-        leftTalonLead.setNeutralMode(NeutralMode.Coast);
-        leftTalonFollower.setNeutralMode(NeutralMode.Coast);
+        rightTalonLead.setNeutralMode(NeutralMode.Brake);
+        rightTalonFollower.setNeutralMode(NeutralMode.Brake);
+        leftTalonLead.setNeutralMode(NeutralMode.Brake);
+        leftTalonFollower.setNeutralMode(NeutralMode.Brake);
 
         rightTalonLead.configNeutralDeadband(MOTOR_NEUTRAL_DEADBAND);
         leftTalonLead.configNeutralDeadband(MOTOR_NEUTRAL_DEADBAND);

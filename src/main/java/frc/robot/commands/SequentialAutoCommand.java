@@ -34,31 +34,45 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
             case BLUE_LEFT:
                 addCommands(
                     // Reset kinematics to the blue left position
-                    new ResetKinematics(new Position2D(-7.004, 3.621, Math.toRadians(-136.5)), m_drivetrain, m_kinematics),
+                    
+                    new ResetKinematics(new Position2D(0, 0, Math.toRadians(90)), m_drivetrain, m_kinematics),
                     // Drive to the first ball and collect it
-                    new DriveTo(new Position2D(-10.783, 6.804, Math.toRadians(0)), 2.0d, false, m_kinematics, m_drivetrain),
-                    // Turn around to face the hub
-                    new Rotate(m_drivetrain, 180.0),
-                    // Aim at the hub
-                    new TrackTarget(m_drivetrain,m_targeting),
-                    // Fire both balls!
-                    new ParallelRaceGroup(
-                        new Fire(m_feeder, m_launcher, m_targeting),
-                        new Wait(3.0)
+                    
+                    deadline(
+                        new DriveTo(new Position2D(0, 6, Math.toRadians(90)), 2.0d, false, m_kinematics, m_drivetrain),
+                        new BallControl(m_feeder)
                     ),
+                    // Turn around to face the hub
+                    
+                    new Rotate(m_drivetrain, 190.0),
+
+                    //new DriveTo(new Position2D(0, 3, Math.toRadians(270)), 4.0d, false, m_kinematics, m_drivetrain),
+
+                    // Aim at the hub
+                    // Fire both balls!
+                    deadline(
+                        new Wait(2), new TrackTarget(m_drivetrain, m_targeting)
+                        ),
+
+                    new ShootAt(m_feeder, m_launcher, 1965)
+                    // new ParallelRaceGroup(
+                    //     new Fire(m_feeder, m_launcher, m_targeting),
+                    //     new Wait(3.0)
+                    // )
                     // Turns launcher off
-                    new LauncherOff(m_launcher),
-                    // Rotate torwards opposing ball
-                    new Rotate(m_drivetrain, -90.0),
-                    // Drive to the opposing ball and collect it
-                    new DriveTo(new Position2D(-7.359, 10.412, Math.toRadians(0)), 2.0d, false, m_kinematics, m_drivetrain),
-                    // Rotate away from hub
-                    new Rotate(m_drivetrain, 135.0),
-                    // Dumps opposing ball 
-                    new ParallelRaceGroup(
-                        new Fire(m_feeder, m_launcher, m_targeting),
-                        new Wait(3.0)
-                    )
+                    // new LauncherOff(m_launcher),
+                    // // Rotate torwards opposing ball
+                    // new Rotate(m_drivetrain, -90.0),
+                    // // Drive to the opposing ball and collect it
+                    // new DriveTo(new Position2D(-7.359, 10.412, Math.toRadians(0)), 2.0d, false, m_kinematics, m_drivetrain),
+                    // // Rotate away from hub
+                    // new Rotate(m_drivetrain, 135.0),
+                    // // Dumps opposing ball 
+                    // new ParallelRaceGroup(
+                    //     new Fire(m_feeder, m_launcher, m_targeting),
+                    //     new Wait(3.0)
+                    // )
+                    
                 );
                 break;
 

@@ -58,14 +58,14 @@ public class Constants {
         public static final double VELOCITY_KD = 0.06d;
 
         public static final double POSITION_KF = 0.0d;
-        public static final double POSITION_KP = 0.016d;
+        public static final double POSITION_KP = 0.025d;
         public static final double POSITION_KI = 0.0001d;
-        public static final double POSITION_KD = 0.16d;
+        public static final double POSITION_KD = 0.29d;
 
         public static final double CLOSED_LOOP_RAMP = 0.5;
         public static final double MAX_VELOCITY = 21549;
 
-        public static final double DEFAULT_MAX_VELOCITY_PERCENTAGE = 0.6;
+        public static final double DEFAULT_MAX_VELOCITY_PERCENTAGE = 0.75;
         public static final double DEFAULT_MAX_TURNING_SPEED = 0.5d;
         public static final double VELOCITY_SLOWDOWN_MODIFIER = 0.25d;
         public static final int LEFT_LEAD_TALON_CAN_ID = 2;
@@ -154,7 +154,7 @@ public class Constants {
         public static final double TARGET_ACQUIRED = 1.0;
         public static final double TARGET_NO_TARGET = 0.0;
         public static final double INTEGRAL_WEIGHT = .2;
-        public static final double CONFIRMED_THRESHOLD = 0.5;
+        public static final double CONFIRMED_THRESHOLD = 0.2;
         public static final double CONFIRMED_TIME = .25; // Amount of seconds before it considers a target confirmed
         public static final double INTEGRAL_LIMIT = 0.5;
         public static final double LIMELIGHT_ERROR_MAX = 29.5;
