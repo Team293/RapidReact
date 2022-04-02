@@ -38,7 +38,7 @@ public class Rotate extends CommandBase {
     @Override
     public boolean isFinished() {
         boolean retVal = false;
-        if(Math.abs(m_drivetrain.getGyroYawDegrees() - Math.abs(initalAngle - m_targetDegrees)) < 1){
+        if(Math.abs(m_drivetrain.getGyroYawDegrees() - Math.abs(initalAngle - m_targetDegrees)) < 40){
             SmartDashboard.putBoolean("finished rotating", true);
             retVal = true;
         }
