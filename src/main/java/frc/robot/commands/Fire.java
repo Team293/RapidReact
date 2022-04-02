@@ -1,7 +1,5 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Launcher;
@@ -24,11 +22,7 @@ public class Fire extends CommandBase {
         m_delayCounts = 0;
         addRequirements(m_feeder, m_launcher);
 
-        if (true == DriverStation.getAlliance().equals(DriverStation.Alliance.Blue)) {
             m_teamColor = Color.kBlue;
-        } else {
-            m_teamColor = Color.kRed;
-        }
     }
 
     @Override

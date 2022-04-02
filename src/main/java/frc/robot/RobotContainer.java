@@ -87,7 +87,7 @@ public class RobotContainer {
 
     final JoystickButton xboxRotate180Btn = new JoystickButton(m_operatorXboxController,
         XboxController.Button.kA.value);
-    xboxRotate180Btn.whenPressed(new Rotate(m_drivetrain, 190.0));
+    xboxRotate180Btn.whenPressed(new Rotate(m_drivetrain, 180.0));
 
     final JoystickButton forceDump = new JoystickButton(m_operatorXboxController,
         XboxController.Button.kX.value);

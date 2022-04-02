@@ -1,9 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Feeder;
-import frc.robot.subsystems.Targeting;
 
 public class Eject extends CommandBase {
 
