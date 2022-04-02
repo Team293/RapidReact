@@ -53,7 +53,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
                     deadline(new Wait(3),
                     new TrackTarget(m_drivetrain, m_targeting)),
 
-                    new ShootAt(m_feeder, m_launcher, 1960)
+                    new ShootAt(m_feeder, m_launcher, 2050)
                     // new ParallelRaceGroup(
                     //     new Fire(m_feeder, m_launcher, m_targeting),
                     //     new Wait(3.0)

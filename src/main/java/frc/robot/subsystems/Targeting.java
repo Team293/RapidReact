@@ -73,6 +73,9 @@ public class Targeting extends SubsystemBase {
             if(retval > 2900.0){
                 retval = 2900.0;
             }
+            if(retval < 1000.0){
+                retval = 1000.0;
+            }
         }
 
         return retval;
