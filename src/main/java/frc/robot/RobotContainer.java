@@ -96,6 +96,10 @@ public class RobotContainer {
     final JoystickButton eject = new JoystickButton(m_operatorXboxController,
         XboxController.Button.kB.value);
     eject.whileHeld(new Eject(m_feeder));
+
+    final JoystickButton badBallDump = new JoystickButton(m_operatorXboxController,
+    XboxController.Button.kY.value);
+    badBallDump.whileHeld(new ShootAt(m_feeder, m_launcher, 1000));
   }
 
   /**

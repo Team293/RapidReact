@@ -14,9 +14,9 @@ public class Rotate extends CommandBase {
     private double m_error;
     private double m_change;
     //Base values for tuning
-    private double m_vP = 0.01;
+    private double m_vP = 0.006;
     private double m_vI = 0.000;
-    private double m_vD = 0.1;
+    private double m_vD = 0.06;
 
 
     public Rotate(Drivetrain drivetrain, double targetDegrees) {
@@ -49,6 +49,7 @@ public class Rotate extends CommandBase {
         }
         
         percentOutput = (m_vP * m_error) + (m_vI * m_errorIntegral) + (m_vD * m_change);
+        percentOutput *= 0.4;
         clampPercentOutput(percentOutput);
 
         m_lastError = m_error;
@@ -65,7 +66,7 @@ public class Rotate extends CommandBase {
     @Override
     public boolean isFinished() {
         boolean retVal = false;
-        if(m_error < 10){
+        if(m_error < 20){
             SmartDashboard.putBoolean("finished rotating", true);
             retVal = true;
         }

@@ -50,7 +50,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
 
                     // Aim at the hub
                     // Fire both balls!
-                    deadline(new Wait(3),
+                     deadline(new Wait(3),
                     new TrackTarget(m_drivetrain, m_targeting)),
 
                     new ShootAt(m_feeder, m_launcher, 2050)
