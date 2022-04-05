@@ -51,7 +51,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
                     // Aim at the hub
                     // Fire both balls!
                      deadline(new Wait(3),
-                    new TrackTarget(m_drivetrain, m_targeting)),
+                    new TrackTarget(m_drivetrain, m_targeting, m_launcher)),
 
                     new ShootAt(m_feeder, m_launcher, 2050)
                     // new ParallelRaceGroup(
@@ -84,7 +84,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
                     // Turn around to face the hub 
                     new Rotate(m_drivetrain, 180.0),
                     // Aim at the hub
-                    new TrackTarget(m_drivetrain,m_targeting),
+                    new TrackTarget(m_drivetrain, m_targeting, m_launcher),
                     // Fire both balls!
                     new ParallelRaceGroup(
                         new Fire(m_feeder, m_launcher, m_targeting),
@@ -117,7 +117,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
                     // Rotates to face the hub
                     new Rotate(m_drivetrain, 180.0),
                     // Aims at the hub
-                    new TrackTarget(m_drivetrain,m_targeting),
+                    new TrackTarget(m_drivetrain, m_targeting, m_launcher),
                     // Fire both balls!
                     new ParallelRaceGroup(
                         new Fire(m_feeder, m_launcher, m_targeting),
@@ -148,7 +148,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
                     // Rotates to face the hub
                     new Rotate(m_drivetrain, 180.0),
                     // Aims at the hub
-                    new TrackTarget(m_drivetrain,m_targeting),
+                    new TrackTarget(m_drivetrain, m_targeting, m_launcher),
                      // Fire both balls!
                     new ParallelRaceGroup(
                         new Fire(m_feeder, m_launcher, m_targeting),
@@ -179,7 +179,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
                     // Rotate to face the hub
                     new Rotate(m_drivetrain, 180.0),
                     // Aim at the hub
-                    new TrackTarget(m_drivetrain,m_targeting),
+                    new TrackTarget(m_drivetrain, m_targeting, m_launcher),
                     // Fire both balls! 
                     new ParallelRaceGroup(
                         new Fire(m_feeder, m_launcher, m_targeting),
@@ -212,7 +212,7 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
                     // Rotate to face the hub
                     new Rotate(m_drivetrain, 180.0),
                     // Aim at the hub
-                    new TrackTarget(m_drivetrain,m_targeting),
+                    new TrackTarget(m_drivetrain, m_targeting, m_launcher),
                     // Fires both balls!
                     new ParallelRaceGroup(
                         new Fire(m_feeder, m_launcher, m_targeting),
