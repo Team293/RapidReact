@@ -69,6 +69,8 @@ public class Fire extends CommandBase {
         if (true == triggerMotorOn) {
             if (true == feed) {
                 m_feeder.setTriggerMotor(0.17d);
+                // Write to file - get launcher speed, get distance
+                
             } else {
                 m_feeder.setTriggerMotor(0.80d);
             }
@@ -82,6 +84,14 @@ public class Fire extends CommandBase {
             m_feeder.setBeltMotor(0.0d);
         }
     }
+
+
+
+
+		
+    
+
+}
 
     @Override
     public boolean isFinished() {
