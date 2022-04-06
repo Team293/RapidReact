@@ -2,21 +2,40 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.FileWriter;
 
+public class WriteToCSV extends SubsystemBase {
+	final String m_Filename = "/home/lvuser/match_data.csv";
+	final boolean m_Append = false;
+	BufferedWriter m_File;
 
-public class WriteToCSV extends SubsystemBase{
-    public void robotInit() {
-    	try {
-    		File writer = new File("/home/lvuser/launcher.csv");
-            writer.write(String.format("%f,%f,%f\n", m_launcher.getCurrentRpm(), m_targeting.calcDistance()));
-            writer.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();       
+	public WriteToCSV() {
+		System.out.println("Initializing log file.");
+
+		try {
+			// Open File
+			FileWriter fstream = new FileWriter(m_Filename, m_Append);
+			m_File = new BufferedWriter(fstream);
+
+			System.out.println("Opened log file at " + m_Filename);
+		} catch (Exception e) {
+			System.out.println("Failed to open log file. " + m_Filename);
 		}
-    }
+	}
+
+	// Writes a string to the data file.
+	// Returns true if successful, false otherwise
+	public boolean writeToFile(String stringToWrite) {
+		boolean retval = true;
+
+		try {
+			// Write string to file
+			m_File.append(stringToWrite);
+		} catch (Exception e) {
+			// Failed to write
+			retval = false;
+		}
+
+		return retval;
+	}
 }

@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Launcher;
 import frc.robot.subsystems.Targeting;
-import frc.robot.Constants.LauncherConstants;
+import frc.robot.subsystems.WriteToCSV;
 import frc.robot.subsystems.Feeder;
 
 public class Fire extends CommandBase {
@@ -13,16 +13,20 @@ public class Fire extends CommandBase {
     Launcher m_launcher;
     Targeting m_targeting;
     Color m_teamColor;
+    WriteToCSV m_logger;
     int m_delayCounts;
 
-    public Fire(Feeder feeder, Launcher launcher, Targeting targeting) {
+    public Fire(Feeder feeder, Launcher launcher, Targeting targeting, WriteToCSV logger) {
         m_feeder = feeder;
         m_launcher = launcher;
         m_targeting = targeting;
         m_delayCounts = 0;
+        m_logger = logger;
         addRequirements(m_feeder, m_launcher);
+        m_teamColor = Color.kRed;
 
-            m_teamColor = Color.kRed;
+        // Write data log header
+        writeDataHeader();
     }
 
     @Override
@@ -31,11 +35,14 @@ public class Fire extends CommandBase {
 
     @Override
     public void execute() {
-
         // Assume both motors will be on!
         boolean triggerMotorOn = true;
         boolean beltMotorOn = false;
         boolean feed = false;
+        double triggerMotorSet = 0.0d;
+        double beltMotorSet = 0.0d;
+        double rpmSet = -1.0d;
+        boolean launcherReady = false;
 
         m_delayCounts--;
 
@@ -52,46 +59,54 @@ public class Fire extends CommandBase {
         } else {
             // Ball in position to fire
             m_delayCounts = 7; // Force a wait of 350 ms before attempting to load the next ball
-            if(m_targeting.hasTarget()){
-                //only set the shooter to an rpm if it has a target
-                m_launcher.setRpm(m_targeting.calcShooterRPM());
+            if (m_targeting.hasTarget()) {
+                // only set the shooter to an rpm if it has a target
+                // Calc launcher RPMs
+                rpmSet = m_targeting.calcShooterRPM();
+                m_launcher.setRpm(rpmSet);
             }
-            
-            if (false == m_launcher.isReady()) {
+
+            launcherReady = m_launcher.isReady();
+            if (false == launcherReady) {
                 // The launcher is not ready!
                 // Turn the trigger motor off!
                 triggerMotorOn = false;
             }
-            
         }
 
         // Enable / disable motors
         if (true == triggerMotorOn) {
             if (true == feed) {
-                m_feeder.setTriggerMotor(0.17d);
+                triggerMotorSet = 0.17d;
                 // Write to file - get launcher speed, get distance
-                
             } else {
-                m_feeder.setTriggerMotor(0.80d);
+                triggerMotorSet = 0.80d;
             }
-        } else {
-            m_feeder.setTriggerMotor(0.0d);
         }
 
-        if(true == beltMotorOn){
-            m_feeder.setBeltMotor(0.5d);
-        } else {
-            m_feeder.setBeltMotor(0.0d);
+        if (true == beltMotorOn) {
+            beltMotorSet = 0.5d;
         }
+
+        m_feeder.setTriggerMotor(triggerMotorSet);
+        m_feeder.setBeltMotor(beltMotorSet);
+        writeData(triggerMotorSet, beltMotorSet, rpmSet, m_launcher.getCurrentRpm(), launcherReady);
     }
 
+    private void writeDataHeader() {
+        String stringToWrite = "ID, Time, TriggerMotorSet, BeltMotorSet, RpmSet, CurrentRpm, LauncherReady, DistanceToTarget, AngleToTargetDeg, IsTargeted\n";
+        m_logger.writeToFile(stringToWrite);
+    }
 
+    private void writeData(double triggerMotorSet, double beltMotorSet, double rpmSet, double currentRpm,
+            boolean launcherReady) {
+        String stringToWrite = String.format("Fire,%d, %.2f, %.2f, %.2f, %.2f, %b, %.2f, %.2f, %b\n",
+                System.currentTimeMillis(), triggerMotorSet, beltMotorSet,
+                rpmSet, currentRpm, launcherReady,
+                m_targeting.calcDistance(), m_targeting.getAngleToTargetDegrees(), m_targeting.isTargeted());
 
-
-		
-    
-
-}
+        m_logger.writeToFile(stringToWrite);
+    }
 
     @Override
     public boolean isFinished() {

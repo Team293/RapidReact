@@ -35,6 +35,7 @@ public class RobotContainer {
   public final Launcher m_launcher = new Launcher();
   public final Feeder m_feeder = new Feeder();
   public final Climb m_climb = new Climb();
+  public final WriteToCSV m_logger = new WriteToCSV();
 
   // Joysticks
   public final XboxController m_driverXboxController = new XboxController(0);
@@ -71,7 +72,7 @@ public class RobotContainer {
     // Create some buttons
     final JoystickButton xboxFeedBtn = new JoystickButton(m_operatorXboxController,
         XboxController.Button.kRightBumper.value);
-    xboxFeedBtn.whileHeld(new Fire(m_feeder, m_launcher, m_targeting));
+    xboxFeedBtn.whileHeld(new Fire(m_feeder, m_launcher, m_targeting, m_logger));
 
     final JoystickButton xboxTargetBtn = new JoystickButton(m_operatorXboxController,
         XboxController.Button.kLeftBumper.value);
@@ -98,7 +99,7 @@ public class RobotContainer {
     eject.whileHeld(new Eject(m_feeder));
 
     final JoystickButton badBallDump = new JoystickButton(m_operatorXboxController,
-    XboxController.Button.kY.value);
+        XboxController.Button.kY.value);
     badBallDump.whileHeld(new ShootAt(m_feeder, m_launcher, 1000));
   }
 
@@ -141,7 +142,7 @@ public class RobotContainer {
       System.out.println("WARNING - Invalid starting position! [" + startingPosition + "]");
     } else {
       autoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, m_feeder, m_targeting, m_launcher,
-          startingPosition);
+          startingPosition, m_logger);
     }
 
     return autoCommand;
