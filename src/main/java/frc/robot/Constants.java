@@ -58,15 +58,15 @@ public class Constants {
         public static final double VELOCITY_KD = 0.06d;
 
         public static final double POSITION_KF = 0.0d;
-        public static final double POSITION_KP = 0.016d;
-        public static final double POSITION_KI = 0.0001d;
-        public static final double POSITION_KD = 0.16d;
+        public static final double POSITION_KP = 0.029d;
+        public static final double POSITION_KI = 0.0004d;
+        public static final double POSITION_KD = 0.29d;
 
         public static final double CLOSED_LOOP_RAMP = 0.5;
         public static final double MAX_VELOCITY = 21549;
 
-        public static final double DEFAULT_MAX_VELOCITY_PERCENTAGE = 0.6;
-        public static final double DEFAULT_MAX_TURNING_SPEED = 0.5d;
+        public static final double DEFAULT_MAX_VELOCITY_PERCENTAGE = 0.85;
+        public static final double DEFAULT_MAX_TURNING_SPEED = 0.55d;
         public static final double VELOCITY_SLOWDOWN_MODIFIER = 0.25d;
         public static final int LEFT_LEAD_TALON_CAN_ID = 2;
         public static final int LEFT_FOLLOWER_TALON_CAN_ID = 0;
@@ -77,7 +77,7 @@ public class Constants {
         public static final int PID_CONFIG_TIMEOUT_MS = 10;
         public static final int CONFIG_FEEDBACKSENSOR_TIMEOUT_MS = 4000;
         public static final double MOTOR_NEUTRAL_DEADBAND = 0.001d;
-        public static final int ALLOWABLE_DRIVETRAIN_ERROR = 100;
+        public static final int ALLOWABLE_DRIVETRAIN_ERROR = 200;
 
         // MISC Constants
         public static final double WHEEL_CIRCUMFERENCE_FEET = (4.0d / 12.0d) * Math.PI; // Wheel radius 4 in, converting
@@ -103,10 +103,9 @@ public class Constants {
         public static final double STARTING_X = 0.0d;
         public static final double STARTING_Y = 0.0d;
         public static final double STARTING_HEADING = Math.toRadians(0.0d);
-        public static final int AUTO_LAUNCHER_RPM = 2160;
+        public static final int AUTO_LAUNCHER_RPM = 2050;
 
         // Positions relative to location of driver station
-
         public static enum StartPositions {
             INVALID,
             BLUE_LEFT,
@@ -121,7 +120,7 @@ public class Constants {
     public static final class LauncherConstants {
         public static final int LAUNCHER_CAN_ID = 6;
         public static final double TARGET_RPM_READY_THRESHOLD = 10;
-        public static final int DEFAULT_TARGET_RPM = 2400;
+        public static final int DEFAULT_TARGET_RPM = 2000;
         public static final double CLOSED_LOOP_RAMPRATE = 0.5d;
         public static final int PID_SLOT_ID = 0;
         public static final int PID_CONFIG_TIMEOUT_MS = 10;
@@ -135,7 +134,7 @@ public class Constants {
         public static final double MINUTES_TO_DECISECONDS = 600.0d;
         public static final double VOLTAGE_SATURATION = 12.0d;
         public static final double DUMP_RPM = 1000.0d;
-        public static final double MAX_SHOOTER_RPM = 3100.0d;
+        public static final double MAX_SHOOTER_RPM = 2900.0d;
     }
 
     public static final class FeederConstants {
@@ -154,13 +153,12 @@ public class Constants {
         public static final double TARGET_ACQUIRED = 1.0;
         public static final double TARGET_NO_TARGET = 0.0;
         public static final double INTEGRAL_WEIGHT = .2;
-        public static final double CONFIRMED_THRESHOLD = 0.5;
+        public static final double CONFIRMED_THRESHOLD = 0.2;
         public static final double CONFIRMED_TIME = .25; // Amount of seconds before it considers a target confirmed
         public static final double INTEGRAL_LIMIT = 0.5;
         public static final double LIMELIGHT_ERROR_MAX = 29.5;
         public static final double PERCENT_OUTPUT_LIMIT = .5;
         public static final double TIMER_NOT_STARTED_VALUE = 0.0;
-        public static final double DEFAULT_LAUNCHER_RPM = 1200.0;
         public static final double ERROR_INTEGRAL_DEFAULT = 0.0;
         public static final double LAST_ERROR_DEFAULT = 0.0;
     }

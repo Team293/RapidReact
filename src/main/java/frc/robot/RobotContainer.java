@@ -35,6 +35,7 @@ public class RobotContainer {
   public final Launcher m_launcher = new Launcher();
   public final Feeder m_feeder = new Feeder();
   public final Climb m_climb = new Climb();
+  public final WriteToCSV m_logger = new WriteToCSV();
 
   // Joysticks
   public final XboxController m_driverXboxController = new XboxController(0);
@@ -71,11 +72,11 @@ public class RobotContainer {
     // Create some buttons
     final JoystickButton xboxFeedBtn = new JoystickButton(m_operatorXboxController,
         XboxController.Button.kRightBumper.value);
-    xboxFeedBtn.whileHeld(new Fire(m_feeder, m_launcher, m_targeting));
+    xboxFeedBtn.whileHeld(new Fire(m_feeder, m_launcher, m_targeting, m_logger));
 
     final JoystickButton xboxTargetBtn = new JoystickButton(m_operatorXboxController,
         XboxController.Button.kLeftBumper.value);
-    xboxTargetBtn.whileHeld(new TrackTarget(m_drivetrain, m_targeting));
+    xboxTargetBtn.whileHeld(new TrackTarget(m_drivetrain, m_targeting, m_launcher));
 
     // Raise the launcher piston
     final POVButton dpadUpButton = new POVButton(m_operatorXboxController, 0);
@@ -91,7 +92,15 @@ public class RobotContainer {
 
     final JoystickButton forceDump = new JoystickButton(m_operatorXboxController,
         XboxController.Button.kX.value);
-    forceDump.whileHeld(new ForceDump(m_feeder, m_launcher, m_targeting));
+    forceDump.whileHeld(new Fire(m_feeder, m_launcher, m_targeting,  m_logger, 2000.0d));
+
+    final JoystickButton eject = new JoystickButton(m_operatorXboxController,
+        XboxController.Button.kB.value);
+    eject.whileHeld(new Eject(m_feeder));
+
+    final JoystickButton badBallDump = new JoystickButton(m_operatorXboxController,
+        XboxController.Button.kY.value);
+    badBallDump.whileHeld(new Fire(m_feeder, m_launcher, m_targeting,  m_logger, 1000.0d)); /////BJM Why do we have this?
   }
 
   /**
@@ -107,7 +116,7 @@ public class RobotContainer {
     Alliance allianceColor = DriverStation.getAlliance();
 
     StartPositions startingPosition = StartPositions.INVALID;
-    int location = 2;
+    int location = 1;
 
     if (allianceColor == Alliance.Blue) {
       if (1 == location) {
@@ -119,7 +128,7 @@ public class RobotContainer {
       }
     } else if (allianceColor == Alliance.Red) {
       if (1 == location) {
-        startingPosition = StartPositions.RED_LEFT;
+        startingPosition = StartPositions.BLUE_LEFT;
       } else if (2 == location) {
         startingPosition = StartPositions.RED_MIDDLE;
       } else if (3 == location) {
@@ -133,7 +142,7 @@ public class RobotContainer {
       System.out.println("WARNING - Invalid starting position! [" + startingPosition + "]");
     } else {
       autoCommand = new SequentialAutoCommand(m_drivetrain, m_kinematics, m_feeder, m_targeting, m_launcher,
-          startingPosition);
+          startingPosition, m_logger);
     }
 
     return autoCommand;
