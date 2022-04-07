@@ -3,13 +3,14 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants.AutonomousCommandConstants.StartPositions;
 import frc.robot.classes.Kinematics;
 import frc.robot.classes.Position2D;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Launcher;
 import frc.robot.subsystems.Targeting;
+
+import static frc.robot.Constants.AutonomousCommandConstants.*;
 
 public class SequentialAutoCommand extends SequentialCommandGroup {
     private StartPositions m_startPosition;
@@ -34,44 +35,24 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
             case BLUE_LEFT:
                 addCommands(
                     // Reset kinematics to the blue left position
-                    
                     new ResetKinematics(new Position2D(0, 0, Math.toRadians(90)), m_drivetrain, m_kinematics),
+
                     // Drive to the first ball and collect it
-                    
                     deadline(
                         new DriveTo(new Position2D(0, 6, Math.toRadians(90)), 2.0d, false, m_kinematics, m_drivetrain),
                         new BallControl(m_feeder)
                     ),
-                    // Turn around to face the hub
-                    
-                    deadline(new Rotate(m_drivetrain, 180.0), new BallControl(m_feeder)),
 
-                    //new DriveTo(new Position2D(0, 3, Math.toRadians(270)), 4.0d, false, m_kinematics, m_drivetrain),
+                    // Turn around to face the hub
+                    deadline(new Rotate(m_drivetrain, 180.0), 
+                             new BallControl(m_feeder)),
 
                     // Aim at the hub
                     // Fire both balls!
                      deadline(new Wait(3),
-                    new TrackTarget(m_drivetrain, m_targeting, m_launcher)),
+                              new TrackTarget(m_drivetrain, m_targeting, m_launcher)),
 
-                    new ShootAt(m_feeder, m_launcher, 2050)
-                    // new ParallelRaceGroup(
-                    //     new Fire(m_feeder, m_launcher, m_targeting),
-                    //     new Wait(3.0)
-                    // )
-                    // Turns launcher off
-                    // new LauncherOff(m_launcher),
-                    // // Rotate torwards opposing ball
-                    // new Rotate(m_drivetrain, -90.0),
-                    // // Drive to the opposing ball and collect it
-                    // new DriveTo(new Position2D(-7.359, 10.412, Math.toRadians(0)), 2.0d, false, m_kinematics, m_drivetrain),
-                    // // Rotate away from hub
-                    // new Rotate(m_drivetrain, 135.0),
-                    // // Dumps opposing ball 
-                    // new ParallelRaceGroup(
-                    //     new Fire(m_feeder, m_launcher, m_targeting),
-                    //     new Wait(3.0)
-                    // )
-                    
+                    new ShootAt(m_feeder, m_launcher, AUTO_LAUNCHER_RPM)
                 );
                 break;
 
