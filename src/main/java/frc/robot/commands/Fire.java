@@ -1,6 +1,5 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Launcher;
 import frc.robot.subsystems.Targeting;
@@ -12,9 +11,10 @@ public class Fire extends CommandBase {
     Feeder m_feeder;
     Launcher m_launcher;
     Targeting m_targeting;
-    Color m_teamColor;
     WriteToCSV m_logger;
     int m_delayCounts;
+    final boolean m_overrideTargeting;
+    final double m_rpmOverrideSet;
 
     public Fire(Feeder feeder, Launcher launcher, Targeting targeting, WriteToCSV logger) {
         m_feeder = feeder;
@@ -22,11 +22,26 @@ public class Fire extends CommandBase {
         m_targeting = targeting;
         m_delayCounts = 0;
         m_logger = logger;
-        addRequirements(m_feeder, m_launcher);
-        m_teamColor = Color.kRed;
 
-        // Write data log header
-        writeDataHeader();
+        //We are NOT ignoring the targeting subsystem
+        m_overrideTargeting = false;
+        m_rpmOverrideSet = 0.0d;
+
+        addRequirements(m_feeder, m_launcher);
+    }
+
+    public Fire(Feeder feeder, Launcher launcher, Targeting targeting, WriteToCSV logger, double rpmOverrideSet) {
+        m_feeder = feeder;
+        m_launcher = launcher;
+        m_targeting = targeting;
+        m_delayCounts = 0;
+        m_logger = logger;
+        
+        //We're ignoring the targeting system and manually setting the launcher RPMs
+        m_overrideTargeting = true;
+        m_rpmOverrideSet = rpmOverrideSet;
+
+        addRequirements(m_feeder, m_launcher);
     }
 
     @Override
@@ -59,7 +74,14 @@ public class Fire extends CommandBase {
         } else {
             // Ball in position to fire
             m_delayCounts = 7; // Force a wait of 350 ms before attempting to load the next ball
-            if (m_targeting.hasTarget()) {
+
+            // Calc launcher RPMs
+            if(true == m_overrideTargeting){
+                //We're ignoring the targeting module!
+                rpmSet = m_rpmOverrideSet;
+                //Set the launcher RPMs
+                m_launcher.setRpm(rpmSet);
+            } else {
                 // only set the shooter to an rpm if it has a target
                 // Calc launcher RPMs
                 rpmSet = m_targeting.calcShooterRPM();
@@ -93,13 +115,7 @@ public class Fire extends CommandBase {
         writeData(triggerMotorSet, beltMotorSet, rpmSet, m_launcher.getCurrentRpm(), launcherReady);
     }
 
-    private void writeDataHeader() {
-        String stringToWrite = "ID, Time, TriggerMotorSet, BeltMotorSet, RpmSet, CurrentRpm, LauncherReady, DistanceToTarget, AngleToTargetDeg, IsTargeted\n";
-        m_logger.writeToFile(stringToWrite);
-    }
-
-    private void writeData(double triggerMotorSet, double beltMotorSet, double rpmSet, double currentRpm,
-            boolean launcherReady) {
+    private void writeData(double triggerMotorSet, double beltMotorSet, double rpmSet, double currentRpm, boolean launcherReady) {
         String stringToWrite = String.format("Fire,%d, %.2f, %.2f, %.2f, %.2f, %b, %.2f, %.2f, %b\n",
                 System.currentTimeMillis(), triggerMotorSet, beltMotorSet,
                 rpmSet, currentRpm, launcherReady,

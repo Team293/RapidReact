@@ -92,7 +92,7 @@ public class RobotContainer {
 
     final JoystickButton forceDump = new JoystickButton(m_operatorXboxController,
         XboxController.Button.kX.value);
-    forceDump.whileHeld(new ShootAt(m_feeder, m_launcher, 2000));
+    forceDump.whileHeld(new Fire(m_feeder, m_launcher, m_targeting,  m_logger, 2000.0d));
 
     final JoystickButton eject = new JoystickButton(m_operatorXboxController,
         XboxController.Button.kB.value);
@@ -100,7 +100,7 @@ public class RobotContainer {
 
     final JoystickButton badBallDump = new JoystickButton(m_operatorXboxController,
         XboxController.Button.kY.value);
-    badBallDump.whileHeld(new ShootAt(m_feeder, m_launcher, 1000));
+    badBallDump.whileHeld(new Fire(m_feeder, m_launcher, m_targeting,  m_logger, 1000.0d)); /////BJM Why do we have this?
   }
 
   /**

@@ -17,11 +17,20 @@ public class WriteToCSV extends SubsystemBase {
 			FileWriter fstream = new FileWriter(m_Filename, m_Append);
 			m_File = new BufferedWriter(fstream);
 
+
+			//Write the header
+			writeHeader();
+
 			System.out.println("Opened log file at " + m_Filename);
 		} catch (Exception e) {
 			System.out.println("Failed to open log file. " + m_Filename);
 		}
 	}
+
+	private void writeHeader() {
+        String stringToWrite = "ID, Time, TriggerMotorSet, BeltMotorSet, RpmSet, CurrentRpm, LauncherReady, DistanceToTarget, AngleToTargetDeg, IsTargeted\n";
+        writeToFile(stringToWrite);
+    }
 
 	// Writes a string to the data file.
 	// Returns true if successful, false otherwise
