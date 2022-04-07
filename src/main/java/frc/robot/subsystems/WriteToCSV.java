@@ -39,6 +39,15 @@ public class WriteToCSV extends SubsystemBase {
 		}
 	}
 
+	@Override
+    public void periodic() {
+        try {
+			m_File.flush();
+		} catch (Exception e) {
+			//Cannot flush
+		}
+    }
+
 	private void writeHeader() {
         String stringToWrite = "ID, Time, TriggerMotorSet, BeltMotorSet, RpmSet, CurrentRpm, LauncherReady, DistanceToTarget, AngleToTargetDeg, IsTargeted\n";
         writeToFile(stringToWrite);
