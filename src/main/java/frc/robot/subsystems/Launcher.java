@@ -50,7 +50,6 @@ public class Launcher extends SubsystemBase {
         m_launcherMotor.config_IntegralZone(PID_SLOT_ID, I_ZONE, PID_CONFIG_TIMEOUT_MS);
         m_launcherMotor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 90, 1, 0.001));
         m_launcherMotor.setInverted(false);
-        m_launcherMotor.configClosedloopRamp(CLOSED_LOOP_RAMPRATE);
         m_launcherMotor.enableVoltageCompensation(true);
         m_launcherMotor.configVoltageCompSaturation(VOLTAGE_SATURATION);
         
