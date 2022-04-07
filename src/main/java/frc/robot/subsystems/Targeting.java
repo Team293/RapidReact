@@ -14,6 +14,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import static frc.robot.Constants.TargetingConstants.*;
+import static frc.robot.Constants.LauncherConstants.*; 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
@@ -65,7 +66,7 @@ public class Targeting extends SubsystemBase {
     }
 
     public double calcShooterRPM() {
-        double retval = DEFAULT_LAUNCHER_RPM;
+        double retval = DEFAULT_TARGET_RPM;
         double ty = m_targetY.getDouble(0.0);
         if (m_tAcquired.getDouble(0.0) == TARGET_ACQUIRED) {
             //retv  al = (-30.07 * ty) + 1690.42;

@@ -52,13 +52,17 @@ public class Fire extends CommandBase {
         } else {
             // Ball in position to fire
             m_delayCounts = 7; // Force a wait of 350 ms before attempting to load the next ball
+            if(m_targeting.hasTarget()){
+                //only set the shooter to an rpm if it has a target
+                m_launcher.setRpm(m_targeting.calcShooterRPM());
+            }
             
-            m_launcher.setRpm(m_targeting.calcShooterRPM());
             if (false == m_launcher.isReady()) {
                 // The launcher is not ready!
                 // Turn the trigger motor off!
                 triggerMotorOn = false;
             }
+            
         }
 
         // Enable / disable motors

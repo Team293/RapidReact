@@ -120,7 +120,7 @@ public class Constants {
     public static final class LauncherConstants {
         public static final int LAUNCHER_CAN_ID = 6;
         public static final double TARGET_RPM_READY_THRESHOLD = 10;
-        public static final int DEFAULT_TARGET_RPM = 2400;
+        public static final int DEFAULT_TARGET_RPM = 2000;
         public static final double CLOSED_LOOP_RAMPRATE = 0.5d;
         public static final int PID_SLOT_ID = 0;
         public static final int PID_CONFIG_TIMEOUT_MS = 10;
@@ -159,7 +159,6 @@ public class Constants {
         public static final double LIMELIGHT_ERROR_MAX = 29.5;
         public static final double PERCENT_OUTPUT_LIMIT = .5;
         public static final double TIMER_NOT_STARTED_VALUE = 0.0;
-        public static final double DEFAULT_LAUNCHER_RPM = 1200.0;
         public static final double ERROR_INTEGRAL_DEFAULT = 0.0;
         public static final double LAST_ERROR_DEFAULT = 0.0;
     }
