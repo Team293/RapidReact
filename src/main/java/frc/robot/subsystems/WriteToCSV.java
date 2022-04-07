@@ -2,21 +2,33 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 
 public class WriteToCSV extends SubsystemBase {
-	final String m_Filename = "/home/lvuser/match_data.csv";
+	String m_Filename = "/home/lvuser/match_data.csv";
 	final boolean m_Append = false;
 	BufferedWriter m_File;
 
 	public WriteToCSV() {
+		String path = "/home/lvuser/";
+		String filename = "match_data-a";
 		System.out.println("Initializing log file.");
-
+		
 		try {
+			//Check if file exists
+			File tempFile = new File(String.format("%s%s.csv", path, filename));
+
+			if(true == tempFile.exists())
+			{
+				filename = "match_data-b";
+			}
+
+			m_Filename = String.format("%s%s.csv", path, filename);
+
 			// Open File
 			FileWriter fstream = new FileWriter(m_Filename, m_Append);
 			m_File = new BufferedWriter(fstream);
-
 
 			//Write the header
 			writeHeader();
