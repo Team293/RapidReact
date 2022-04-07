@@ -52,20 +52,7 @@ public class Fire extends CommandBase {
         } else {
             // Ball in position to fire
             m_delayCounts = 7; // Force a wait of 350 ms before attempting to load the next ball
-            Color triggerBallColor = m_feeder.getTriggerBallColor();
-            // if (true == triggerBallColor.equals(m_teamColor)) {
-            //     // The ball is our team color!
-
-            //     // Get distance from limelight
-            //     // WARNING THIS NEEDS TO BE HOOKED IN
-
-            //     // Set launch rpm using distance
-            //     m_launcher.setRpm(m_targeting.calcShooterRPM()); 
-            // } else {
-            //     // The ball is not our team color!
-            //     // Set dump rpm
-            //     //m_launcher.setRpm(LauncherConstants.DUMP_RPM);
-            // }
+            
             m_launcher.setRpm(m_targeting.calcShooterRPM());
             if (false == m_launcher.isReady()) {
                 // The launcher is not ready!
