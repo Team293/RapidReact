@@ -8,7 +8,6 @@ import frc.robot.classes.Kinematics;
 import frc.robot.classes.Position2D;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -113,7 +112,7 @@ public class RobotContainer {
     // When either the alliance colour check or the location check fails it defaults
     // to the blue left side
     Command autoCommand = null;
-    Alliance allianceColor = DriverStation.getAlliance();
+    Alliance allianceColor = Alliance.Blue;
 
     StartPositions startingPosition = StartPositions.INVALID;
     int location = 1;
@@ -128,7 +127,7 @@ public class RobotContainer {
       }
     } else if (allianceColor == Alliance.Red) {
       if (1 == location) {
-        startingPosition = StartPositions.BLUE_LEFT;
+        startingPosition = StartPositions.RED_LEFT;
       } else if (2 == location) {
         startingPosition = StartPositions.RED_MIDDLE;
       } else if (3 == location) {
