@@ -27,7 +27,7 @@ public class TrackTarget extends CommandBase {
     @Override
     public void execute() {
         m_targeting.controlLight(true);
-        m_drivetrain.rotateDegrees(m_targeting.getAngleToTargetDegrees());
+        m_drivetrain.rotateDegrees(m_targeting.getAngleToTargetDegrees() + 0.7);
         m_launcher.setRpm(m_targeting.calcShooterRPM());
     }
 

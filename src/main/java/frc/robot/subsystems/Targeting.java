@@ -70,7 +70,7 @@ public class Targeting extends SubsystemBase {
         double ty = m_targetY.getDouble(0.0);
         if (m_tAcquired.getDouble(0.0) == TARGET_ACQUIRED) {
             //retv  al = (-30.07 * ty) + 1690.42;
-            retval = (230 * Math.pow(Math.E, ((-0.237 * ty) - 1.5))) + 1680.48;
+            retval = (230 * Math.pow(Math.E, ((-0.237 * ty) - 1.3))) + 1732;
             if(retval > 2900.0){
                 retval = 2900.0;
             }
