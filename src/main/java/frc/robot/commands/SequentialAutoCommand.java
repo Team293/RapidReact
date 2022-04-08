@@ -50,12 +50,13 @@ public class SequentialAutoCommand extends SequentialCommandGroup {
                     deadline(new Rotate(m_drivetrain, 180.0), 
                              new BallControl(m_feeder)),
 
+                        new Wait(0.5),
                         // Aim at the hub
                         // Fire both balls!
                     deadline(new Wait(3),
                              new TrackTarget(m_drivetrain, m_targeting, m_launcher)),
                 
-                    new Fire(m_feeder, m_launcher, m_targeting,  m_logger, AUTO_LAUNCHER_RPM)
+                    new Fire(m_feeder, m_launcher, m_targeting,  m_logger)
                 );
                 // new ParallelRaceGroup(
                 // new Fire(m_feeder, m_launcher, m_targeting),
