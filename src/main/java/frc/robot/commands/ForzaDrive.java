@@ -16,32 +16,32 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import static frc.robot.Constants.DrivetrainConstants.*;
 import frc.robot.classes.SPIKE293Utils;
-import frc.robot.drivetrains.Drivetrain;
+import frc.robot.subsystems.Drivetrain;
 
 /**
  *
  */
-public class aForzaDrive extends CommandBase {
+public class ForzaDrive extends CommandBase {
     private final Drivetrain m_drivetrain;
     private final XboxController m_xboxcontroller;
 
-    //private double m_arcadeDeadband;
+    private double m_arcadeDeadband;
     private boolean m_forzaEnabled;
     private double m_forzaDeadband;
     private double m_velocityLimitPercentage;
     private double m_turningLimitPercentage;
 
-    public aForzaDrive(Drivetrain drivetrain, XboxController xboxcontroller) {
+    public ForzaDrive(Drivetrain drivetrain, XboxController xboxcontroller) {
         m_drivetrain = drivetrain;
         addRequirements(m_drivetrain);
         m_xboxcontroller = xboxcontroller;
 
         m_velocityLimitPercentage = DEFAULT_MAX_VELOCITY_PERCENTAGE;
         m_turningLimitPercentage = DEFAULT_MAX_TURNING_SPEED;
-        //m_arcadeDeadband = DEFAULT_ARCADE_JOY_DEADBAND;
+        m_arcadeDeadband = DEFAULT_ARCADE_JOY_DEADBAND;
         m_forzaDeadband = DEFAULT_FORZA_DEADBAND;
         m_forzaEnabled = DEFAULT_FORZA_MODE;
-        //SmartDashboard.putNumber("Arcade Joy Deadband", m_arcadeDeadband);
+        SmartDashboard.putNumber("Arcade Joy Deadband", m_arcadeDeadband);
         SmartDashboard.putNumber("Forza Deadband", m_forzaDeadband);
         SmartDashboard.putBoolean("Forza Mode", m_forzaEnabled);
         SmartDashboard.putNumber("Max Velocity Percentage", m_velocityLimitPercentage);
@@ -62,8 +62,8 @@ public class aForzaDrive extends CommandBase {
         double triggerLeft;
 
         // Get deadband value set in SmartDashboard
-        //m_arcadeDeadband = SmartDashboard.getNumber("Arcade Joy Deadband", DEFAULT_ARCADE_JOY_DEADBAND);
-        //m_arcadeDeadband = MathUtil.clamp(m_arcadeDeadband, 0.0d, 1.0d);
+        m_arcadeDeadband = SmartDashboard.getNumber("Arcade Joy Deadband", DEFAULT_ARCADE_JOY_DEADBAND);
+        m_arcadeDeadband = MathUtil.clamp(m_arcadeDeadband, 0.0d, 1.0d);
         m_forzaDeadband = SmartDashboard.getNumber("Forza Deadband", DEFAULT_FORZA_DEADBAND);
         m_forzaDeadband = MathUtil.clamp(m_forzaDeadband, 0.0d, 1.0d);
         m_forzaEnabled = SmartDashboard.getBoolean("Forza Mode", DEFAULT_FORZA_MODE);
@@ -110,7 +110,7 @@ public class aForzaDrive extends CommandBase {
         // Apply limiting percentage
         turning *= m_turningLimitPercentage;
         speed *= m_velocityLimitPercentage;
-        arcadeDrive(speed, turning);
+        m_drivetrain.arcadeDrive(speed, turning);
     }
 
     // Called once the command ends or is interrupted.

@@ -158,7 +158,7 @@ public class Drivetrain extends SubsystemBase {
         rightTalonLead.set(ControlMode.PercentOutput, rightPercentage);
     }
 
-    private void arcadeDrive(double velocity, double turning) {
+    public void arcadeDrive(double velocity, double turning) {
         // Convert turning and speed to left right encoder velocity
         double leftMotorOutput;
         double rightMotorOutput;

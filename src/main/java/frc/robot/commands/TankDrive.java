@@ -21,15 +21,17 @@ import frc.robot.subsystems.Drivetrain;
 /**
  *
  */
-public class ArcadeDrive extends CommandBase {
+public class TankDrive extends CommandBase {
     private final Drivetrain m_drivetrain;
     private final XboxController m_xboxcontroller;
 
     private double m_arcadeDeadband;
+    //private boolean m_forzaEnabled;
+    //private double m_forzaDeadband;
     private double m_velocityLimitPercentage;
     private double m_turningLimitPercentage;
 
-    public ArcadeDrive(Drivetrain subsystem, XboxController xboxcontroller) {
+    public TankDrive(Drivetrain subsystem, XboxController xboxcontroller) {
         m_drivetrain = subsystem;
         addRequirements(m_drivetrain);
         m_xboxcontroller = xboxcontroller;
@@ -37,7 +39,11 @@ public class ArcadeDrive extends CommandBase {
         m_velocityLimitPercentage = DEFAULT_MAX_VELOCITY_PERCENTAGE;
         m_turningLimitPercentage = DEFAULT_MAX_TURNING_SPEED;
         m_arcadeDeadband = DEFAULT_ARCADE_JOY_DEADBAND;
+        //m_forzaDeadband = DEFAULT_FORZA_DEADBAND;
+        //m_forzaEnabled = DEFAULT_FORZA_MODE;
         SmartDashboard.putNumber("Arcade Joy Deadband", m_arcadeDeadband);
+        //SmartDashboard.putNumber("Forza Deadband", m_forzaDeadband);
+        //SmartDashboard.putBoolean("Forza Mode", m_forzaEnabled);
         SmartDashboard.putNumber("Max Velocity Percentage", m_velocityLimitPercentage);
         SmartDashboard.putNumber("Max Turning Percentage", m_turningLimitPercentage);
     }
@@ -50,31 +56,56 @@ public class ArcadeDrive extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        double turning;
-        double speed=0;
+        double leftJoyY;
+        double rightJoyY;
 
         // Get deadband value set in SmartDashboard
         m_arcadeDeadband = SmartDashboard.getNumber("Arcade Joy Deadband", DEFAULT_ARCADE_JOY_DEADBAND);
         m_arcadeDeadband = MathUtil.clamp(m_arcadeDeadband, 0.0d, 1.0d);
+        //m_forzaDeadband = SmartDashboard.getNumber("Forza Deadband", DEFAULT_FORZA_DEADBAND);
+        //m_forzaDeadband = MathUtil.clamp(m_forzaDeadband, 0.0d, 1.0d);
+        //m_forzaEnabled = SmartDashboard.getBoolean("Forza Mode", DEFAULT_FORZA_MODE);
 
         m_velocityLimitPercentage = SmartDashboard.getNumber("Max Velocity Percentage",
                 DEFAULT_MAX_VELOCITY_PERCENTAGE);
         m_velocityLimitPercentage = MathUtil.clamp(m_velocityLimitPercentage, 0.0d, 1.0d);
         SmartDashboard.putNumber("Max Velocity Percentage", m_velocityLimitPercentage);
 
-        m_turningLimitPercentage = SmartDashboard.getNumber("Max Turning Percentage", DEFAULT_MAX_TURNING_SPEED);
-        m_turningLimitPercentage = MathUtil.clamp(m_turningLimitPercentage, 0.0d, 1.0d);
-        SmartDashboard.putNumber("Max Turning Percentage", m_turningLimitPercentage);
+        //m_turningLimitPercentage = SmartDashboard.getNumber("Max Turning Percentage", DEFAULT_MAX_TURNING_SPEED);
+        //m_turningLimitPercentage = MathUtil.clamp(m_turningLimitPercentage, 0.0d, 1.0d);
+        //SmartDashboard.putNumber("Max Turning Percentage", m_turningLimitPercentage);
+
+        leftJoyY = m_xboxcontroller.getLeftY();
+        rightJoyY = m_xboxcontroller.getRightY();
 
         // Get turning. Note that the controls are inverted!
         turning = m_xboxcontroller.getLeftX();
 
         // Checks if joystick value is higher or lower than deadband value
         turning = SPIKE293Utils.applyDeadband(turning, m_arcadeDeadband);
-        
-        // Use the stick, note that the joystick is inverted, -1 is up, 1 is down
-        speed = m_xboxcontroller.getLeftY();
-        speed = SPIKE293Utils.applyDeadband(speed, m_arcadeDeadband);
+
+        /*
+        // Check if we should use the triggers for speed
+        if (m_forzaEnabled) {
+            // Get trigger values
+            triggerRight = m_xboxcontroller.getRightTriggerAxis();
+            triggerRight = SPIKE293Utils.applyDeadband(triggerRight, m_forzaDeadband);
+            triggerLeft = m_xboxcontroller.getLeftTriggerAxis();
+            triggerLeft = SPIKE293Utils.applyDeadband(triggerLeft, m_forzaDeadband);
+
+            if (triggerRight >= triggerLeft) {
+                // Use right trigger for forward speed!
+                speed = triggerRight;
+            } else {
+                // Going in reverse! Right trigger was zero, set speed to left trigger
+                speed = -triggerLeft;
+            }
+        } else {
+            // Use the stick, note that the joystick is inverted, -1 is up, 1 is down
+            speed = m_xboxcontroller.getLeftY();
+            speed = SPIKE293Utils.applyDeadband(speed, m_arcadeDeadband);
+        }
+        */
 
         // Clamp input to verify they are valid and greater than the deadband
         turning = MathUtil.clamp(turning, -1.0d, 1.0d);
@@ -83,36 +114,6 @@ public class ArcadeDrive extends CommandBase {
         // Apply limiting percentage
         turning *= m_turningLimitPercentage;
         speed *= m_velocityLimitPercentage;
-        arcadeDrive(speed, turning);
-    }
-
-    private void arcadeDrive(double velocity, double turning) {
-        // Convert turning and speed to left right encoder velocity
-        double leftMotorOutput;
-        double rightMotorOutput;
-
-        double maxInput = Math.copySign(Math.max(Math.abs(velocity), Math.abs(turning)), velocity);
-        if (velocity >= 0.0) {
-            // First quadrant, else second quadrant
-            if (turning >= 0.0) {
-                leftMotorOutput = maxInput;
-                rightMotorOutput = velocity - turning;
-            } else {
-                leftMotorOutput = velocity + turning;
-                rightMotorOutput = maxInput;
-            }
-        } else {
-            // Third quadrant, else fourth quadrant
-            if (turning >= 0.0) {
-                leftMotorOutput = velocity + turning;
-                rightMotorOutput = maxInput;
-            } else {
-                leftMotorOutput = maxInput;
-                rightMotorOutput = velocity - turning;
-            }
-        }
-
-        // Send to motors
         m_drivetrain.percentDrive(leftMotorOutput, rightMotorOutput);
     }
 
