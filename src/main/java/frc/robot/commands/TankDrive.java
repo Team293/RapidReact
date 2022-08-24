@@ -79,10 +79,10 @@ public class TankDrive extends CommandBase {
         rightJoyY = m_xboxcontroller.getRightY();
 
         // Get turning. Note that the controls are inverted!
-        turning = m_xboxcontroller.getLeftX();
+        //turning = m_xboxcontroller.getLeftX();
 
         // Checks if joystick value is higher or lower than deadband value
-        turning = SPIKE293Utils.applyDeadband(turning, m_arcadeDeadband);
+        //turning = SPIKE293Utils.applyDeadband(turning, m_arcadeDeadband);
 
         /*
         // Check if we should use the triggers for speed

@@ -10,6 +10,7 @@ import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -36,11 +37,12 @@ public class RobotContainer {
   public final Feeder m_feeder = new Feeder();
   public final Climb m_climb = new Climb();
   public final WriteToCSV m_logger = new WriteToCSV();
+  public final SendableChooser<Command> m_SendableChooser = new SendableChooser<Command>();
 
   // Joysticks
   public final XboxController m_driverXboxController = new XboxController(0);
   public final XboxController m_operatorXboxController = new XboxController(1);
-
+  
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -53,7 +55,14 @@ public class RobotContainer {
 
     // Setting default command for drivetrain as VelocityDrive
     m_drivetrain.setDefaultCommand(new ArcadeDrive(m_drivetrain, m_driverXboxController));
+    m_SendableChooser.addOption("Forza Drive", new ForzaDrive(m_drivetrain, m_driverXboxController));
+    m_SendableChooser.addOption("Arcade Drive", new ArcadeDrive(m_drivetrain, m_driverXboxController));
+    m_SendableChooser.addOption("Tank Drive", new TankDrive(m_drivetrain, m_driverXboxController));
     m_feeder.setDefaultCommand(new BallControl(m_feeder));
+  }
+
+  public void ChooseDrive(){
+    m_drivetrain.setDefaultCommand(m_SendableChooser.getSelected());
   }
 
   public static RobotContainer getInstance() {
@@ -149,6 +158,6 @@ public class RobotContainer {
   }
 
   public Command getTeleopCommand() {
-    return new ArcadeDrive(m_drivetrain, m_driverXboxController);
+    return m_SendableChooser.getSelected();
   }
 }
