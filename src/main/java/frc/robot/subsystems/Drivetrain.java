@@ -24,6 +24,8 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.SerialPort;
 
 import static frc.robot.Constants.DrivetrainConstants.*;
@@ -154,6 +156,12 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public void percentDrive(double leftPercentage, double rightPercentage) {
+        double m_velocityLimitPercentage = SmartDashboard.getNumber("Max Velocity Percentage",
+            DEFAULT_MAX_VELOCITY_PERCENTAGE);
+        m_velocityLimitPercentage = MathUtil.clamp(m_velocityLimitPercentage, 0.0d, 1.0d);
+        SmartDashboard.putNumber("Max Velocity Percentage", m_velocityLimitPercentage);
+        leftPercentage *= m_velocityLimitPercentage;
+        rightPercentage *= m_velocityLimitPercentage;
         leftTalonLead.set(ControlMode.PercentOutput, leftPercentage);
         rightTalonLead.set(ControlMode.PercentOutput, rightPercentage);
     }
@@ -306,5 +314,35 @@ public class Drivetrain extends SubsystemBase {
 
     public double getMotorError(){
         return leftTalonLead.getClosedLoopError(0);
+    }
+
+    public void arcadeDrive(double velocity, double turning) {
+        // Convert turning and speed to left right encoder velocity
+        double leftMotorOutput;
+        double rightMotorOutput;
+
+        double maxInput = Math.copySign(Math.max(Math.abs(velocity), Math.abs(turning)), velocity);
+        if (velocity >= 0.0) {
+            // First quadrant, else second quadrant
+            if (turning >= 0.0) {
+                leftMotorOutput = maxInput;
+                rightMotorOutput = velocity - turning;
+            } else {
+                leftMotorOutput = velocity + turning;
+                rightMotorOutput = maxInput;
+            }
+        } else {
+            // Third quadrant, else fourth quadrant
+            if (turning >= 0.0) {
+                leftMotorOutput = velocity + turning;
+                rightMotorOutput = maxInput;
+            } else {
+                leftMotorOutput = maxInput;
+                rightMotorOutput = velocity - turning;
+            }
+        }
+
+        // Send to motors
+        percentDrive(leftMotorOutput, rightMotorOutput);
     }
 }
