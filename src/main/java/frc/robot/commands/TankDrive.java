@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import static frc.robot.Constants.DrivetrainConstants.*;
-import frc.robot.classes.SPIKE293Utils;
 import frc.robot.subsystems.Drivetrain;
 
 /**
@@ -58,6 +57,8 @@ public class TankDrive extends CommandBase {
     public void execute() {
         double leftJoyY;
         double rightJoyY;
+        double leftMotorOutput;
+        double rightMotorOutput;
 
         // Get deadband value set in SmartDashboard
         m_arcadeDeadband = SmartDashboard.getNumber("Arcade Joy Deadband", DEFAULT_ARCADE_JOY_DEADBAND);
@@ -77,6 +78,9 @@ public class TankDrive extends CommandBase {
 
         leftJoyY = m_xboxcontroller.getLeftY();
         rightJoyY = m_xboxcontroller.getRightY();
+
+        leftMotorOutput = 0.75 * leftJoyY;
+        rightMotorOutput = 0.75 * rightJoyY;
 
         // Get turning. Note that the controls are inverted!
         //turning = m_xboxcontroller.getLeftX();
@@ -108,12 +112,12 @@ public class TankDrive extends CommandBase {
         */
 
         // Clamp input to verify they are valid and greater than the deadband
-        turning = MathUtil.clamp(turning, -1.0d, 1.0d);
-        speed = MathUtil.clamp(speed, -1.0d, 1.0d);
+        leftMotorOutput = MathUtil.clamp(leftMotorOutput, -1.0d, 1.0d);
+        rightMotorOutput = MathUtil.clamp(rightMotorOutput, -1.0d, 1.0d);
 
         // Apply limiting percentage
-        turning *= m_turningLimitPercentage;
-        speed *= m_velocityLimitPercentage;
+        //turning *= m_turningLimitPercentage;
+        //speed *= m_velocityLimitPercentage;
         m_drivetrain.percentDrive(leftMotorOutput, rightMotorOutput);
     }
 
