@@ -29,15 +29,15 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
  */
 public class RobotContainer {
   // Robots Subsystems
+  public final SendableChooser<Command> m_SendableChooser = new SendableChooser<Command>();
   private static RobotContainer m_robotContainer = new RobotContainer();
   public final Kinematics m_kinematics = new Kinematics(new Position2D(0.0, 0.0, 0.0));
   public final Targeting m_targeting = new Targeting();
-  public final Drivetrain m_drivetrain = new Drivetrain(m_kinematics);
+  public final Drivetrain m_drivetrain = new Drivetrain(m_kinematics, m_SendableChooser);
   public final Launcher m_launcher = new Launcher();
   public final Feeder m_feeder = new Feeder();
   public final Climb m_climb = new Climb();
   public final WriteToCSV m_logger = new WriteToCSV();
-  public final SendableChooser<Command> m_SendableChooser = new SendableChooser<Command>();
 
   // Joysticks
   public final XboxController m_driverXboxController = new XboxController(0);
