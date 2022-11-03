@@ -77,6 +77,9 @@ public class BallControl extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
+        if (m_controller != null) {
+            setRumble(0);
+        }
     }
 
     private void setRumble(int value) {
