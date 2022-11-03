@@ -1,14 +1,24 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Feeder;
 
 public class BallControl extends CommandBase {
 
     Feeder m_feeder;
+    XboxController m_controller;
 
     public BallControl(Feeder feeder) {
         m_feeder = feeder;
+        m_controller = null;
+        addRequirements(m_feeder);
+    }
+
+    public BallControl(Feeder feeder, XboxController controller) {
+        m_feeder = feeder;
+        m_controller = controller;
         addRequirements(m_feeder);
     }
 
@@ -30,6 +40,20 @@ public class BallControl extends CommandBase {
                 // A ball is in the belt position
                 // Stop the belt motor to hold it in place!
                 beltMotorOn = false;
+            }  
+        } 
+
+        if (triggerMotorOn == false && beltMotorOn == false) {
+            // Both motors are off
+            // We have a ball in both positions
+            // Activate the rumble motors
+            if (m_controller != null) {
+                setRumble(1);
+            }
+        } else {
+            // Deactivate the rumble motors
+            if (m_controller != null) {
+                setRumble(0);
             }
         }
 
@@ -53,5 +77,10 @@ public class BallControl extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
+    }
+
+    private void setRumble(int value) {
+        m_controller.setRumble(RumbleType.kLeftRumble, value);
+        m_controller.setRumble(RumbleType.kRightRumble, value);
     }
 }

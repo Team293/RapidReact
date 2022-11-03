@@ -53,7 +53,7 @@ public class RobotContainer {
 
     // Setting default command for drivetrain as VelocityDrive
     m_drivetrain.setDefaultCommand(new ArcadeDrive(m_drivetrain, m_driverXboxController));
-    m_feeder.setDefaultCommand(new BallControl(m_feeder));
+    m_feeder.setDefaultCommand(new BallControl(m_feeder, m_operatorXboxController));
   }
 
   public static RobotContainer getInstance() {
