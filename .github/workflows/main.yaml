@@ -1,4 +1,4 @@
-name: Run Gradle on PRs
+name: Build
 on: [push, pull_request]
 jobs:
   gradle:
@@ -17,4 +17,4 @@ jobs:
       uses: gradle/gradle-build-action@v2
     
     - name: Execute Gradle build
-      run: gradlew.bat
+      run: ./gradlew.bat
