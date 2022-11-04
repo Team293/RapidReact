@@ -82,7 +82,7 @@ public class RobotContainer {
     final POVButton dpadUpButton = new POVButton(m_operatorXboxController, 0);
     dpadUpButton.whenPressed(new ExtendClimb(m_climb));
 
-    // Lower the launcher piston
+    // Lower the launche\r piston
     final POVButton dpadDownButton = new POVButton(m_operatorXboxController, 180);
     dpadDownButton.whenPressed(new RetractClimb(m_climb));
 
@@ -91,7 +91,7 @@ public class RobotContainer {
     xboxRotate180Btn.whenPressed(new Rotate(m_drivetrain, 180.0));
 
     final JoystickButton forceDump = new JoystickButton(m_operatorXboxController,
-        XboxController.Button.kX.value);
+        XboxController.Button.kX.value); 
     forceDump.whileHeld(new Fire(m_feeder, m_launcher, m_targeting,  m_logger, 2000.0d));
 
     final JoystickButton eject = new JoystickButton(m_operatorXboxController,

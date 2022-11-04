@@ -31,31 +31,25 @@ public class BallControl extends CommandBase {
         // Assume both motors will be on!
         boolean triggerMotorOn = true;
         boolean beltMotorOn = true;
+        // Assume rumble will be off
+        double rumblePercent = 0.0;
 
         if (true == m_feeder.isTriggerSensorBallPresent()) {
             // A ball is in the trigger position
             // Stop the trigger motor to hold it in place!
             triggerMotorOn = false;
+            rumblePercent = 0.3;
             if (true == m_feeder.isBeltSensorBallPresent()) {
                 // A ball is in the belt position
                 // Stop the belt motor to hold it in place!
                 beltMotorOn = false;
+                rumblePercent = 0.7;
             }  
         } 
 
-        if (triggerMotorOn == false && beltMotorOn == false) {
-            // Both motors are off
-            // We have a ball in both positions
-            // Activate the rumble motors
-            if (m_controller != null) {
-                setRumble(1);
-            }
-        } else {
-            // Deactivate the rumble motors
-            if (m_controller != null) {
-                setRumble(0);
-            }
-        }
+
+        // Rumble
+        setRumble(rumblePercent);
 
         // Enable / disable motors
         if (true == triggerMotorOn) {
@@ -77,13 +71,14 @@ public class BallControl extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        if (m_controller != null) {
-            setRumble(0);
-        }
+        setRumble(0);
     }
 
-    private void setRumble(int value) {
-        m_controller.setRumble(RumbleType.kLeftRumble, value);
-        m_controller.setRumble(RumbleType.kRightRumble, value);
+    private void setRumble(double value) {
+        if (m_controller != null) {
+            m_controller.setRumble(RumbleType.kLeftRumble, value);
+            m_controller.setRumble(RumbleType.kRightRumble, value);
+        }
     }
 }
+

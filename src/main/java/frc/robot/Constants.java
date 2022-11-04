@@ -163,14 +163,12 @@ public class Constants {
         public static final double LAST_ERROR_DEFAULT = 0.0;
     }
 
-    public static final class ClimberConstants
-    {
+    public static final class ClimberConstants {
         public static final int CLIMB_RETRACTION_SOLENOID = 0;
         public static final int CLIMB_EXTENSION_SOLENOID = 1;
     }
 
-    public static final class PneumaticConstants
-    {
+    public static final class PneumaticConstants {
         public static final int PNEUMATIC_MODULE_ID = 7;
         public static final double LOWEST_COMPRESSOR_PSI = 100.0d;
         public static final double HIGHEST_COMPRESSOR_PSI = 119.5d;
