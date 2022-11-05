@@ -9,6 +9,7 @@ public class BallControl extends CommandBase {
 
     Feeder m_feeder;
     XboxController m_controller;
+    int prevBalls = 0;
 
     public BallControl(Feeder feeder) {
         m_feeder = feeder;
@@ -23,7 +24,7 @@ public class BallControl extends CommandBase {
     }
 
     @Override
-    public void initialize() {
+    public void initialize() {        
     }
 
     @Override
@@ -32,6 +33,8 @@ public class BallControl extends CommandBase {
         boolean triggerMotorOn = true;
         boolean beltMotorOn = true;
         // Assume rumble will be off
+        int balls = 0;
+        
         double rumblePercent = 0.0;
 
         if (true == m_feeder.isTriggerSensorBallPresent()) {
@@ -39,17 +42,25 @@ public class BallControl extends CommandBase {
             // Stop the trigger motor to hold it in place!
             triggerMotorOn = false;
             rumblePercent = 0.3;
+            balls++;
             if (true == m_feeder.isBeltSensorBallPresent()) {
                 // A ball is in the belt position
                 // Stop the belt motor to hold it in place!
                 beltMotorOn = false;
-                rumblePercent = 0.7;
+                rumblePercent = 0.5;
+                balls++;
             }  
         } 
 
-
-        // Rumble
-        setRumble(rumblePercent);
+    if (prevBalls != balls) {
+        // number of balls changed
+        if (m_controller != null) {
+            // controller exists
+            // rumble the controller for 2 seconds
+            new Rumble(m_controller, rumblePercent, 2.0).schedule();
+        }
+    }
+        
 
         // Enable / disable motors
         if (true == triggerMotorOn) {
@@ -62,6 +73,7 @@ public class BallControl extends CommandBase {
         } else {
             m_feeder.setBeltMotor(0);
         }
+        prevBalls = balls;
     }
 
     @Override
